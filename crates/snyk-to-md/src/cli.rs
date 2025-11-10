@@ -41,7 +41,7 @@ impl From<CliOutputFormat> for MarkdownFormat {
 pub(crate) struct Cli {
     #[command(subcommand)]
     pub(crate) command: CliParserType,
-    
+
     #[arg(short, long, value_parser, default_value = "CommonMark")]
     pub(crate) format: CliOutputFormat,
 
@@ -51,5 +51,6 @@ pub(crate) struct Cli {
     #[arg(short, long)]
     pub(crate) output: Option<PathBuf>,
 
-
+    #[arg(short, long, default_value = "false")]
+    pub(crate) with_emoji: bool,
 }

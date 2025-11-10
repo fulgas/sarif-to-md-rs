@@ -31,6 +31,7 @@ pub struct ReportProcessor {
     parser_type: ParserType,
     content: String,
     markdown_format: MarkdownFormat,
+    with_emoji: bool,
 }
 
 impl ReportProcessor {
@@ -39,9 +40,11 @@ impl ReportProcessor {
 
         let content = parser.parse(&self.content)?;
 
-        let generator = MarkdownGeneratorFactory::create_generator(self.markdown_format);
+        let generator =
+            MarkdownGeneratorFactory::create_generator(self.markdown_format, self.with_emoji);
 
         let markdown_report = generator.generate_markdown_report(&content)?;
+
         Ok(markdown_report)
     }
 }
@@ -50,6 +53,7 @@ pub struct ReportProcessorBuilder {
     parser_type: Option<ParserType>,
     content: Option<String>,
     markdown_format: Option<MarkdownFormat>,
+    with_emoji: bool,
 }
 
 impl ReportProcessorBuilder {
@@ -58,6 +62,7 @@ impl ReportProcessorBuilder {
             parser_type: None,
             content: None,
             markdown_format: None,
+            with_emoji: false,
         }
     }
 
@@ -76,6 +81,11 @@ impl ReportProcessorBuilder {
         self
     }
 
+    pub fn with_emoji(mut self, with_emoji: bool) -> Self {
+        self.with_emoji = with_emoji;
+        self
+    }
+
     pub fn build(self) -> Result<ReportProcessor, BuilderError> {
         Ok(ReportProcessor {
             parser_type: self.parser_type.ok_or(BuilderError::MissingParserType)?,
@@ -83,6 +93,7 @@ impl ReportProcessorBuilder {
             markdown_format: self
                 .markdown_format
                 .ok_or(BuilderError::MissingMarkdownFormat)?,
+            with_emoji: self.with_emoji,
         })
     }
 }

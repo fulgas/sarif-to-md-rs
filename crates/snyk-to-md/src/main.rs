@@ -15,6 +15,7 @@ fn main() -> anyhow::Result<()> {
     let markdown_report = ReportProcessorBuilder::new()
         .parser_type(cli.command.into())
         .markdown_format(cli.format.into())
+        .with_emoji(cli.with_emoji)
         .content(&json_content)
         .build()
         .context("Failed to configure the report processor")?
@@ -32,7 +33,6 @@ fn main() -> anyhow::Result<()> {
             );
         }
         None => {
-            println!("\n--- Generated Report ---\n");
             println!("{}", markdown_report);
         }
     }

@@ -29,9 +29,12 @@ pub(crate) trait MarkdownGenerator {
 pub(crate) struct MarkdownGeneratorFactory;
 
 impl MarkdownGeneratorFactory {
-    pub fn create_generator(format: MarkdownFormat) -> Box<dyn MarkdownGenerator> {
+    pub fn create_generator(
+        format: MarkdownFormat,
+        with_emoji: bool,
+    ) -> Box<dyn MarkdownGenerator> {
         match format {
-            MarkdownFormat::CommonMark => Box::new(CommonMarkGenerator),
+            MarkdownFormat::CommonMark => CommonMarkGenerator::new(with_emoji),
             MarkdownFormat::GitHubFlavored => Box::new(GitFlavouredMarkdownGenerator),
         }
     }

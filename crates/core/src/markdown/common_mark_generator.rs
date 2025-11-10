@@ -1,22 +1,36 @@
 use crate::markdown::{GeneratorError, MarkdownGenerator};
-use crate::model::security_report::SecurityReport;
+use crate::model::security_report::{ProjectType, SecurityReport, Severity};
 use askama::Template;
+use std::fmt;
 
 #[derive(Template)]
 #[template(path = "report.md")]
 struct ReportTemplate {
     projects: Vec<ReportProject>,
     timestamp: String,
+    with_emoji: bool,
 }
-
 struct ReportProject {
     name: String,
     organization: String,
-    project_type_name: String,
-    project_type_emoji: String,
+    project_type: ReportProjectType,
     target_file: String,
     summary: ReportSummary,
     vulnerabilities: Vec<ReportVulnerability>,
+}
+
+enum ReportProjectType {
+    DockerImage,
+    Application,
+}
+
+impl From<ProjectType> for ReportProjectType {
+    fn from(value: ProjectType) -> Self {
+        match value {
+            ProjectType::DockerImage => ReportProjectType::DockerImage,
+            ProjectType::Application => ReportProjectType::Application,
+        }
+    }
 }
 
 #[derive(Clone)]
@@ -28,11 +42,40 @@ struct ReportSummary {
     unique_count: usize,
 }
 
+#[derive(PartialEq)]
+enum ReportSeverity {
+    Critical,
+    High,
+    Medium,
+    Low,
+}
+
+impl From<Severity> for ReportSeverity {
+    fn from(value: Severity) -> Self {
+        match value {
+            Severity::Critical => ReportSeverity::Critical,
+            Severity::High => ReportSeverity::High,
+            Severity::Medium => ReportSeverity::Medium,
+            Severity::Low => ReportSeverity::Low,
+        }
+    }
+}
+
+impl fmt::Display for ReportSeverity {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        match self {
+            ReportSeverity::Critical => write!(f, "Critical"),
+            ReportSeverity::High => write!(f, "High"),
+            ReportSeverity::Medium => write!(f, "Medium"),
+            ReportSeverity::Low => write!(f, "Low"),
+        }
+    }
+}
+
 struct ReportVulnerability {
     id: String,
     title: String,
-    severity: String,
-    severity_emoji: String,
+    severity: ReportSeverity,
     package_name: String,
     version: String,
     cvss_score: Option<f64>,
@@ -42,7 +85,15 @@ struct ReportVulnerability {
     from_paths: Vec<String>,
 }
 
-pub(crate) struct CommonMarkGenerator;
+pub(crate) struct CommonMarkGenerator {
+    with_emoji: bool,
+}
+
+impl CommonMarkGenerator {
+    pub(crate) fn new(with_emoji: bool) -> Box<dyn MarkdownGenerator> {
+        Box::new(Self { with_emoji })
+    }
+}
 
 impl MarkdownGenerator for CommonMarkGenerator {
     fn generate_markdown_report(&self, report: &SecurityReport) -> Result<String, GeneratorError> {
@@ -56,8 +107,7 @@ impl MarkdownGenerator for CommonMarkGenerator {
             .map(|project| ReportProject {
                 name: project.name.clone(),
                 organization: project.organization.clone(),
-                project_type_name: project.project_type.as_str().to_string(),
-                project_type_emoji: project.project_type.emoji().to_string(),
+                project_type: project.project_type.clone().into(),
                 target_file: project.target_file.clone(),
                 summary: ReportSummary {
                     critical: project.summary.critical,
@@ -73,6 +123,7 @@ impl MarkdownGenerator for CommonMarkGenerator {
         let template_ctx = ReportTemplate {
             projects,
             timestamp,
+            with_emoji: self.with_emoji,
         };
 
         template_ctx.render().map_err(GeneratorError::AskamaError)
@@ -91,8 +142,7 @@ fn map_vulnerabilities(
             ReportVulnerability {
                 id: v.id.clone(),
                 title: v.title.clone(),
-                severity: v.severity.as_str().to_string(),
-                severity_emoji: v.severity.emoji().to_string(),
+                severity: v.severity.clone().into(),
                 package_name: v.package_name.clone(),
                 version: v.version.clone(),
                 cvss_score: v.cvss_score.clone(),

@@ -1,4 +1,3 @@
-
 pub(crate) struct SecurityReport {
     pub projects: Vec<SecurityProject>,
 }
@@ -16,22 +15,6 @@ pub(crate) struct SecurityProject {
 pub(crate) enum ProjectType {
     DockerImage,
     Application,
-}
-
-impl ProjectType {
-    pub fn emoji(&self) -> &'static str {
-        match self {
-            ProjectType::DockerImage => "🐳",
-            ProjectType::Application => "📦",
-        }
-    }
-
-    pub fn as_str(&self) -> &'static str {
-        match self {
-            ProjectType::DockerImage => "Docker Image",
-            ProjectType::Application => "Application",
-        }
-    }
 }
 
 pub(crate) struct Vulnerability {
@@ -56,7 +39,7 @@ pub(crate) struct VulnerabilitySummary {
     pub unique_count: usize,
 }
 
-#[derive(PartialEq, Ord, PartialOrd, Eq)]
+#[derive(PartialEq, Ord, PartialOrd, Eq, Clone)]
 pub(crate) enum Severity {
     Critical,
     High,
@@ -72,24 +55,6 @@ impl Severity {
             "medium" => Severity::Medium,
             "low" => Severity::Low,
             _ => Severity::Low,
-        }
-    }
-
-    pub fn as_str(&self) -> &'static str {
-        match self {
-            Severity::Critical => "Critical",
-            Severity::High => "High",
-            Severity::Medium => "Medium",
-            Severity::Low => "Low",
-        }
-    }
-
-    pub fn emoji(&self) -> &'static str {
-        match self {
-            Severity::Critical => "🔴",
-            Severity::High => "🟠",
-            Severity::Medium => "🟡",
-            Severity::Low => "🟢",
         }
     }
 }

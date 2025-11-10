@@ -1,4 +1,6 @@
-use crate::model::security_report::{ProjectType, SecurityProject, SecurityReport, Severity, Vulnerability, VulnerabilitySummary};
+use crate::model::security_report::{
+    ProjectType, SecurityProject, SecurityReport, Severity, Vulnerability, VulnerabilitySummary,
+};
 use crate::parser::container::SnykContainer;
 use crate::parser::{Parser, ParserError};
 use anyhow::Result;
