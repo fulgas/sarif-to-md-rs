@@ -28,10 +28,6 @@ fn main() -> anyhow::Result<()> {
             fs::write(&output_path, markdown_report).with_context(|| {
                 format!("Failed to write report to file: {}", output_path.display())
             })?;
-            println!(
-                "\n✅ Report successfully saved to: {}",
-                output_path.display()
-            );
         }
         None => {
             println!("{}", markdown_report);

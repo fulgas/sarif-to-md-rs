@@ -2,6 +2,6 @@
 #[allow(dead_code)]
 #[rustfmt::skip]
 mod bindings {
-    include!("model.rs");
+    include!("snyk_container.rs");
 }
 pub use bindings::*;

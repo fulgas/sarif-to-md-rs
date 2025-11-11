@@ -39,3 +39,11 @@
     {%- endif -%}
 {%- endfor -%}
 {%- endmacro -%}
+
+{%- macro format_vuln_title(title_name, severity, with_emoji) -%}
+{%- if with_emoji -%}
+{% call severity_emoji(severity) %} {{ title_name }}
+{%- else -%}
+{{ title_name }}
+{%- endif -%}
+{%- endmacro -%}
