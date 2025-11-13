@@ -6,7 +6,7 @@ use std::collections::HashMap;
 use std::fmt;
 
 #[derive(Template)]
-#[template(path = "report.md")]
+#[template(path = "json/report.md")]
 struct ReportTemplate {
     projects: Vec<ReportProject>,
     timestamp: String,
@@ -135,8 +135,10 @@ impl MarkdownGenerator for CommonMarkGenerator {
 
                 projects
             }
-            ParsedReport::Code(_) => {
-                vec![]
+            _ => {
+                return Err(GeneratorError::AskamaError(askama::Error::Custom(
+                    "Expected Json report".into(),
+                )))
             }
         };
 

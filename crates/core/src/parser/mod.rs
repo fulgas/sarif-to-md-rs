@@ -26,6 +26,7 @@ pub enum ParserError {
 pub enum ParsedReport {
     Container(Box<serde_snyk_container::SnykContainer>),
     Code(String),
+    Sarif(Box<serde_sarif::sarif::Sarif>),
 }
 
 pub(crate) trait Parser {

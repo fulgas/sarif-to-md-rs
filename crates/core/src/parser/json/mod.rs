@@ -2,7 +2,7 @@ mod code;
 mod container;
 
 use crate::parser::json::code::SnykCodeParser;
-use crate::parser::json::container::container_parser::SnykContainerParser;
+use crate::parser::json::container::SnykContainerParser;
 use crate::parser::{Parser, ParserType, ParserTypeFactory};
 
 pub(crate) struct JsonParserFactory;
