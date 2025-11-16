@@ -1,4 +1,4 @@
-{%- import "sarif_macros.md" as sm -%}
+{%- import "macros.md" as sm -%}
 
 #### {% call sm::format_severity(result.level, with_emoji) %} [{{ result.rule_id }}](https://security.snyk.io/vuln/{{ result.rule_id }})
 

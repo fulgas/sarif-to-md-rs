@@ -1,5 +1,7 @@
 mod common_mark;
+mod converter;
 mod gfm;
+mod types;
 
 use crate::markdown::generator::sarif::common_mark::SarifCommonMarkGenerator;
 use crate::markdown::generator::sarif::gfm::SarifGitHubFlavoredMarkdownGenerator;

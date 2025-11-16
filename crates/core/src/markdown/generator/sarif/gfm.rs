@@ -1,5 +1,8 @@
+use super::converter::convert_sarif_to_view;
+use super::types::*;
 use crate::markdown::generator::{GeneratorError, MarkdownGenerator};
 use crate::parser::ParsedReport;
+use askama::Template;
 
 pub(crate) struct SarifGitHubFlavoredMarkdownGenerator {
     with_emoji: bool,
@@ -16,11 +19,27 @@ impl MarkdownGenerator for SarifGitHubFlavoredMarkdownGenerator {
         &self,
         parsed_report: &ParsedReport,
     ) -> Result<String, GeneratorError> {
-        // For now, GitHub Flavored Markdown uses the same template as CommonMark
-        // In the future, we could create a separate GFM template with GitHub-specific features
-        use super::common_mark::SarifCommonMarkGenerator;
+        let sarif = match parsed_report {
+            ParsedReport::Sarif(s) => s,
+            _ => {
+                return Err(GeneratorError::AskamaError(askama::Error::Custom(
+                    "Expected SARIF report".into(),
+                )))
+            }
+        };
 
-        let generator = SarifCommonMarkGenerator::new(self.with_emoji);
-        generator.generate_markdown_template(parsed_report)
+        let runs = convert_sarif_to_view(sarif);
+        let timestamp = chrono::Utc::now()
+            .format("%Y-%m-%d %H:%M:%S UTC")
+            .to_string();
+
+        let template = SarifReportTemplate {
+            runs,
+            timestamp,
+            with_emoji: self.with_emoji,
+            is_gfm: true,
+        };
+
+        template.render().map_err(GeneratorError::AskamaError)
     }
 }
