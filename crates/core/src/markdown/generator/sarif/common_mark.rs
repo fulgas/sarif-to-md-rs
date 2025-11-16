@@ -53,6 +53,16 @@ struct SarifResultView {
     level: SarifLevel,
     message: String,
     locations: Vec<SarifLocation>,
+    rule_metadata: Option<RuleMetadata>,
+}
+
+#[derive(Clone, Debug)]
+struct RuleMetadata {
+    name: Option<String>,
+    description: Option<String>,
+    help_uri: Option<String>,
+    cwe_ids: Vec<String>,
+    tags: Vec<String>,
 }
 
 #[derive(Clone, Debug)]
@@ -78,6 +88,45 @@ impl SarifCommonMarkGenerator {
             .map(|run| {
                 let tool_name = run.tool.driver.name.clone();
                 let tool_version = run.tool.driver.version.clone();
+
+                let mut rules_map = HashMap::new();
+                if let Some(rules) = &run.tool.driver.rules {
+                    for rule in rules {
+                        let cwe_ids: Vec<String> = rule
+                            .properties
+                            .as_ref()
+                            .and_then(|props| props.additional_properties.get("cwe"))
+                            .and_then(|v| v.as_array())
+                            .map(|arr| {
+                                arr.iter()
+                                    .filter_map(|v| v.as_str().map(String::from))
+                                    .collect()
+                            })
+                            .unwrap_or_default();
+
+                        let tags: Vec<String> = rule
+                            .properties
+                            .as_ref()
+                            .and_then(|props| props.tags.clone())
+                            .unwrap_or_default();
+
+                        let description = rule
+                            .short_description
+                            .as_ref()
+                            .map(|sd| sd.text.clone())
+                            .or_else(|| rule.full_description.as_ref().map(|fd| fd.text.clone()));
+
+                        let metadata = RuleMetadata {
+                            name: rule.name.clone(),
+                            description,
+                            help_uri: rule.help_uri.clone(),
+                            cwe_ids,
+                            tags,
+                        };
+
+                        rules_map.insert(rule.id.clone(), metadata);
+                    }
+                }
 
                 let results: Vec<SarifResultView> = run
                     .results
@@ -132,14 +181,17 @@ impl SarifCommonMarkGenerator {
                                     })
                                     .unwrap_or_default();
 
+                                let rule_id =
+                                    r.rule_id.clone().unwrap_or_else(|| "unknown".to_string());
+
+                                let rule_metadata = rules_map.get(&rule_id).cloned();
+
                                 SarifResultView {
-                                    rule_id: r
-                                        .rule_id
-                                        .clone()
-                                        .unwrap_or_else(|| "unknown".to_string()),
+                                    rule_id,
                                     level,
                                     message,
                                     locations,
+                                    rule_metadata,
                                 }
                             })
                             .collect()
