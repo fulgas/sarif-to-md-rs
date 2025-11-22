@@ -1,48 +1,75 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "extends": ["config:best-practices"],
+  "extends": [
+    "config:best-practices"
+  ],
   "prConcurrentLimit": 3,
-  "schedule": ["before 6am on monday"],
+  "schedule": [
+    "before 6am on monday"
+  ],
   "separateMajorMinor": true,
   "packageRules": [
     {
       "description": "Set a sensible default for all Cargo packages",
-      "matchDatasources": ["cargo"],
+      "matchDatasources": [
+        "cargo"
+      ],
       "rangeStrategy": "bump"
     },
     {
       "description": "Group all major dependency updates into one PR for manual review",
-      "matchUpdateTypes": ["major"],
+      "matchUpdateTypes": [
+        "major"
+      ],
       "groupName": "Major Dependencies",
       "automerge": false
     },
     {
       "description": "Group minor/patch updates for the Serde ecosystem",
-      "matchPackagePatterns": ["^serde", "^serde-*"],
-      "matchUpdateTypes": ["minor", "patch"],
-      "groupName": "Serde ecosystem"
+      "matchUpdateTypes": [
+        "minor",
+        "patch"
+      ],
+      "groupName": "Serde ecosystem",
+      "matchPackageNames": [
+        "/^serde/",
+        "/^serde-*/"
+      ]
     },
     {
       "description": "Group minor/patch updates for the Tokio ecosystem",
-      "matchPackagePatterns": ["^tokio"],
-      "matchUpdateTypes": ["minor", "patch"],
-      "groupName": "Tokio ecosystem"
+      "matchUpdateTypes": [
+        "minor",
+        "patch"
+      ],
+      "groupName": "Tokio ecosystem",
+      "matchPackageNames": [
+        "/^tokio/"
+      ]
     },
     {
       "description": "Auto-merge patch updates for dev-dependencies",
-      "matchDepTypes": ["devDependencies"],
-      "matchUpdateTypes": ["patch"],
+      "matchDepTypes": [
+        "devDependencies"
+      ],
+      "matchUpdateTypes": [
+        "patch"
+      ],
       "automerge": true
     },
     {
       "description": "Group GitHub Actions updates",
-      "matchManagers": ["github-actions"],
+      "matchManagers": [
+        "github-actions"
+      ],
       "groupName": "GitHub Actions"
     }
   ],
   "lockFileMaintenance": {
     "enabled": true,
     "automerge": true,
-    "schedule": ["before 6am on the first day of the month"]
+    "schedule": [
+      "before 6am on the first day of the month"
+    ]
   }
 }
