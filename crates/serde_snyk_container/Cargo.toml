@@ -29,7 +29,7 @@ rustfmt-wrapper = "0.2.1"
 anyhow = "1.0.100"
 
 [dev-dependencies]
-rustup-toolchain = "0.1.10"
-rustdoc-json = "0.9.7"
-public-api = "0.50.1"
-insta = "1.43.2"
+rustup-toolchain = "=0.1.10"
+rustdoc-json = "=0.9.7"
+public-api = "=0.50.1"
+insta = "=1.43.2"
