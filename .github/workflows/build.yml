@@ -12,7 +12,7 @@ permissions:
 jobs:
   build:
     name: Build ${{ matrix.target }}
-    runs-on: ubuntu-latest
+    runs-on: ${{ matrix.os }}
 
     strategy:
       fail-fast: false
@@ -20,25 +20,37 @@ jobs:
         include:
           # Linux targets
           - target: x86_64-unknown-linux-gnu
+            os: ubuntu-latest
             archive: tar.gz
+            use_cross: false
           - target: x86_64-unknown-linux-musl
+            os: ubuntu-latest
             archive: tar.gz
+            use_cross: true
           - target: aarch64-unknown-linux-gnu
+            os: ubuntu-latest
             archive: tar.gz
+            use_cross: true
           - target: aarch64-unknown-linux-musl
+            os: ubuntu-latest
             archive: tar.gz
+            use_cross: true
 
           # Windows targets
           - target: x86_64-pc-windows-msvc
+            os: windows-latest
             archive: zip
-          - target: aarch64-pc-windows-msvc
-            archive: zip
+            use_cross: false
 
           # macOS targets
           - target: x86_64-apple-darwin
+            os: macos-13
             archive: tar.gz
+            use_cross: false
           - target: aarch64-apple-darwin
+            os: macos-latest
             archive: tar.gz
+            use_cross: false
 
     steps:
       - name: Checkout
@@ -48,6 +60,7 @@ jobs:
         uses: dtolnay/rust-toolchain@stable
 
       - name: Install cross
+        if: matrix.use_cross
         uses: taiki-e/install-action@cross
 
       - name: Install target
@@ -58,9 +71,13 @@ jobs:
         with:
           key: ${{ matrix.target }}
 
-      - name: Build with cross
+      - name: Build
         run: |
-          cross build --release --target ${{ matrix.target }} --package sarif-to-md
+          if [[ "${{ matrix.use_cross }}" == "true" ]]; then
+            cross build --release --target ${{ matrix.target }} --package sarif-to-md
+          else
+            cargo build --release --target ${{ matrix.target }} --package sarif-to-md
+          fi
 
       - name: Extract version from tag
         id: version
