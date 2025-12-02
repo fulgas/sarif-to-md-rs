@@ -1,0 +1,97 @@
+name: Build and Release
+
+on:
+  push:
+    tags:
+      - 'v*.*.*'
+      - 'v*.*.*-*'  # Pre-releases
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    name: Build ${{ matrix.target }}
+    runs-on: ubuntu-latest
+
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          # Linux targets
+          - target: x86_64-unknown-linux-gnu
+            archive: tar.gz
+          - target: x86_64-unknown-linux-musl
+            archive: tar.gz
+          - target: aarch64-unknown-linux-gnu
+            archive: tar.gz
+          - target: aarch64-unknown-linux-musl
+            archive: tar.gz
+
+          # Windows targets
+          - target: x86_64-pc-windows-msvc
+            archive: zip
+          - target: aarch64-pc-windows-msvc
+            archive: zip
+
+          # macOS targets
+          - target: x86_64-apple-darwin
+            archive: tar.gz
+          - target: aarch64-apple-darwin
+            archive: tar.gz
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install Rust toolchain
+        uses: dtolnay/rust-toolchain@stable
+
+      - name: Install cross
+        uses: taiki-e/install-action@cross
+
+      - name: Cache Rust dependencies
+        uses: Swatinem/rust-cache@v2
+        with:
+          key: ${{ matrix.target }}
+
+      - name: Build with cross
+        run: |
+          cross build --release --target ${{ matrix.target }} --package sarif-to-md
+
+      - name: Extract version from tag
+        id: version
+        run: |
+          VERSION=${GITHUB_REF#refs/tags/v}
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
+
+      - name: Package release archive
+        run: |
+          cd target/${{ matrix.target }}/release
+
+          # Get binary name with extension for Windows
+          if [[ "${{ matrix.target }}" == *"windows"* ]]; then
+            BINARY="sarif-to-md.exe"
+          else
+            BINARY="sarif-to-md"
+          fi
+
+          # Create archive name
+          ARCHIVE_NAME="sarif-to-md-${{ steps.version.outputs.version }}-${{ matrix.target }}"
+
+          if [[ "${{ matrix.archive }}" == "zip" ]]; then
+            7z a "${ARCHIVE_NAME}.zip" "$BINARY"
+            echo "ASSET=${ARCHIVE_NAME}.zip" >> $GITHUB_ENV
+          else
+            tar czf "${ARCHIVE_NAME}.tar.gz" "$BINARY"
+            echo "ASSET=${ARCHIVE_NAME}.tar.gz" >> $GITHUB_ENV
+          fi
+
+          # Move to root for upload
+          mv "${ARCHIVE_NAME}.${{ matrix.archive }}" ../../../
+
+      - name: Upload release archive
+        uses: softprops/action-gh-release@v2.5.0
+        with:
+          files: ${{ env.ASSET }}
+          fail_on_unmatched_files: true

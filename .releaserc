@@ -1,0 +1,76 @@
+{
+  "branches": [
+    "main",
+    {
+      "name": "beta",
+      "prerelease": true
+    }
+  ],
+  "plugins": [
+    [
+      "@semantic-release/commit-analyzer",
+      {
+        "preset": "conventionalcommits",
+        "releaseRules": [
+          { "type": "feat", "release": "minor" },
+          { "type": "fix", "release": "patch" },
+          { "type": "perf", "release": "patch" },
+          { "type": "revert", "release": "patch" },
+          { "type": "docs", "scope": "README", "release": "patch" },
+          { "type": "refactor", "release": "patch" },
+          { "type": "chore", "scope": "deps", "release": "patch" }
+        ]
+      }
+    ],
+    [
+      "@semantic-release/release-notes-generator",
+      {
+        "preset": "conventionalcommits",
+        "presetConfig": {
+          "types": [
+            { "type": "feat", "section": "Features" },
+            { "type": "fix", "section": "Bug Fixes" },
+            { "type": "perf", "section": "Performance Improvements" },
+            { "type": "revert", "section": "Reverts" },
+            { "type": "docs", "section": "Documentation" },
+            { "type": "refactor", "section": "Code Refactoring" },
+            { "type": "chore", "section": "Miscellaneous", "hidden": true }
+          ]
+        }
+      }
+    ],
+    ["@semantic-release/changelog",
+      {
+        "changelogFile": "CHANGELOG.md"
+      }
+    ],
+    ["semantic-release-replace-plugin", {
+        "replacements": [{
+            "files": ["crates/sarif-to-md-core/Cargo.toml", "crates/sarif-to-md/Cargo.toml", "Cargo.lock"],
+            "from": [
+               "^(\\[package\\]\\nname[ ]*=[ ]*\"sarif-to-md-core\"\\n)version[ ]*=[ ]*\".*\"$",
+               "^(\\[\\[package\\]\\]\\nname[ ]*=[ ]*\"sarif-to-md-core\"\\n)version[ ]*=[ ]*\".*\"$",
+               "^(\\[package\\]\\nname[ ]*=[ ]*\"sarif-to-md\"\\n)version[ ]*=[ ]*\".*\"$",
+               "^(\\[\\[package\\]\\]\\nname[ ]*=[ ]*\"sarif-to-md\"\\n)version[ ]*=[ ]*\".*\"$",
+            ],
+            "to": [
+               "$1version = \"${nextRelease.version}\"",
+               "$1version = \"${nextRelease.version}\"",
+               "$1version = \"${nextRelease.version}\"",
+               "$1version = \"${nextRelease.version}\""
+            ],
+        }]
+    }],
+    ["@semantic-release/git",
+      {
+        "assets": [
+          "CHANGELOG.md",
+          "crates/*/Cargo.toml",
+          "Cargo.lock"
+        ],
+        "message": "chore(release): ${nextRelease.version} [skip ci]"
+      }
+    ],
+    "@semantic-release/github"
+  ]
+}
