@@ -64,9 +64,7 @@
     [
       "@semantic-release/github",
       {
-        "releasedLabels": ["released"],
-        "draft": true,
-        "prerelease": "${branch.prerelease}"
+        "draftRelease": true
       }
     ]
   ]

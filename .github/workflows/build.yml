@@ -78,14 +78,6 @@ jobs:
       - name: Build with cargo
         if: ${{ !matrix.use_cross }}
         run: cargo build --release --target ${{ matrix.target }} --package sarif-to-md
-
-      - name: Extract version from tag
-        id: version
-        shell: bash
-        run: |
-          VERSION=${GITHUB_REF#refs/tags/v}
-          echo "version=$VERSION" >> $GITHUB_OUTPUT
-
       - name: Package release archive
         id: archive
         shell: bash
@@ -100,7 +92,7 @@ jobs:
           fi
 
           # Create archive name
-          ARCHIVE_NAME="sarif-to-md-${{ steps.version.outputs.version }}-${{ matrix.target }}"
+          ARCHIVE_NAME="sarif-to-md-$GITHUB_REF_NAME-${{ matrix.target }}"
 
           if [[ "${{ matrix.archive }}" == "zip" ]]; then
             7z a "${ARCHIVE_NAME}.zip" "$BINARY"
@@ -131,16 +123,19 @@ jobs:
         with:
           merge-multiple: true
 
-      - name: Extract version from tag
-        id: version
-        run: |
-          VERSION=${GITHUB_REF#refs/tags/v}
-          echo "version=$VERSION" >> $GITHUB_OUTPUT
+      - name: Generate GitHub App token
+        id: app_token
+        uses: actions/create-github-app-token@7e473efe3cb98aa54f8d4bac15400b15fad77d94 # v2
+        with:
+          app-id: ${{ secrets.APP_ID }}
+          private-key: ${{ secrets.APP_PRIVATE_KEY }}
 
       - name: Upload binaries to existing release
         uses: softprops/action-gh-release@v2.5.0
         with:
-          tag_name: ${{ steps.version.outputs.version }}
+          token: ${{ steps.app_token.outputs.token }}
           files: sarif-to-md-*
           draft: false
-          make_latest: true
+          prerelease: ${{ contains(github.ref_name, '-') }}
+          make_latest: ${{ !contains(github.ref_name, '-') }}
+          generate_release_notes: false
