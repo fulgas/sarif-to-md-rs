@@ -44,7 +44,7 @@ jobs:
 
           # macOS targets
           - target: x86_64-apple-darwin
-            os: macos-13
+            os: macos-15-intel
             archive: tar.gz
             use_cross: false
           - target: aarch64-apple-darwin
@@ -121,7 +121,7 @@ jobs:
           retention-days: 1
 
   release:
-    name: Create Release
+    name: Update Release
     needs: build
     runs-on: ubuntu-latest
 
