@@ -1,21 +1,16 @@
-[graph]
-all-features = true
-
 [licenses]
 allow = [
     "MIT",
     "Apache-2.0",
+    "BSD-2-Clause",
+    "Unicode-3.0",
 ]
-exceptions = [
-    { allow = ["Unicode-3.0"], crate = "unicode-ident" },
-    { allow = ["Zlib"], crate = "foldhash" },
-    { allow = ["BSD-2-Clause"], crate = "Inflector" }
-]
+confidence-threshold = 0.8
 
 [bans]
-multiple-versions = "allow"
-wildcards = "allow"
+multiple-versions = "warn"
 
 [sources]
 unknown-registry = "deny"
 unknown-git = "deny"
+allow-registry = ["https://github.com/rust-lang/crates.io-index"]

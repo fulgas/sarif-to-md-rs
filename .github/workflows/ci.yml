@@ -89,9 +89,6 @@ jobs:
           cache-on-failure: true
           key: ${{ matrix.rust-version }}
 
-      - name: Run cargo check
-        run: cargo check --verbose
-
       - name: Run tests
         run: cargo test --verbose
 
