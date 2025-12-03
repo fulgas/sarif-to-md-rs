@@ -1,4 +1,4 @@
-use crate::cli::{Cli, Commands};
+use crate::cli::Cli;
 use anyhow::Context;
 use clap::Parser;
 use sarif_to_md_core::generators::SarifMarkdownGenerator;
@@ -18,19 +18,15 @@ fn main() -> anyhow::Result<()> {
     let with_emoji = cli.with_emoji;
     let output_format: MarkdownFormat = cli.output_format.into();
 
-    let markdown = match &cli.command {
-        Commands::Sarif => {
-            let processor = ReportProcessorBuilder::new()
-                .generator(SarifMarkdownGenerator::new(output_format, with_emoji))
-                .content(content)
-                .build()
-                .context("Failed to configure report processor")?;
+    let processor = ReportProcessorBuilder::new()
+        .generator(SarifMarkdownGenerator::new(output_format, with_emoji))
+        .content(content)
+        .build()
+        .context("Failed to configure report processor")?;
 
-            processor
-                .generate()
-                .context("Failed to generate markdown report")?
-        }
-    };
+    let markdown = processor
+        .generate()
+        .context("Failed to generate markdown report")?;
 
     match &cli.output {
         Some(output_path) => {

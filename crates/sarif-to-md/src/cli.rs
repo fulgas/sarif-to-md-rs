@@ -1,4 +1,4 @@
-use clap::{Parser, Subcommand, ValueEnum};
+use clap::{Parser, ValueEnum};
 use sarif_to_md_core::markdown::MarkdownFormat;
 use std::path::PathBuf;
 
@@ -17,19 +17,6 @@ impl From<CliOutputFormat> for MarkdownFormat {
             CliOutputFormat::CommonMark => MarkdownFormat::CommonMark,
         }
     }
-}
-
-#[derive(Debug, Clone, ValueEnum)]
-pub(crate) enum CliInputFormat {
-    #[value(name = "json")]
-    Json,
-    #[value(name = "sarif")]
-    Sarif,
-}
-
-#[derive(Debug, Subcommand)]
-pub(crate) enum Commands {
-    Sarif,
 }
 
 #[derive(Parser)]
@@ -51,7 +38,4 @@ pub(crate) struct Cli {
     /// Include emoji in the output
     #[arg(short = 'e', long, default_value = "false")]
     pub(crate) with_emoji: bool,
-
-    #[command(subcommand)]
-    pub(crate) command: Commands,
 }
