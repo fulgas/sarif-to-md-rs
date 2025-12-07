@@ -54,10 +54,28 @@ jobs:
       - name: Run cargo fmt
         run: cargo fmt --all -- --check
 
+  markdown-lint:
+    name: Markdown Lint
+    runs-on: ubuntu-latest
+    if: github.event_name == 'pull_request'
+
+    steps:
+      - name: Checkout sources
+        uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6
+
+      - name: Lint markdown files
+        uses: reviewdog/action-markdownlint@v0.26.2
+        with:
+          github_token: ${{ github.token }}
+          markdownlint_flags: 'examples/expected-outputs/**/*.md'
+          reporter: github-pr-review
+          filter_mode: added
+          fail_level: error
+
   test:
     name: Build & Test
     runs-on: ${{ matrix.os }}
-    needs: [lint, fmt]
+    needs: [lint, fmt, markdown-lint]
     strategy:
       matrix:
         include:
@@ -91,6 +109,9 @@ jobs:
 
       - name: Run tests
         run: cargo test --verbose
+
+      - name: Check benchmark compilation
+        run: cargo bench --no-run
 
       - name: Check documentation builds
         run: cargo doc --no-deps --document-private-items

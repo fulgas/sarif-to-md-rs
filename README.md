@@ -139,6 +139,21 @@ Options:
   -V, --version                Print version
 ```
 
+## Examples
+
+The [`examples/`](examples/) directory contains 10 curated SARIF files demonstrating all major features of the SARIF format, along with pre-generated markdown outputs in both GitHub Flavored and CommonMark formats.
+
+Try the converter with the provided examples:
+```bash
+# Basic usage with minimal example
+sarif-to-md -i examples/sarif-files/01-minimal.sarif -o output.md
+
+# GitHub Flavored Markdown with emoji
+sarif-to-md -i examples/sarif-files/02-rule-metadata.sarif -o report.md -f github-flavored -e
+```
+
+See the [examples README](examples/README.md) for complete usage instructions and integration with security tools like Semgrep, ESLint, Snyk, and CodeQL.
+
 ## Output Examples
 
 The generated Markdown includes:
@@ -165,6 +180,7 @@ sarif-to-md-rs/
 ├── crates/
 │   ├── sarif-to-md/          # CLI application
 │   └── sarif-to-md-core/     # Core library
+├── examples/                 # SARIF examples and outputs
 ├── LICENSE-MIT
 ├── LICENSE-APACHE
 └── README.md

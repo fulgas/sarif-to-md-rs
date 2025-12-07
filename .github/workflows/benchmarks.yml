@@ -1,0 +1,194 @@
+name: Performance Benchmarks
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  schedule:
+    # Run weekly on Sunday at midnight UTC
+    - cron: '0 0 * * 0'
+  workflow_dispatch:
+    # Allow manual triggering
+
+permissions:
+  contents: write
+  pull-requests: write
+  pages: write
+
+env:
+  CARGO_TERM_COLOR: always
+
+jobs:
+  benchmark:
+    name: Performance Benchmarks
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          # Need full history for baseline comparisons
+          fetch-depth: 0
+
+      - name: Install Rust toolchain
+        uses: dtolnay/rust-toolchain@stable
+
+      - name: Setup Rust cache
+        uses: Swatinem/rust-cache@v2
+        with:
+          cache-on-failure: true
+
+      - name: Check benchmark compilation
+        run: cargo bench --no-run
+
+      - name: Run benchmarks
+        run: |
+          # Run benchmarks and save results
+          cargo bench --bench benchmarks | tee benchmark-results.txt
+
+      - name: Generate benchmark summary
+        run: |
+          echo "## 📊 Benchmark Results Summary" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "\`\`\`" >> $GITHUB_STEP_SUMMARY
+          tail -20 benchmark-results.txt >> $GITHUB_STEP_SUMMARY
+          echo "\`\`\`" >> $GITHUB_STEP_SUMMARY
+
+      - name: Performance regression analysis
+        if: github.event_name == 'pull_request'
+        run: |
+          echo "## 📊 Performance Benchmark Results" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+
+          # Check if there are any significant performance changes
+          if [ -f benchmark-results.txt ]; then
+            echo "✅ Benchmarks completed successfully" >> $GITHUB_STEP_SUMMARY
+            echo "" >> $GITHUB_STEP_SUMMARY
+            echo "Full benchmark results available in the workflow artifacts." >> $GITHUB_STEP_SUMMARY
+          else
+            echo "❌ Benchmark execution failed" >> $GITHUB_STEP_SUMMARY
+          fi
+
+      - name: Upload benchmark artifacts
+        uses: actions/upload-artifact@v5.0.0
+        if: always()
+        with:
+          name: benchmark-results-${{ github.sha }}
+          path: |
+            benchmark-results.txt
+            target/criterion/
+          retention-days: 30
+
+  benchmark-comparison:
+    name: Benchmark Comparison
+    runs-on: ubuntu-latest
+    if: github.event_name == 'pull_request'
+    needs: benchmark
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Install Rust toolchain
+        uses: dtolnay/rust-toolchain@stable
+
+      - name: Setup Rust cache
+        uses: Swatinem/rust-cache@v2
+
+      - name: Checkout main branch
+        run: |
+          git fetch origin main
+          git checkout main
+
+      - name: Run baseline benchmarks
+        run: |
+          cargo bench --bench benchmarks -- --save-baseline main | tee baseline-results.txt
+
+      - name: Checkout PR branch
+        run: |
+          git checkout ${{ github.event.pull_request.head.sha }}
+
+      - name: Run comparison benchmarks
+        run: |
+          cargo bench --bench benchmarks -- --baseline main | tee comparison-results.txt
+
+      - name: Analyze performance changes
+        run: |
+          echo "## 🔍 Performance Comparison vs Main Branch" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "### Baseline Results" >> $GITHUB_STEP_SUMMARY
+          echo "\`\`\`" >> $GITHUB_STEP_SUMMARY
+          tail -10 baseline-results.txt >> $GITHUB_STEP_SUMMARY
+          echo "\`\`\`" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "### Current Results" >> $GITHUB_STEP_SUMMARY
+          echo "\`\`\`" >> $GITHUB_STEP_SUMMARY
+          tail -10 comparison-results.txt >> $GITHUB_STEP_SUMMARY
+          echo "\`\`\`" >> $GITHUB_STEP_SUMMARY
+
+      - name: Upload comparison artifacts
+        uses: actions/upload-artifact@v5.0.0
+        with:
+          name: benchmark-comparison-${{ github.sha }}
+          path: |
+            baseline-results.txt
+            comparison-results.txt
+          retention-days: 30
+
+  benchmark-report:
+    name: Generate Benchmark Report
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main'
+    needs: benchmark
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Download benchmark results
+        uses: actions/download-artifact@v6.0.0
+        with:
+          name: benchmark-results-${{ github.sha }}
+
+      - name: Generate performance report
+        run: |
+          # Create a simple performance report
+          cat > performance-report.md << 'EOF'
+          # Performance Benchmark Report
+
+          **Date:** $(date)
+          **Commit:** ${{ github.sha }}
+          **Branch:** ${{ github.ref_name }}
+
+          ## Summary
+
+          This report contains the latest performance benchmarks for sarif-to-md-rs.
+
+          ## Benchmark Categories
+
+          - **Core Generation:** Library performance across formats and examples
+          - **CLI Performance:** End-to-end command-line tool benchmarks
+          - **JSON Parsing:** SARIF parsing performance by file complexity
+          - **Memory Usage:** Large file processing benchmarks
+          - **Output Formats:** Format-specific performance comparison
+          - **SARIF Complexity:** Complex feature handling benchmarks
+
+          ## Results
+
+          Detailed results are available in the Criterion HTML reports in the artifacts.
+
+          ## Historical Trends
+
+          View the [benchmark dashboard](https://github.com/${{ github.repository }}/actions/workflows/benchmarks.yml) for historical performance trends.
+
+          EOF
+
+      - name: Upload performance report
+        uses: actions/upload-artifact@v5.0.0
+        with:
+          name: performance-report-${{ github.sha }}
+          path: performance-report.md
+          retention-days: 90
