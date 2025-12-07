@@ -45,6 +45,7 @@ This project adheres to a [Code of Conduct](CODE_OF_CONDUCT.md). By participatin
    - Update README.md if needed
    - Add inline comments for complex logic
    - Update examples if behavior changes
+   - Add new SARIF examples for new features when applicable
 
 5. **Submit the pull request**
    - Provide a clear description of changes
@@ -86,8 +87,16 @@ cargo deny check
 cargo build --release
 ./target/release/sarif-to-md --help
 
-# Test with sample SARIF file
-./target/release/sarif-to-md input.sarif -o output.md
+# Test with provided examples
+./target/release/sarif-to-md -i examples/sarif-files/01-minimal.sarif -o test-output.md
+
+# Test all examples to verify functionality
+for f in examples/sarif-files/*.sarif; do
+  ./target/release/sarif-to-md -i "$f" -o "test-$(basename "$f" .sarif).md"
+done
+
+# Compare outputs with expected results
+diff test-01-minimal.md examples/expected-outputs/common-mark/01-minimal.md
 
 # Run full test suite across platforms
 cargo test --all-features --workspace
