@@ -192,43 +192,6 @@ jobs:
           retention-days: 30
           overwrite: true
 
-      - name: Install competitor tools for comparison
-        if: github.ref == 'refs/heads/main'
-        run: |
-          # Install other SARIF processing tools for comparison
-          npm install -g @microsoft/sarif-multitool || echo "Failed to install sarif-multitool"
-          pip install sarif-om || echo "Failed to install sarif-om"
-
-      - name: Run competitor benchmarks
-        if: github.ref == 'refs/heads/main'
-        run: |
-          # Create comparison benchmarks against other tools
-          mkdir -p competitor-results
-
-          # Test with a sample SARIF file
-          if [ -f "examples/sarif-files/01-minimal.sarif" ]; then
-            SARIF_FILE="examples/sarif-files/01-minimal.sarif"
-
-            echo "## Competitor Performance Comparison" > competitor-results/comparison.md
-            echo "Testing with: $SARIF_FILE" >> competitor-results/comparison.md
-            echo "" >> competitor-results/comparison.md
-
-            # Benchmark our tool
-            echo "### sarif-to-md-rs (Our Tool)" >> competitor-results/comparison.md
-            /usr/bin/time -v cargo run -- "$SARIF_FILE" -o /tmp/our-output.md 2>&1 | grep -E "(User time|Maximum resident)" >> competitor-results/comparison.md || echo "Our tool benchmark failed" >> competitor-results/comparison.md
-
-            # Benchmark Microsoft sarif-multitool (if available)
-            if command -v sarif >/dev/null 2>&1; then
-              echo "### Microsoft SARIF Multitool" >> competitor-results/comparison.md
-              /usr/bin/time -v sarif transform "$SARIF_FILE" -o /tmp/ms-output.sarif 2>&1 | grep -E "(User time|Maximum resident)" >> competitor-results/comparison.md || echo "MS tool not available" >> competitor-results/comparison.md
-            fi
-
-            # Add file size comparison
-            echo "### Output Size Comparison" >> competitor-results/comparison.md
-            if [ -f "/tmp/our-output.md" ]; then
-              echo "- sarif-to-md-rs: $(wc -c < /tmp/our-output.md) bytes" >> competitor-results/comparison.md
-            fi
-          fi
 
       - name: Generate benchmark summary for PR
         if: github.event_name == 'pull_request'
@@ -288,78 +251,339 @@ jobs:
           echo "" >> $GITHUB_STEP_SUMMARY
           echo "🔗 [View performance dashboard](https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}/benchmarks/)"
 
-      - name: Prepare Pages content
-        if: github.ref == 'refs/heads/main'
+
+  competitive-benchmark:
+    name: Competitive Benchmarks
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main'
+    needs: benchmark
+
+    strategy:
+      matrix:
+        tool:
+          - name: microsoft-sarif-multitool
+            install: npm install -g @microsoft/sarif-multitool
+            command: sarif transform
+            args: --pretty-print
+            output_ext: json
+          - name: sarif-om-python
+            install: pip3 install sarif-om
+            command: python3
+            args: /tmp/sarif_om_test.py
+            output_ext: json
+          - name: jq-baseline
+            install: echo 'jq already available'
+            command: jq
+            args: .
+            output_ext: json
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6
+
+      - name: Install tool - ${{ matrix.tool.name }}
+        run: |
+          echo "Installing ${{ matrix.tool.name }}..."
+          ${{ matrix.tool.install }} || echo "Installation failed, will be marked as unavailable"
+
+      - name: Verify tool installation
+        id: verify
+        run: |
+          case "${{ matrix.tool.name }}" in
+            "microsoft-sarif-multitool")
+              if sarif --version >/dev/null 2>&1; then
+                echo "available=true" >> $GITHUB_OUTPUT
+              else
+                echo "available=false" >> $GITHUB_OUTPUT
+              fi
+              ;;
+            "sarif-om-python")
+              if python3 -c "import sarif_om" >/dev/null 2>&1; then
+                echo "available=true" >> $GITHUB_OUTPUT
+                # Create test script for sarif-om
+                cat > /tmp/sarif_om_test.py << 'EOF'
+          import sys
+          import json
+          from sarif_om import SarifLog
+          import time
+
+          start_time = time.time()
+          try:
+              with open(sys.argv[1], 'r') as f:
+                  sarif_log = SarifLog.from_json(json.load(f))
+
+              output = sarif_log.to_json()
+              with open(sys.argv[2], 'w') as f:
+                  json.dump(output, f)
+
+              end_time = time.time()
+              print(f"{end_time - start_time:.3f}")
+          except Exception as e:
+              print("ERROR")
+              sys.exit(1)
+          EOF
+              else
+                echo "available=false" >> $GITHUB_OUTPUT
+              fi
+              ;;
+            "jq-baseline")
+              if command -v jq >/dev/null 2>&1; then
+                echo "available=true" >> $GITHUB_OUTPUT
+              else
+                echo "available=false" >> $GITHUB_OUTPUT
+              fi
+              ;;
+          esac
+
+      - name: Run benchmarks for ${{ matrix.tool.name }}
+        if: steps.verify.outputs.available == 'true'
+        run: |
+          mkdir -p results
+
+          echo "# Benchmark Results for ${{ matrix.tool.name }}" > results/${{ matrix.tool.name }}-results.md
+          echo "" >> results/${{ matrix.tool.name }}-results.md
+          echo "| File | Input Size | Time | Output Size | Status |" >> results/${{ matrix.tool.name }}-results.md
+          echo "|------|------------|------|-------------|---------|" >> results/${{ matrix.tool.name }}-results.md
+
+          for sarif_file in examples/sarif-files/*.sarif; do
+            if [ -f "$sarif_file" ]; then
+              filename=$(basename "$sarif_file")
+              filesize=$(wc -c < "$sarif_file")
+
+              echo -n "| $filename | ${filesize}B | " >> results/${{ matrix.tool.name }}-results.md
+
+              # Run benchmark with timeout
+              case "${{ matrix.tool.name }}" in
+                "microsoft-sarif-multitool")
+                  if time_output=$(/usr/bin/time -f "%e" timeout 30s ${{ matrix.tool.command }} "$sarif_file" ${{ matrix.tool.args }} -o "/tmp/${{ matrix.tool.name }}-$filename.${{ matrix.tool.output_ext }}" 2>&1); then
+                    time_taken=$(echo "$time_output" | tail -1)
+                    output_size=$(wc -c < "/tmp/${{ matrix.tool.name }}-$filename.${{ matrix.tool.output_ext }}" 2>/dev/null || echo "0")
+                    echo "${time_taken}s | ${output_size}B | ✅ |" >> results/${{ matrix.tool.name }}-results.md
+                  else
+                    echo "TIMEOUT | N/A | ⚠️ |" >> results/${{ matrix.tool.name }}-results.md
+                  fi
+                  ;;
+                "sarif-om-python")
+                  if time_result=$(timeout 30s ${{ matrix.tool.command }} ${{ matrix.tool.args }} "$sarif_file" "/tmp/${{ matrix.tool.name }}-$filename.${{ matrix.tool.output_ext }}" 2>/dev/null); then
+                    if [ "$time_result" != "ERROR" ]; then
+                      output_size=$(wc -c < "/tmp/${{ matrix.tool.name }}-$filename.${{ matrix.tool.output_ext }}" 2>/dev/null || echo "0")
+                      echo "${time_result}s | ${output_size}B | ✅ |" >> results/${{ matrix.tool.name }}-results.md
+                    else
+                      echo "ERROR | N/A | ❌ |" >> results/${{ matrix.tool.name }}-results.md
+                    fi
+                  else
+                    echo "TIMEOUT | N/A | ⚠️ |" >> results/${{ matrix.tool.name }}-results.md
+                  fi
+                  ;;
+                "jq-baseline")
+                  if time_output=$(/usr/bin/time -f "%e" timeout 10s ${{ matrix.tool.command }} ${{ matrix.tool.args }} "$sarif_file" > "/tmp/${{ matrix.tool.name }}-$filename.${{ matrix.tool.output_ext }}" 2>&1); then
+                    time_taken=$(echo "$time_output" | tail -1)
+                    output_size=$(wc -c < "/tmp/${{ matrix.tool.name }}-$filename.${{ matrix.tool.output_ext }}" 2>/dev/null || echo "0")
+                    echo "${time_taken}s | ${output_size}B | ✅ |" >> results/${{ matrix.tool.name }}-results.md
+                  else
+                    echo "ERROR | N/A | ❌ |" >> results/${{ matrix.tool.name }}-results.md
+                  fi
+                  ;;
+              esac
+            fi
+          done
+
+      - name: Generate unavailable notice
+        if: steps.verify.outputs.available == 'false'
+        run: |
+          mkdir -p results
+          echo "# ${{ matrix.tool.name }} - Not Available" > results/${{ matrix.tool.name }}-results.md
+          echo "" >> results/${{ matrix.tool.name }}-results.md
+          echo "Tool installation failed or not compatible with this environment." >> results/${{ matrix.tool.name }}-results.md
+
+      - name: Upload individual results
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ matrix.tool.name }}-results
+          path: results/${{ matrix.tool.name }}-results.md
+
+  combine-results:
+    name: Combine Competitive Results
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main'
+    needs: [benchmark, competitive-benchmark]
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6
+
+      - name: Download all competitive results
+        uses: actions/download-artifact@v4
+        with:
+          pattern: "*-results"
+          merge-multiple: true
+          path: competitive-results
+
+      - name: Download main benchmark results
+        uses: actions/download-artifact@v4
+        with:
+          name: main-branch-benchmarks
+          path: main-benchmarks
+        continue-on-error: true
+
+      - name: Combine all results
         run: |
           mkdir -p pages-content
-          # Copy Criterion reports
-          if [ -d "target/criterion" ]; then
-            cp -r target/criterion/* pages-content/
-          fi
-          # Copy competitor comparison if it exists
-          if [ -f "competitor-results/comparison.md" ]; then
-            cp competitor-results/comparison.md pages-content/
-          fi
-          # Copy performance trend report if it exists
-          if [ -f "performance-trend.md" ]; then
-            cp performance-trend.md pages-content/
+
+          # Copy main benchmark results if available
+          if [ -d "main-benchmarks/criterion" ]; then
+            cp -r main-benchmarks/criterion/* pages-content/ || mkdir -p pages-content/report
           fi
 
-          # Create a simple index.html that links to both
+          # Combine competitive results
+          echo "# Competitive Performance Analysis" > pages-content/comparison.md
+          echo "" >> pages-content/comparison.md
+          echo "Benchmarking sarif-to-md-rs against other SARIF processing tools." >> pages-content/comparison.md
+          echo "" >> pages-content/comparison.md
+          echo "**Test Environment:** Ubuntu Latest, $(nproc) CPU cores" >> pages-content/comparison.md
+          echo "**Date:** $(date)" >> pages-content/comparison.md
+          echo "" >> pages-content/comparison.md
+
+          # Add results from each tool
+          for result_file in competitive-results/*-results.md; do
+            if [ -f "$result_file" ]; then
+              echo "" >> pages-content/comparison.md
+              cat "$result_file" >> pages-content/comparison.md
+              echo "" >> pages-content/comparison.md
+            fi
+          done
+
+          # Add summary
+          echo "## Summary" >> pages-content/comparison.md
+          echo "" >> pages-content/comparison.md
+          echo "**Key Findings:**" >> pages-content/comparison.md
+          echo "- sarif-to-md-rs focuses on Markdown generation" >> pages-content/comparison.md
+          echo "- Each tool serves different purposes in the SARIF ecosystem" >> pages-content/comparison.md
+          echo "- Performance varies by file complexity and tool capabilities" >> pages-content/comparison.md
+
+          # Create minimal theme index.html (same as before)
           cat > pages-content/index.html << 'EOF'
           <!DOCTYPE html>
           <html>
           <head>
             <title>SARIF to Markdown Performance Benchmarks</title>
             <style>
-              body { font-family: Arial, sans-serif; margin: 40px; }
-              h1 { color: #333; }
-              a { color: #0366d6; text-decoration: none; }
-              a:hover { text-decoration: underline; }
-              .section { margin: 20px 0; padding: 20px; border: 1px solid #e1e4e8; border-radius: 6px; }
+              body {
+                font-family: 'SF Mono', Monaco, 'Cascadia Code', 'Roboto Mono', Consolas, 'Courier New', monospace;
+                margin: 0;
+                padding: 60px 40px;
+                background-color: #ffffff;
+                color: #333333;
+                line-height: 1.6;
+              }
+              .container { max-width: 900px; margin: 0 auto; }
+              h1 {
+                color: #000000;
+                font-size: 2em;
+                font-weight: 300;
+                margin-bottom: 2em;
+                text-align: center;
+                letter-spacing: -0.5px;
+              }
+              h2 {
+                color: #333333;
+                font-size: 1.2em;
+                font-weight: 400;
+                margin: 3em 0 1em 0;
+                border-left: 3px solid #000000;
+                padding-left: 1em;
+              }
+              a {
+                color: #000000;
+                text-decoration: none;
+                border-bottom: 1px solid #cccccc;
+                transition: border-bottom-color 0.2s;
+              }
+              a:hover { border-bottom-color: #000000; }
+              .section { margin: 2em 0; padding: 0; }
+              ul { list-style: none; padding: 0; }
+              li {
+                margin: 0.8em 0;
+                padding-left: 2em;
+                position: relative;
+              }
+              li:before {
+                content: "→";
+                position: absolute;
+                left: 0;
+                color: #666666;
+              }
+              .header-info {
+                text-align: center;
+                color: #666666;
+                font-size: 0.9em;
+                margin-bottom: 4em;
+              }
+              .divider {
+                border: none;
+                border-top: 1px solid #e0e0e0;
+                margin: 4em 0;
+              }
+              .grid {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 4em;
+                margin: 3em 0;
+              }
+              @media (max-width: 768px) {
+                .grid { grid-template-columns: 1fr; gap: 2em; }
+              }
             </style>
           </head>
           <body>
-            <h1>🚀 SARIF to Markdown Performance Benchmarks</h1>
+            <div class="container">
+              <h1>SARIF to Markdown / Performance Benchmarks</h1>
 
-            <div class="section">
-              <h2>📊 Internal Benchmarks</h2>
-              <p>Detailed performance analysis of sarif-to-md-rs components:</p>
-              <ul>
-                <li><a href="report/">Criterion Performance Reports</a> - Interactive charts and detailed metrics</li>
-              </ul>
-            </div>
+              <div class="header-info">
+                Updated $(date +"%B %d, %Y")<br>
+                <a href="https://github.com/${{ github.repository }}">${{ github.repository }}</a>
+              </div>
 
-            <div class="section">
-              <h2>⚔️ Competitive Analysis</h2>
-              <p>Performance comparison with other SARIF processing tools:</p>
-              <ul>
-                <li><a href="comparison.md">Tool Comparison Report</a> - Speed and memory usage vs competitors</li>
-              </ul>
-            </div>
+              <div class="grid">
+                <div class="section">
+                  <h2>Internal Benchmarks</h2>
+                  <ul>
+                    <li><a href="report/">Criterion Performance Reports</a></li>
+                    <li><a href="report/parse_sarif/">SARIF Parsing</a></li>
+                    <li><a href="report/generate_markdown/">Markdown Generation</a></li>
+                    <li><a href="report/memory_usage/">Memory Analysis</a></li>
+                  </ul>
+                </div>
 
-            <div class="section">
-              <h2>📈 Historical Performance Trends</h2>
-              <p>Track performance changes over time:</p>
-              <ul>
-                <li><a href="performance-trend.md">Performance Trend Analysis</a> - Commit-by-commit performance tracking</li>
-              </ul>
-            </div>
+                <div class="section">
+                  <h2>Competitive Analysis</h2>
+                  <ul>
+                    <li><a href="comparison.md">Full Comparison Report</a></li>
+                    <li>Matrix-based testing across tools</li>
+                    <li>Multiple SARIF file sizes tested</li>
+                    <li>Performance across different scenarios</li>
+                  </ul>
+                </div>
+              </div>
 
-            <div class="section">
-              <h2>🔗 Links</h2>
-              <ul>
-                <li><a href="https://github.com/${{ github.repository }}">Source Code</a></li>
-                <li><a href="https://github.com/${{ github.repository }}/actions/workflows/benchmarks.yml">Benchmark Workflow</a></li>
-              </ul>
+              <hr class="divider">
+
+              <div class="section">
+                <h2>Links</h2>
+                <ul>
+                  <li><a href="https://github.com/${{ github.repository }}">Source Repository</a></li>
+                  <li><a href="https://github.com/${{ github.repository }}/actions/workflows/benchmarks.yml">CI Workflow</a></li>
+                  <li><a href="https://github.com/${{ github.repository }}/releases">Releases</a></li>
+                  <li><a href="https://crates.io/crates/sarif-to-md">Crates.io Package</a></li>
+                </ul>
+              </div>
             </div>
           </body>
           </html>
           EOF
 
-      - name: Upload benchmark results
+      - name: Upload combined results
         uses: actions/upload-pages-artifact@v3
-        if: github.ref == 'refs/heads/main'
         with:
           path: pages-content
 
@@ -367,7 +591,7 @@ jobs:
     name: Deploy to GitHub Pages
     runs-on: ubuntu-latest
     if: github.ref == 'refs/heads/main'
-    needs: benchmark
+    needs: combine-results
 
     environment:
       name: github-pages
