@@ -304,8 +304,9 @@ jobs:
           if [ -f "performance-trend.md" ]; then
             cp performance-trend.md pages-content/
           fi
-            # Create a simple index.html that links to both
-            cat > pages-content/index.html << 'EOF'
+
+          # Create a simple index.html that links to both
+          cat > pages-content/index.html << 'EOF'
           <!DOCTYPE html>
           <html>
           <head>
@@ -355,7 +356,6 @@ jobs:
           </body>
           </html>
           EOF
-          fi
 
       - name: Upload benchmark results
         uses: actions/upload-pages-artifact@v3
