@@ -63,18 +63,21 @@ impl<G: MarkdownGenerator> ReportProcessorBuilder<G> {
     }
 }
 
-#[test]
-fn public_api() {
-    rustup_toolchain::install(public_api::MINIMUM_NIGHTLY_RUST_VERSION).unwrap();
+#[cfg(test)]
+mod tests {
+    use rstest::*;
 
-    let rustdoc_json = rustdoc_json::Builder::default()
-        .toolchain(public_api::MINIMUM_NIGHTLY_RUST_VERSION)
-        .build()
-        .unwrap();
+    #[rstest]
+    fn public_api() -> Result<(), Box<dyn std::error::Error>> {
+        rustup_toolchain::install(public_api::MINIMUM_NIGHTLY_RUST_VERSION)?;
 
-    let public_api = public_api::Builder::from_rustdoc_json(rustdoc_json)
-        .build()
-        .unwrap();
+        let rustdoc_json = rustdoc_json::Builder::default()
+            .toolchain(public_api::MINIMUM_NIGHTLY_RUST_VERSION)
+            .build()?;
 
-    insta::assert_snapshot!(public_api);
+        let public_api = public_api::Builder::from_rustdoc_json(rustdoc_json).build()?;
+
+        insta::assert_snapshot!(public_api);
+        Ok(())
+    }
 }

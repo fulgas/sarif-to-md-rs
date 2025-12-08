@@ -5,16 +5,13 @@ on:
     branches: [main]
   pull_request:
     branches: [main]
-  schedule:
-    # Run weekly on Sunday at midnight UTC
-    - cron: '0 0 * * 0'
   workflow_dispatch:
-    # Allow manual triggering
 
 permissions:
   contents: write
   pull-requests: write
   pages: write
+  id-token: write
 
 env:
   CARGO_TERM_COLOR: always
@@ -28,7 +25,6 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6
         with:
-          # Need full history for baseline comparisons
           fetch-depth: 0
 
       - name: Install Rust toolchain
@@ -39,156 +35,345 @@ jobs:
         with:
           cache-on-failure: true
 
-      - name: Check benchmark compilation
-        run: cargo bench --no-run
+      - name: Download previous benchmark results
+        uses: actions/cache@v4
+        with:
+          path: |
+            target/criterion
+            benchmark-history
+          key: benchmark-cache-${{ github.ref_name }}-${{ github.sha }}
+          restore-keys: |
+            benchmark-cache-${{ github.ref_name }}-
+            benchmark-cache-main-
 
-      - name: Run benchmarks
-        run: |
-          # Run benchmarks and save results
-          cargo bench --bench benchmarks | tee benchmark-results.txt
-
-      - name: Generate benchmark summary
-        run: |
-          echo "## 📊 Benchmark Results Summary" >> $GITHUB_STEP_SUMMARY
-          echo "" >> $GITHUB_STEP_SUMMARY
-          echo "\`\`\`" >> $GITHUB_STEP_SUMMARY
-          tail -20 benchmark-results.txt >> $GITHUB_STEP_SUMMARY
-          echo "\`\`\`" >> $GITHUB_STEP_SUMMARY
-
-      - name: Performance regression analysis
+      - name: Download main branch benchmarks
         if: github.event_name == 'pull_request'
-        run: |
-          echo "## 📊 Performance Benchmark Results" >> $GITHUB_STEP_SUMMARY
-          echo "" >> $GITHUB_STEP_SUMMARY
+        uses: actions/download-artifact@v4
+        with:
+          name: main-branch-benchmarks
+          path: main-benchmarks
+        continue-on-error: true
 
-          # Check if there are any significant performance changes
-          if [ -f benchmark-results.txt ]; then
-            echo "✅ Benchmarks completed successfully" >> $GITHUB_STEP_SUMMARY
-            echo "" >> $GITHUB_STEP_SUMMARY
-            echo "Full benchmark results available in the workflow artifacts." >> $GITHUB_STEP_SUMMARY
+      - name: Check if benchmarks needed
+        id: check
+        run: |
+          echo "SKIP_BENCHMARKS=false" >> $GITHUB_OUTPUT
+          echo "REUSE_MAIN_BENCHMARKS=false" >> $GITHUB_OUTPUT
+
+          if [ "${{ github.event_name }}" = "pull_request" ]; then
+            # Check if we have recent main branch benchmarks
+            if [ -f "main-benchmarks/benchmark-results.txt" ] && [ -d "main-benchmarks/criterion" ]; then
+              echo "✅ Found cached main branch benchmarks, will reuse them"
+              echo "REUSE_MAIN_BENCHMARKS=true" >> $GITHUB_OUTPUT
+              echo "NEED_PR_BENCHMARKS=true" >> $GITHUB_OUTPUT
+            else
+              echo "⚠️ No main branch benchmarks found, will run both main and PR benchmarks"
+              echo "NEED_PR_BENCHMARKS=true" >> $GITHUB_OUTPUT
+            fi
           else
-            echo "❌ Benchmark execution failed" >> $GITHUB_STEP_SUMMARY
+            # For main branch, check if we need to run benchmarks
+            CURRENT_COMMIT="${{ github.sha }}"
+            if [ -f "benchmark-history/results-$CURRENT_COMMIT.json" ]; then
+              echo "✅ Benchmarks already exist for this commit, skipping"
+              echo "SKIP_BENCHMARKS=true" >> $GITHUB_OUTPUT
+            else
+              echo "📊 Running benchmarks for new commit on main"
+              echo "NEED_MAIN_BENCHMARKS=true" >> $GITHUB_OUTPUT
+            fi
           fi
 
-      - name: Upload benchmark artifacts
-        uses: actions/upload-artifact@v5.0.0
-        if: always()
+      - name: Run main branch baseline (cached or new)
+        if: steps.check.outputs.REUSE_MAIN_BENCHMARKS == 'false' && (github.event_name == 'pull_request' || steps.check.outputs.NEED_MAIN_BENCHMARKS == 'true')
+        run: |
+          if [ "${{ github.event_name }}" = "pull_request" ]; then
+            # Switch to main branch for baseline
+            git fetch origin main:main
+            git checkout main
+            echo "🔄 Running main branch benchmarks (this will be cached for future PRs)..."
+            cargo bench --bench benchmarks -- --save-baseline main | tee main-benchmark-results.txt
+            mkdir -p main-benchmarks
+            cp main-benchmark-results.txt main-benchmarks/benchmark-results.txt
+            cp -r target/criterion main-benchmarks/criterion
+            git checkout ${{ github.event.pull_request.head.sha }}
+          else
+            echo "📊 Running main branch benchmarks..."
+            cargo bench --bench benchmarks | tee benchmark-results.txt
+          fi
+
+      - name: Run PR benchmarks and comparison
+        if: steps.check.outputs.NEED_PR_BENCHMARKS == 'true' && steps.check.outputs.SKIP_BENCHMARKS == 'false'
+        run: |
+          echo "🔍 Running PR benchmarks and comparing against main..."
+
+          # Load main branch baseline
+          if [ "${{ steps.check.outputs.REUSE_MAIN_BENCHMARKS }}" = "true" ]; then
+            echo "Using cached main branch benchmarks"
+            cp -r main-benchmarks/criterion/* target/criterion/
+            # Extract baseline from cached results
+            cargo bench --bench benchmarks -- --load-baseline main | tee pr-benchmark-results.txt || true
+          fi
+
+          # Run PR benchmarks with comparison
+          cargo bench --bench benchmarks -- --baseline main | tee benchmark-results.txt
+
+          # Save comparison summary
+          if grep -q "change:" benchmark-results.txt; then
+            echo "PERFORMANCE_CHANGES_DETECTED=true" >> $GITHUB_ENV
+            grep -A2 -B2 "change:" benchmark-results.txt > benchmark-summary.txt
+          else
+            echo "PERFORMANCE_CHANGES_DETECTED=false" >> $GITHUB_ENV
+          fi
+
+      - name: Process main branch results
+        if: github.ref == 'refs/heads/main' && steps.check.outputs.SKIP_BENCHMARKS == 'false'
+        run: |
+          echo "📊 Processing main branch benchmark results..."
+
+          # Save current results for future comparisons
+          CURRENT_COMMIT="${{ github.sha }}"
+          mkdir -p benchmark-history
+          cp -r target/criterion benchmark-history/criterion-$CURRENT_COMMIT
+
+          # Extract key metrics to a JSON file
+          cat > benchmark-history/results-$CURRENT_COMMIT.json << EOF
+          {
+            "commit": "$CURRENT_COMMIT",
+            "timestamp": "$(date -u +"%Y-%m-%dT%H:%M:%SZ")",
+            "branch": "${{ github.ref_name }}"
+          }
+          EOF
+
+          # Generate historical trend report
+          cat > performance-trend.md << 'EOF'
+          # 📈 Performance Trend Analysis
+
+          ## Recent Performance History
+
+          | Commit | Date | Status | Key Changes |
+          |--------|------|---------|-------------|
+          EOF
+
+          # Add last 10 commits to trend report
+          for i in {0..9}; do
+            COMMIT_HASH=$(git rev-parse HEAD~$i 2>/dev/null || break)
+            COMMIT_DATE=$(git show -s --format=%cd --date=short HEAD~$i 2>/dev/null || break)
+            COMMIT_MSG=$(git show -s --format=%s HEAD~$i 2>/dev/null | cut -c1-50 || break)
+
+            if [ -f "benchmark-history/results-$COMMIT_HASH.json" ]; then
+              echo "| \`${COMMIT_HASH:0:8}\` | $COMMIT_DATE | ✅ Benchmarked | $COMMIT_MSG |" >> performance-trend.md
+            else
+              echo "| \`${COMMIT_HASH:0:8}\` | $COMMIT_DATE | ⚪ No data | $COMMIT_MSG |" >> performance-trend.md
+            fi
+          done
+
+          # Performance change detection (comparison with previous results)
+          echo "" >> performance-trend.md
+          echo "## Performance Status" >> performance-trend.md
+
+          if grep -qi "slower\|regression\|degraded" benchmark-results.txt 2>/dev/null; then
+            echo "⚠️ **Performance regression detected in this commit!**" >> performance-trend.md
+            echo "PERFORMANCE_REGRESSION=true" >> $GITHUB_ENV
+          elif grep -qi "faster\|improvement\|improved" benchmark-results.txt 2>/dev/null; then
+            echo "🚀 **Performance improvement detected!**" >> performance-trend.md
+            echo "PERFORMANCE_IMPROVEMENT=true" >> $GITHUB_ENV
+          else
+            echo "✅ **No significant performance changes detected.**" >> performance-trend.md
+            echo "PERFORMANCE_STABLE=true" >> $GITHUB_ENV
+          fi
+
+      - name: Upload main branch benchmarks as artifact
+        if: github.ref == 'refs/heads/main' && steps.check.outputs.SKIP_BENCHMARKS == 'false'
+        uses: actions/upload-artifact@v4
         with:
-          name: benchmark-results-${{ github.sha }}
+          name: main-branch-benchmarks
           path: |
             benchmark-results.txt
-            target/criterion/
+            target/criterion
           retention-days: 30
+          overwrite: true
 
-  benchmark-comparison:
-    name: Benchmark Comparison
-    runs-on: ubuntu-latest
-    if: github.event_name == 'pull_request'
-    needs: benchmark
-
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6
-        with:
-          fetch-depth: 0
-
-      - name: Install Rust toolchain
-        uses: dtolnay/rust-toolchain@stable
-
-      - name: Setup Rust cache
-        uses: Swatinem/rust-cache@v2
-
-      - name: Checkout main branch
+      - name: Install competitor tools for comparison
+        if: github.ref == 'refs/heads/main'
         run: |
-          git fetch origin main
-          git checkout main
+          # Install other SARIF processing tools for comparison
+          npm install -g @microsoft/sarif-multitool || echo "Failed to install sarif-multitool"
+          pip install sarif-om || echo "Failed to install sarif-om"
 
-      - name: Run baseline benchmarks
+      - name: Run competitor benchmarks
+        if: github.ref == 'refs/heads/main'
         run: |
-          cargo bench --bench benchmarks -- --save-baseline main | tee baseline-results.txt
+          # Create comparison benchmarks against other tools
+          mkdir -p competitor-results
 
-      - name: Checkout PR branch
-        run: |
-          git checkout ${{ github.event.pull_request.head.sha }}
+          # Test with a sample SARIF file
+          if [ -f "examples/sarif-files/01-minimal.sarif" ]; then
+            SARIF_FILE="examples/sarif-files/01-minimal.sarif"
 
-      - name: Run comparison benchmarks
-        run: |
-          cargo bench --bench benchmarks -- --baseline main | tee comparison-results.txt
+            echo "## Competitor Performance Comparison" > competitor-results/comparison.md
+            echo "Testing with: $SARIF_FILE" >> competitor-results/comparison.md
+            echo "" >> competitor-results/comparison.md
 
-      - name: Analyze performance changes
+            # Benchmark our tool
+            echo "### sarif-to-md-rs (Our Tool)" >> competitor-results/comparison.md
+            /usr/bin/time -v cargo run -- "$SARIF_FILE" -o /tmp/our-output.md 2>&1 | grep -E "(User time|Maximum resident)" >> competitor-results/comparison.md || echo "Our tool benchmark failed" >> competitor-results/comparison.md
+
+            # Benchmark Microsoft sarif-multitool (if available)
+            if command -v sarif >/dev/null 2>&1; then
+              echo "### Microsoft SARIF Multitool" >> competitor-results/comparison.md
+              /usr/bin/time -v sarif transform "$SARIF_FILE" -o /tmp/ms-output.sarif 2>&1 | grep -E "(User time|Maximum resident)" >> competitor-results/comparison.md || echo "MS tool not available" >> competitor-results/comparison.md
+            fi
+
+            # Add file size comparison
+            echo "### Output Size Comparison" >> competitor-results/comparison.md
+            if [ -f "/tmp/our-output.md" ]; then
+              echo "- sarif-to-md-rs: $(wc -c < /tmp/our-output.md) bytes" >> competitor-results/comparison.md
+            fi
+          fi
+
+      - name: Generate benchmark summary for PR
+        if: github.event_name == 'pull_request'
         run: |
-          echo "## 🔍 Performance Comparison vs Main Branch" >> $GITHUB_STEP_SUMMARY
+          echo "## 📊 Performance Benchmark Results vs Main Branch" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
-          echo "### Baseline Results" >> $GITHUB_STEP_SUMMARY
-          echo "\`\`\`" >> $GITHUB_STEP_SUMMARY
-          tail -10 baseline-results.txt >> $GITHUB_STEP_SUMMARY
-          echo "\`\`\`" >> $GITHUB_STEP_SUMMARY
+
+          # Check if we have performance changes
+          if [ "$PERFORMANCE_CHANGES_DETECTED" = "true" ] && [ -f "benchmark-summary.txt" ]; then
+            echo "### 🔍 Performance Changes Detected" >> $GITHUB_STEP_SUMMARY
+            echo "\`\`\`diff" >> $GITHUB_STEP_SUMMARY
+            cat benchmark-summary.txt >> $GITHUB_STEP_SUMMARY
+            echo "\`\`\`" >> $GITHUB_STEP_SUMMARY
+
+            # Add interpretation
+            if grep -qi "faster\|improved" benchmark-summary.txt; then
+              echo "✅ **Overall performance improvement detected!**" >> $GITHUB_STEP_SUMMARY
+            elif grep -qi "slower\|regression" benchmark-summary.txt; then
+              echo "⚠️ **Performance regression detected - please review**" >> $GITHUB_STEP_SUMMARY
+            else
+              echo "ℹ️ **Mixed performance changes - review individual benchmarks**" >> $GITHUB_STEP_SUMMARY
+            fi
+          else
+            echo "✅ **No significant performance changes detected**" >> $GITHUB_STEP_SUMMARY
+            echo "" >> $GITHUB_STEP_SUMMARY
+            echo "Performance is stable compared to main branch." >> $GITHUB_STEP_SUMMARY
+          fi
+
           echo "" >> $GITHUB_STEP_SUMMARY
-          echo "### Current Results" >> $GITHUB_STEP_SUMMARY
-          echo "\`\`\`" >> $GITHUB_STEP_SUMMARY
-          tail -10 comparison-results.txt >> $GITHUB_STEP_SUMMARY
-          echo "\`\`\`" >> $GITHUB_STEP_SUMMARY
+          echo "🔗 [View detailed benchmark reports](https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}/benchmarks/)"
 
-      - name: Upload comparison artifacts
-        uses: actions/upload-artifact@v5.0.0
+      - name: Generate benchmark summary for main branch
+        if: github.ref == 'refs/heads/main'
+        run: |
+          echo "## 📊 Performance Tracking Update" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "Benchmark results for commit \`${{ github.sha }}\` have been recorded." >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+
+          # Show performance status
+          if [ "$PERFORMANCE_REGRESSION" = "true" ]; then
+            echo "⚠️ **Performance Regression Alert**" >> $GITHUB_STEP_SUMMARY
+            echo "This commit introduced performance regressions. Please investigate." >> $GITHUB_STEP_SUMMARY
+          elif [ "$PERFORMANCE_IMPROVEMENT" = "true" ]; then
+            echo "🚀 **Performance Improvement**" >> $GITHUB_STEP_SUMMARY
+            echo "Great! This commit improved performance." >> $GITHUB_STEP_SUMMARY
+          else
+            echo "✅ **Performance Stable**" >> $GITHUB_STEP_SUMMARY
+            echo "No significant performance changes detected." >> $GITHUB_STEP_SUMMARY
+          fi
+
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "### Historical Tracking" >> $GITHUB_STEP_SUMMARY
+          echo "- Results saved for future commit comparisons" >> $GITHUB_STEP_SUMMARY
+          echo "- Available for PR baseline comparisons" >> $GITHUB_STEP_SUMMARY
+          echo "- Historical trends published to GitHub Pages" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "🔗 [View performance dashboard](https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}/benchmarks/)"
+
+      - name: Prepare Pages content
+        if: github.ref == 'refs/heads/main'
+        run: |
+          mkdir -p pages-content
+          # Copy Criterion reports
+          if [ -d "target/criterion" ]; then
+            cp -r target/criterion/* pages-content/
+          fi
+          # Copy competitor comparison if it exists
+          if [ -f "competitor-results/comparison.md" ]; then
+            cp competitor-results/comparison.md pages-content/
+          fi
+          # Copy performance trend report if it exists
+          if [ -f "performance-trend.md" ]; then
+            cp performance-trend.md pages-content/
+          fi
+            # Create a simple index.html that links to both
+            cat > pages-content/index.html << 'EOF'
+          <!DOCTYPE html>
+          <html>
+          <head>
+            <title>SARIF to Markdown Performance Benchmarks</title>
+            <style>
+              body { font-family: Arial, sans-serif; margin: 40px; }
+              h1 { color: #333; }
+              a { color: #0366d6; text-decoration: none; }
+              a:hover { text-decoration: underline; }
+              .section { margin: 20px 0; padding: 20px; border: 1px solid #e1e4e8; border-radius: 6px; }
+            </style>
+          </head>
+          <body>
+            <h1>🚀 SARIF to Markdown Performance Benchmarks</h1>
+
+            <div class="section">
+              <h2>📊 Internal Benchmarks</h2>
+              <p>Detailed performance analysis of sarif-to-md-rs components:</p>
+              <ul>
+                <li><a href="report/">Criterion Performance Reports</a> - Interactive charts and detailed metrics</li>
+              </ul>
+            </div>
+
+            <div class="section">
+              <h2>⚔️ Competitive Analysis</h2>
+              <p>Performance comparison with other SARIF processing tools:</p>
+              <ul>
+                <li><a href="comparison.md">Tool Comparison Report</a> - Speed and memory usage vs competitors</li>
+              </ul>
+            </div>
+
+            <div class="section">
+              <h2>📈 Historical Performance Trends</h2>
+              <p>Track performance changes over time:</p>
+              <ul>
+                <li><a href="performance-trend.md">Performance Trend Analysis</a> - Commit-by-commit performance tracking</li>
+              </ul>
+            </div>
+
+            <div class="section">
+              <h2>🔗 Links</h2>
+              <ul>
+                <li><a href="https://github.com/${{ github.repository }}">Source Code</a></li>
+                <li><a href="https://github.com/${{ github.repository }}/actions/workflows/benchmarks.yml">Benchmark Workflow</a></li>
+              </ul>
+            </div>
+          </body>
+          </html>
+          EOF
+          fi
+
+      - name: Upload benchmark results
+        uses: actions/upload-pages-artifact@v3
+        if: github.ref == 'refs/heads/main'
         with:
-          name: benchmark-comparison-${{ github.sha }}
-          path: |
-            baseline-results.txt
-            comparison-results.txt
-          retention-days: 30
+          path: pages-content
 
-  benchmark-report:
-    name: Generate Benchmark Report
+  deploy-pages:
+    name: Deploy to GitHub Pages
     runs-on: ubuntu-latest
     if: github.ref == 'refs/heads/main'
     needs: benchmark
 
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6
-
-      - name: Download benchmark results
-        uses: actions/download-artifact@v6.0.0
-        with:
-          name: benchmark-results-${{ github.sha }}
-
-      - name: Generate performance report
-        run: |
-          # Create a simple performance report
-          cat > performance-report.md << 'EOF'
-          # Performance Benchmark Report
-
-          **Date:** $(date)
-          **Commit:** ${{ github.sha }}
-          **Branch:** ${{ github.ref_name }}
-
-          ## Summary
-
-          This report contains the latest performance benchmarks for sarif-to-md-rs.
-
-          ## Benchmark Categories
-
-          - **Core Generation:** Library performance across formats and examples
-          - **CLI Performance:** End-to-end command-line tool benchmarks
-          - **JSON Parsing:** SARIF parsing performance by file complexity
-          - **Memory Usage:** Large file processing benchmarks
-          - **Output Formats:** Format-specific performance comparison
-          - **SARIF Complexity:** Complex feature handling benchmarks
-
-          ## Results
-
-          Detailed results are available in the Criterion HTML reports in the artifacts.
-
-          ## Historical Trends
-
-          View the [benchmark dashboard](https://github.com/${{ github.repository }}/actions/workflows/benchmarks.yml) for historical performance trends.
-
-          EOF
-
-      - name: Upload performance report
-        uses: actions/upload-artifact@v5.0.0
-        with:
-          name: performance-report-${{ github.sha }}
-          path: performance-report.md
-          retention-days: 90
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

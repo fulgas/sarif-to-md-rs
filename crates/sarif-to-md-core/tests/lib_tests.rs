@@ -1,69 +1,35 @@
+//! # Integration Tests
+//!
+//! These tests verify the functional behavior and business logic of the SARIF to Markdown
+//! converter. They focus on end-to-end scenarios, ensuring the library produces correct
+//! output for various SARIF formats and performs adequately.
+//!
+//! ## What these tests cover:
+//! - Different SARIF file formats work correctly
+//! - Complex SARIF features (code flows, context regions, result stacks, etc.)
+//! - Performance benchmarks and timing requirements
+//! - Output quality and correctness validation
+//!
+//! These tests answer: "Does the library work correctly?"
+
 use anyhow::Result;
 use rstest::*;
 use sarif_to_md_core::{
     generators::SarifMarkdownGenerator, markdown::MarkdownFormat, ReportProcessorBuilder,
 };
-use std::fs;
-fn load_example_sarif(name: &str) -> Result<String> {
-    let path = format!("../../examples/sarif-files/{}.sarif", name);
-    fs::read_to_string(&path)
-        .map_err(|e| anyhow::anyhow!("Failed to load SARIF example {}: {}", name, e))
-}
+
+mod common;
+use common::{
+    code_flows_sarif, context_region_sarif, embedded_content_sarif, minimal_sarif,
+    result_stacks_sarif, rule_metadata_sarif, suppressions_sarif,
+};
 
 #[rstest]
-#[case(MarkdownFormat::CommonMark, false)]
-#[case(MarkdownFormat::CommonMark, true)]
-#[case(MarkdownFormat::GitHubFlavored, false)]
-#[case(MarkdownFormat::GitHubFlavored, true)]
-fn test_generator_combinations(
-    #[case] format: MarkdownFormat,
-    #[case] with_emoji: bool,
-) -> Result<()> {
-    let sample_sarif = load_example_sarif("01-minimal")?;
-
-    let processor = ReportProcessorBuilder::new()
-        .generator(SarifMarkdownGenerator::new(format, with_emoji))
-        .content(sample_sarif)
-        .build()?;
-
-    let result = processor.generate()?;
-
-    assert!(!result.is_empty(), "Generated markdown should not be empty");
-    assert!(
-        result.contains("#") || result.contains("Security"),
-        "Generated markdown should contain headers or security-related content"
-    );
-    match format {
-        MarkdownFormat::GitHubFlavored => {
-            assert!(
-                result.contains("<details>") || result.contains("<summary>"),
-                "GitHub Flavored output should contain collapsible elements"
-            );
-        }
-        MarkdownFormat::CommonMark => {
-            assert!(
-                !result.contains("<details>"),
-                "CommonMark output should not contain HTML elements"
-            );
-        }
-    }
-
-    // Emoji validation
-    let has_emoji = result.chars().any(|c| c as u32 > 127);
-    assert_eq!(
-        has_emoji, with_emoji,
-        "Emoji presence should match with_emoji flag"
-    );
-
-    Ok(())
-}
-
-#[rstest]
-fn test_different_sarif_examples(
-    #[values("01-minimal", "02-rule-metadata", "03-suppressions", "04-code-flows")] example: &str,
-) -> Result<()> {
-    let sarif_content = load_example_sarif(example)?;
-
+#[case(minimal_sarif())]
+#[case(rule_metadata_sarif())]
+#[case(suppressions_sarif())]
+#[case(code_flows_sarif())]
+fn test_different_sarif_examples(#[case] sarif_content: String) -> Result<()> {
     let processor = ReportProcessorBuilder::new()
         .generator(SarifMarkdownGenerator::new(
             MarkdownFormat::CommonMark,
@@ -74,15 +40,10 @@ fn test_different_sarif_examples(
 
     let result = processor.generate()?;
 
-    assert!(
-        !result.is_empty(),
-        "Result should not be empty for {}",
-        example
-    );
+    assert!(!result.is_empty(), "Result should not be empty");
     assert!(
         result.lines().count() > 1,
-        "Result should have multiple lines for {}",
-        example
+        "Result should have multiple lines"
     );
 
     let contains_security_content = result.to_lowercase().contains("security")
@@ -92,76 +53,18 @@ fn test_different_sarif_examples(
 
     assert!(
         contains_security_content,
-        "Result should contain security-related content for {}",
-        example
+        "Result should contain security-related content"
     );
 
     Ok(())
 }
 
 #[rstest]
-#[case("")]
-#[case("invalid json")]
-#[case("{}")]
-#[case(r#"{"version": "invalid"}"#)]
-fn test_invalid_sarif_handling(#[case] invalid_sarif: &str) -> Result<()> {
-    let processor = ReportProcessorBuilder::new()
-        .generator(SarifMarkdownGenerator::new(
-            MarkdownFormat::CommonMark,
-            false,
-        ))
-        .content(invalid_sarif.to_string())
-        .build()?;
-
-    let result = processor.generate();
-
-    assert!(
-        result.is_err(),
-        "Should return error for invalid SARIF: {}",
-        invalid_sarif
-    );
-
-    Ok(())
-}
-
-#[test]
-fn test_builder_validation() -> Result<()> {
-    let result = ReportProcessorBuilder::new()
-        .generator(SarifMarkdownGenerator::new(
-            MarkdownFormat::CommonMark,
-            false,
-        ))
-        .build();
-
-    assert!(result.is_err(), "Should error when content is missing");
-
-    let sample_sarif = load_example_sarif("01-minimal")?;
-    let processor = ReportProcessorBuilder::new()
-        .generator(SarifMarkdownGenerator::new(
-            MarkdownFormat::CommonMark,
-            false,
-        ))
-        .content(sample_sarif)
-        .build()?;
-
-    let result = processor.generate()?;
-    assert!(!result.is_empty());
-
-    Ok(())
-}
-
-#[rstest]
-fn test_complex_sarif_features(
-    #[values(
-        "04-code-flows",
-        "05-context-region",
-        "07-result-stacks",
-        "08-embedded-content"
-    )]
-    example: &str,
-) -> Result<()> {
-    let sarif_content = load_example_sarif(example)?;
-
+#[case(code_flows_sarif())]
+#[case(context_region_sarif())]
+#[case(result_stacks_sarif())]
+#[case(embedded_content_sarif())]
+fn test_complex_sarif_features(#[case] sarif_content: String) -> Result<()> {
     for format in [MarkdownFormat::CommonMark, MarkdownFormat::GitHubFlavored] {
         let processor = ReportProcessorBuilder::new()
             .generator(SarifMarkdownGenerator::new(format, false))
@@ -172,25 +75,21 @@ fn test_complex_sarif_features(
 
         assert!(
             !result.is_empty(),
-            "Should generate content for complex example: {} with format: {:?}",
-            example,
+            "Should generate content for complex example with format: {:?}",
             format
         );
 
         assert!(
             result.len() > 100,
-            "Complex examples should generate substantial content for {}",
-            example
+            "Complex examples should generate substantial content"
         );
     }
 
     Ok(())
 }
 
-#[test]
-fn test_performance() -> Result<()> {
-    let sarif_content = load_example_sarif("08-embedded-content")?;
-
+#[rstest]
+fn test_performance(embedded_content_sarif: String) -> Result<()> {
     let start = std::time::Instant::now();
 
     let processor = ReportProcessorBuilder::new()
@@ -198,7 +97,7 @@ fn test_performance() -> Result<()> {
             MarkdownFormat::GitHubFlavored,
             true,
         ))
-        .content(sarif_content)
+        .content(embedded_content_sarif)
         .build()?;
 
     let _result = processor.generate()?;

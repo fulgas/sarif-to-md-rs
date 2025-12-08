@@ -52,7 +52,6 @@
 - [ ] I have made corresponding changes to the documentation
 - [ ] My changes generate no new warnings
 - [ ] I have used semantic commit messages (feat:, fix:, docs:, etc.)
-- [ ] I have updated CHANGELOG.md if needed
 
 ## Breaking Changes
   <!-- If this is a breaking change, describe the impact and migration path -->
