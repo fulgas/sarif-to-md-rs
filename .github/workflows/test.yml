@@ -42,14 +42,26 @@ jobs:
         uses: dtolnay/rust-toolchain@master
         with:
           toolchain: ${{ matrix.rust-version }}
+          components: llvm-tools-preview
 
       - uses: Swatinem/rust-cache@779680da715d629ac1d338a641029a2f4372abb5 # v2
         with:
           cache-on-failure: true
-          key: ${{ matrix.rust-version }}
+          key: ${{ matrix.rust-version }}-nextest
 
-      - name: Run tests
-        run: cargo test --verbose
+      - name: Install cargo-nextest
+        uses: taiki-e/install-action@v2
+        with:
+          tool: cargo-nextest
+
+      - name: Install cargo-llvm-cov
+        if: matrix.coverage
+        uses: taiki-e/install-action@v2
+        with:
+          tool: cargo-llvm-cov
+
+      - name: Run tests with nextest
+        run: cargo nextest run --verbose
 
       - name: Check benchmark compilation
         run: cargo bench --no-run
@@ -57,19 +69,15 @@ jobs:
       - name: Check documentation builds
         run: cargo doc --no-deps --document-private-items
 
-      - name: Install cargo-tarpaulin
-        if: matrix.coverage
-        run: cargo install cargo-tarpaulin
-
       - name: Generate code coverage
         if: matrix.coverage
-        run: cargo tarpaulin --verbose --all-features --workspace --timeout 120 --out xml
+        run: cargo llvm-cov nextest --all-features --workspace --cobertura --output-path cobertura.xml
 
       - name: Upload coverage to Codecov
         if: matrix.coverage
         uses: codecov/codecov-action@5a1091511ad55cbe89839c7260b706298ca349f7 # v5
         with:
-          file: cobertura.xml
+          files: cobertura.xml
           fail_ci_if_error: false
           token: ${{ secrets.CODECOV_TOKEN }}
 

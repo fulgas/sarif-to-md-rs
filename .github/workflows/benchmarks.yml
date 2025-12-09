@@ -193,7 +193,7 @@ jobs:
           fi
 
           echo "" >> $GITHUB_STEP_SUMMARY
-          echo "🔗 [View detailed benchmark reports](https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}/benchmarks/)"
+          echo "🔗 [View detailed benchmark reports](https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}/)"
 
       - name: Generate benchmark summary for main branch
         if: github.ref == 'refs/heads/main'
@@ -221,7 +221,7 @@ jobs:
           echo "- Available for PR baseline comparisons" >> $GITHUB_STEP_SUMMARY
           echo "- Historical trends published to GitHub Pages" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
-          echo "🔗 [View performance dashboard](https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}/benchmarks/)"
+          echo "🔗 [View performance dashboard](https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}/)"
 
 
 
