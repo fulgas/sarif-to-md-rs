@@ -206,12 +206,42 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+          ref: main
 
       - name: Setup Rust
         uses: dtolnay/rust-toolchain@stable
 
       - name: Cache Rust dependencies
         uses: Swatinem/rust-cache@v2
+
+      - name: Validate versions
+        run: |
+          EXPECTED_VERSION="${{ needs.release.outputs.new_release_version }}"
+
+          # Check sarif-to-md-core version
+          CORE_VERSION=$(grep '^version = ' crates/sarif-to-md-core/Cargo.toml | head -n1 | sed 's/version = "\(.*\)"/\1/')
+          if [ "$CORE_VERSION" != "$EXPECTED_VERSION" ]; then
+            echo "❌ sarif-to-md-core version mismatch: expected $EXPECTED_VERSION, got $CORE_VERSION"
+            exit 1
+          fi
+
+          # Check sarif-to-md version
+          CLI_VERSION=$(grep '^version = ' crates/sarif-to-md/Cargo.toml | head -n1 | sed 's/version = "\(.*\)"/\1/')
+          if [ "$CLI_VERSION" != "$EXPECTED_VERSION" ]; then
+            echo "❌ sarif-to-md version mismatch: expected $EXPECTED_VERSION, got $CLI_VERSION"
+            exit 1
+          fi
+
+          # Check dependency version
+          DEP_VERSION=$(grep 'sarif-to-md-core.*version.*=' crates/sarif-to-md/Cargo.toml | sed 's/.*version = "\([^"]*\)".*/\1/')
+          if [ "$DEP_VERSION" != "$EXPECTED_VERSION" ]; then
+            echo "❌ sarif-to-md-core dependency version mismatch: expected $EXPECTED_VERSION, got $DEP_VERSION"
+            exit 1
+          fi
+
+          echo "✅ All versions match: $EXPECTED_VERSION"
 
       - name: Check if pre-release
         id: prerelease

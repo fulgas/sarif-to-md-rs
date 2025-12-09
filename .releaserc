@@ -52,12 +52,14 @@
                "^(\\[\\[package\\]\\]\\nname[ ]*=[ ]*\"sarif-to-md-core\"\\n)version[ ]*=[ ]*\".*\"$",
                "^(\\[package\\]\\nname[ ]*=[ ]*\"sarif-to-md\"\\n)version[ ]*=[ ]*\".*\"$",
                "^(\\[\\[package\\]\\]\\nname[ ]*=[ ]*\"sarif-to-md\"\\n)version[ ]*=[ ]*\".*\"$",
+               "^(sarif-to-md-core[ ]*=[ ]*\\{[ ]*version[ ]*=[ ]*)\".*\"(,[ ]*path[ ]*=[ ]*\"[^\"]*\"[ ]*\\})$"
             ],
             "to": [
                "$1version = \"${nextRelease.version}\"",
                "$1version = \"${nextRelease.version}\"",
                "$1version = \"${nextRelease.version}\"",
-               "$1version = \"${nextRelease.version}\""
+               "$1version = \"${nextRelease.version}\"",
+               "$1\"${nextRelease.version}\"$2"
             ],
         }]
     }],
