@@ -12,6 +12,9 @@ categories = ["command-line-utilities", "development-tools"]
 readme = "README.md"
 rust-version = "1.90"
 
+[package.metadata.docs.rs]
+rustdoc-args = ["--cfg", "docsrs", "--hide-auto-traits", "--hide-blanket-impl"]
+
 [lib]
 name = "sarif_to_md_core"
 path = "src/lib.rs"

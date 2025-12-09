@@ -6,12 +6,14 @@ use crate::markdown::{GeneratorError, MarkdownFormat, MarkdownGenerator};
 use askama::Template;
 use std::collections::{BTreeMap, HashMap};
 
+/// Generator for converting SARIF reports to Markdown format.
 pub struct SarifMarkdownGenerator {
     markdown_format: MarkdownFormat,
     with_emoji: bool,
 }
 
 impl SarifMarkdownGenerator {
+    /// Create a new SARIF Markdown generator.
     pub fn new(markdown_format: MarkdownFormat, with_emoji: bool) -> Self {
         Self {
             markdown_format,

@@ -11,6 +11,9 @@ categories = ["command-line-utilities"]
 readme = "README.md"
 rust-version = "1.90"
 
+[package.metadata.docs.rs]
+targets = []
+
 [[bin]]
 name = "sarif-to-md"
 path = "src/main.rs"
