@@ -143,43 +143,6 @@ jobs:
           }
           EOF
 
-          # Generate historical trend report
-          cat > performance-trend.md << 'EOF'
-          # 📈 Performance Trend Analysis
-
-          ## Recent Performance History
-
-          | Commit | Date | Status | Key Changes |
-          |--------|------|---------|-------------|
-          EOF
-
-          # Add last 10 commits to trend report
-          for i in {0..9}; do
-            COMMIT_HASH=$(git rev-parse HEAD~$i 2>/dev/null || break)
-            COMMIT_DATE=$(git show -s --format=%cd --date=short HEAD~$i 2>/dev/null || break)
-            COMMIT_MSG=$(git show -s --format=%s HEAD~$i 2>/dev/null | cut -c1-50 || break)
-
-            if [ -f "benchmark-history/results-$COMMIT_HASH.json" ]; then
-              echo "| \`${COMMIT_HASH:0:8}\` | $COMMIT_DATE | ✅ Benchmarked | $COMMIT_MSG |" >> performance-trend.md
-            else
-              echo "| \`${COMMIT_HASH:0:8}\` | $COMMIT_DATE | ⚪ No data | $COMMIT_MSG |" >> performance-trend.md
-            fi
-          done
-
-          # Performance change detection (comparison with previous results)
-          echo "" >> performance-trend.md
-          echo "## Performance Status" >> performance-trend.md
-
-          if grep -qi "slower\|regression\|degraded" benchmark-results.txt 2>/dev/null; then
-            echo "⚠️ **Performance regression detected in this commit!**" >> performance-trend.md
-            echo "PERFORMANCE_REGRESSION=true" >> $GITHUB_ENV
-          elif grep -qi "faster\|improvement\|improved" benchmark-results.txt 2>/dev/null; then
-            echo "🚀 **Performance improvement detected!**" >> performance-trend.md
-            echo "PERFORMANCE_IMPROVEMENT=true" >> $GITHUB_ENV
-          else
-            echo "✅ **No significant performance changes detected.**" >> performance-trend.md
-            echo "PERFORMANCE_STABLE=true" >> $GITHUB_ENV
-          fi
 
       - name: Upload main branch benchmarks as artifact
         if: github.ref == 'refs/heads/main' && steps.check.outputs.SKIP_BENCHMARKS == 'false'
@@ -189,7 +152,6 @@ jobs:
           path: |
             benchmark-results.txt
             target/criterion
-            performance-trend.md
           retention-days: 30
           overwrite: true
 
@@ -303,11 +265,6 @@ jobs:
             mkdir -p pages-content/criterion
           fi
 
-          # Copy performance trend report if available
-          if [ -f "main-benchmarks/performance-trend.md" ]; then
-            echo "📈 Copying performance trend report..."
-            cp main-benchmarks/performance-trend.md pages-content/
-          fi
 
       - name: Install pandoc for markdown conversion
         run: |
@@ -331,15 +288,10 @@ jobs:
 
           - [Core Generation](criterion/core_generation/report/) - Comprehensive format and option testing
           - [File Processing](criterion/file_processing/report/) - End-to-end processing pipeline
-          - [Memory Usage](criterion/memory_usage/report/) - Memory efficiency with large files
+          - [Memory Usage](criterion/memory_usage/large_file_processing/report/) - Memory efficiency with large files
           - [Output Formats](criterion/output_formats/report/) - Format comparison (CommonMark vs GitHub)
           - [SARIF Complexity](criterion/sarif_complexity/report/) - Complex SARIF feature handling
 
-          ## Historical Performance
-
-          - [Performance Trends](performance-trend.html) - Commit-by-commit performance tracking
-          - Regression detection and optimization history
-          - Memory usage trends over time
 
           ---
 
@@ -461,24 +413,6 @@ jobs:
             --standalone \
             --output pages-content/index.html
 
-          # Convert performance trend to HTML if it exists
-          if [ -f "pages-content/performance-trend.md" ]; then
-            echo "📊 Converting performance trend to HTML..."
-
-            # Add navigation to the top of performance trend
-            echo '<div class="back-link"><a href="index.html">← Back to Dashboard</a></div>' > temp-trend.md
-            echo "" >> temp-trend.md
-            cat pages-content/performance-trend.md >> temp-trend.md
-
-            # Convert to HTML
-            pandoc temp-trend.md \
-              --from markdown \
-              --to html5 \
-              --css shared-style.css \
-              --metadata title="Performance Trends - SARIF to Markdown" \
-              --standalone \
-              --output pages-content/performance-trend.html
-          fi
 
       - name: Upload combined results
         uses: actions/upload-pages-artifact@7b1f4a764d45c48632c6b24a0339c27f5614fb0b # v4
