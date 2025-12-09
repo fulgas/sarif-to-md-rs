@@ -103,33 +103,6 @@ fn bench_file_processing(c: &mut Criterion) {
     group.finish();
 }
 
-fn bench_file_parsing(c: &mut Criterion) {
-    let examples = vec![
-        ("small", "01-minimal"),
-        ("medium", "02-rule-metadata"),
-        ("complex", "04-code-flows"),
-        ("large", "08-embedded-content"),
-    ];
-
-    let mut group = c.benchmark_group("json_parsing");
-
-    for (size_label, example) in examples {
-        let content = load_example_for_bench(example);
-
-        group.bench_with_input(
-            BenchmarkId::new("parse", size_label),
-            &content,
-            |b, content| {
-                b.iter(|| {
-                    // Simple JSON validation without serde_json dependency
-                    black_box(content.len())
-                });
-            },
-        );
-    }
-
-    group.finish();
-}
 
 fn bench_memory_usage(c: &mut Criterion) {
     let large_content = load_example_for_bench("08-embedded-content");
@@ -230,7 +203,6 @@ criterion_group!(
     benches,
     bench_core_generation,
     bench_file_processing,
-    bench_file_parsing,
     bench_memory_usage,
     bench_output_formats,
     bench_sarif_complexity

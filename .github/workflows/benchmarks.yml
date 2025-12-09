@@ -432,155 +432,227 @@ jobs:
 
           # Copy main benchmark results if available
           if [ -d "main-benchmarks/criterion" ]; then
-            cp -r main-benchmarks/criterion/* pages-content/ || mkdir -p pages-content/report
+            cp -r main-benchmarks/criterion pages-content/ || mkdir -p pages-content/criterion
           fi
 
-          # Combine competitive results
-          echo "# Competitive Performance Analysis" > pages-content/comparison.md
-          echo "" >> pages-content/comparison.md
-          echo "Benchmarking sarif-to-md-rs against other SARIF processing tools." >> pages-content/comparison.md
-          echo "" >> pages-content/comparison.md
-          echo "**Test Environment:** Ubuntu Latest, $(nproc) CPU cores" >> pages-content/comparison.md
-          echo "**Date:** $(date)" >> pages-content/comparison.md
-          echo "" >> pages-content/comparison.md
+          # Combine competitive results into markdown first
+          echo "# Competitive Performance Analysis" > temp-comparison.md
+          echo "" >> temp-comparison.md
+          echo "Benchmarking sarif-to-md-rs against other SARIF processing tools." >> temp-comparison.md
+          echo "" >> temp-comparison.md
+          echo "**Test Environment:** Ubuntu Latest, $(nproc) CPU cores" >> temp-comparison.md
+          echo "**Date:** $(date)" >> temp-comparison.md
+          echo "" >> temp-comparison.md
 
           # Add results from each tool
           for result_file in competitive-results/*-results.md; do
             if [ -f "$result_file" ]; then
-              echo "" >> pages-content/comparison.md
-              cat "$result_file" >> pages-content/comparison.md
-              echo "" >> pages-content/comparison.md
+              echo "" >> temp-comparison.md
+              cat "$result_file" >> temp-comparison.md
+              echo "" >> temp-comparison.md
             fi
           done
 
           # Add summary
-          echo "## Summary" >> pages-content/comparison.md
-          echo "" >> pages-content/comparison.md
-          echo "**Key Findings:**" >> pages-content/comparison.md
-          echo "- sarif-to-md-rs focuses on Markdown generation" >> pages-content/comparison.md
-          echo "- Each tool serves different purposes in the SARIF ecosystem" >> pages-content/comparison.md
-          echo "- Performance varies by file complexity and tool capabilities" >> pages-content/comparison.md
+          echo "## Summary" >> temp-comparison.md
+          echo "" >> temp-comparison.md
+          echo "**Key Findings:**" >> temp-comparison.md
+          echo "- sarif-to-md-rs focuses on Markdown generation" >> temp-comparison.md
+          echo "- Each tool serves different purposes in the SARIF ecosystem" >> temp-comparison.md
+          echo "- Performance varies by file complexity and tool capabilities" >> temp-comparison.md
 
-          # Create minimal theme index.html (same as before)
-          cat > pages-content/index.html << 'EOF'
-          <!DOCTYPE html>
-          <html>
-          <head>
-            <title>SARIF to Markdown Performance Benchmarks</title>
-            <style>
-              body {
-                font-family: 'SF Mono', Monaco, 'Cascadia Code', 'Roboto Mono', Consolas, 'Courier New', monospace;
-                margin: 0;
-                padding: 60px 40px;
-                background-color: #ffffff;
-                color: #333333;
-                line-height: 1.6;
-              }
-              .container { max-width: 900px; margin: 0 auto; }
-              h1 {
-                color: #000000;
-                font-size: 2em;
-                font-weight: 300;
-                margin-bottom: 2em;
-                text-align: center;
-                letter-spacing: -0.5px;
-              }
-              h2 {
-                color: #333333;
-                font-size: 1.2em;
-                font-weight: 400;
-                margin: 3em 0 1em 0;
-                border-left: 3px solid #000000;
-                padding-left: 1em;
-              }
-              a {
-                color: #000000;
-                text-decoration: none;
-                border-bottom: 1px solid #cccccc;
-                transition: border-bottom-color 0.2s;
-              }
-              a:hover { border-bottom-color: #000000; }
-              .section { margin: 2em 0; padding: 0; }
-              ul { list-style: none; padding: 0; }
-              li {
-                margin: 0.8em 0;
-                padding-left: 2em;
-                position: relative;
-              }
-              li:before {
-                content: "→";
-                position: absolute;
-                left: 0;
-                color: #666666;
-              }
-              .header-info {
-                text-align: center;
-                color: #666666;
-                font-size: 0.9em;
-                margin-bottom: 4em;
-              }
-              .divider {
-                border: none;
-                border-top: 1px solid #e0e0e0;
-                margin: 4em 0;
-              }
-              .grid {
-                display: grid;
-                grid-template-columns: 1fr 1fr;
-                gap: 4em;
-                margin: 3em 0;
-              }
-              @media (max-width: 768px) {
-                .grid { grid-template-columns: 1fr; gap: 2em; }
-              }
-            </style>
-          </head>
-          <body>
-            <div class="container">
-              <h1>SARIF to Markdown / Performance Benchmarks</h1>
+          # Keep the markdown version
+          cp temp-comparison.md pages-content/comparison.md
 
-              <div class="header-info">
-                Updated $(date +"%B %d, %Y")<br>
-                <a href="https://github.com/${{ github.repository }}">${{ github.repository }}</a>
-              </div>
+      - name: Install pandoc for markdown conversion
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y pandoc
 
-              <div class="grid">
-                <div class="section">
-                  <h2>Internal Benchmarks</h2>
-                  <ul>
-                    <li><a href="report/">Criterion Performance Reports</a></li>
-                    <li><a href="report/parse_sarif/">SARIF Parsing</a></li>
-                    <li><a href="report/generate_markdown/">Markdown Generation</a></li>
-                    <li><a href="report/memory_usage/">Memory Analysis</a></li>
-                  </ul>
-                </div>
+      - name: Convert markdown to HTML with custom styling
+        run: |
 
-                <div class="section">
-                  <h2>Competitive Analysis</h2>
-                  <ul>
-                    <li><a href="comparison.md">Full Comparison Report</a></li>
-                    <li>Matrix-based testing across tools</li>
-                    <li>Multiple SARIF file sizes tested</li>
-                    <li>Performance across different scenarios</li>
-                  </ul>
-                </div>
-              </div>
+          # Add navigation header to markdown
+          echo '<div class="back-link"><a href="index.html">← Back to Dashboard</a></div>' > pages-content/comparison-header.html
 
-              <hr class="divider">
+          # Convert markdown to HTML using pandoc with shared styles
+          pandoc pages-content/comparison.md \
+            --from markdown \
+            --to html5 \
+            --css shared-style.css \
+            --include-before-body pages-content/comparison-header.html \
+            --metadata title="Competitive Performance Analysis - SARIF to Markdown" \
+            --standalone \
+            --output pages-content/comparison.html
 
-              <div class="section">
-                <h2>Links</h2>
-                <ul>
-                  <li><a href="https://github.com/${{ github.repository }}">Source Repository</a></li>
-                  <li><a href="https://github.com/${{ github.repository }}/actions/workflows/benchmarks.yml">CI Workflow</a></li>
-                  <li><a href="https://github.com/${{ github.repository }}/releases">Releases</a></li>
-                  <li><a href="https://crates.io/crates/sarif-to-md">Crates.io Package</a></li>
-                </ul>
-              </div>
-            </div>
-          </body>
-          </html>
+      - name: Generate index page content
+        run: |
+          # Create index markdown content
+          cat > pages-content/index.md << 'EOF'
+          ---
+          title: "SARIF to Markdown Performance Benchmarks"
+          ---
+
+          # SARIF to Markdown / Performance Benchmarks
+
+          <div class="header-info">
+          Updated $(date +"%B %d, %Y")<br>
+          <a href="https://github.com/${{ github.repository }}">${{ github.repository }}</a>
+          </div>
+
+          <div class="grid">
+          <div class="section">
+
+          ## Internal Benchmarks
+
+          - [Core Generation](criterion/core_generation/report/)
+          - [File Processing](criterion/file_processing/report/)
+          - [Memory Usage](criterion/memory_usage/report/)
+          - [Output Formats](criterion/output_formats/report/)
+          - [SARIF Complexity](criterion/sarif_complexity/report/)
+
+          </div>
+          <div class="section">
+
+          ## Competitive Analysis
+
+          - [Full Comparison Report](comparison.html)
+          - Matrix-based testing across tools
+          - Multiple SARIF file sizes tested
+          - Performance across different scenarios
+
+          </div>
+          </div>
+
+          ---
+
+          ## Links
+
+          - [Source Repository](https://github.com/${{ github.repository }})
+          - [CI Workflow](https://github.com/${{ github.repository }}/actions/workflows/benchmarks.yml)
+          - [Releases](https://github.com/${{ github.repository }}/releases)
+          - [Crates.io Package](https://crates.io/crates/sarif-to-md)
+
           EOF
+
+          # Create shared CSS for both index and comparison pages
+          cat > pages-content/shared-style.css << 'EOF'
+          body {
+            font-family: 'SF Mono', Monaco, 'Cascadia Code', 'Roboto Mono', Consolas, 'Courier New', monospace;
+            margin: 0;
+            padding: 60px 40px;
+            background-color: #ffffff;
+            color: #333333;
+            line-height: 1.6;
+            max-width: 900px;
+            margin: 0 auto;
+          }
+          h1 {
+            color: #000000;
+            font-size: 2em;
+            font-weight: 300;
+            margin-bottom: 2em;
+            text-align: center;
+            letter-spacing: -0.5px;
+          }
+          h2 {
+            color: #333333;
+            font-size: 1.2em;
+            font-weight: 400;
+            margin: 3em 0 1em 0;
+            border-left: 3px solid #000000;
+            padding-left: 1em;
+          }
+          h3 {
+            color: #555555;
+            font-size: 1em;
+            font-weight: 400;
+            margin: 2em 0 1em 0;
+          }
+          a {
+            color: #000000;
+            text-decoration: none;
+            border-bottom: 1px solid #cccccc;
+            transition: border-bottom-color 0.2s;
+          }
+          a:hover { border-bottom-color: #000000; }
+          ul {
+            list-style: none;
+            padding: 0;
+          }
+          li {
+            margin: 0.8em 0;
+            padding-left: 2em;
+            position: relative;
+          }
+          li:before {
+            content: "→";
+            position: absolute;
+            left: 0;
+            color: #666666;
+          }
+          .header-info {
+            text-align: center;
+            color: #666666;
+            font-size: 0.9em;
+            margin-bottom: 4em;
+          }
+          .grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4em;
+            margin: 3em 0;
+          }
+          .section { margin: 2em 0; padding: 0; }
+          hr {
+            border: none;
+            border-top: 1px solid #e0e0e0;
+            margin: 4em 0;
+          }
+          p { margin: 1em 0; }
+          strong { font-weight: 600; }
+
+          /* Table styles for comparison page */
+          table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 2em 0;
+            font-size: 0.9em;
+          }
+          th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #e0e0e0;
+          }
+          th {
+            background-color: #f8f8f8;
+            font-weight: 600;
+            color: #000000;
+          }
+          tr:hover {
+            background-color: #f9f9f9;
+          }
+          .back-link {
+            display: inline-block;
+            margin-bottom: 2em;
+            padding: 0.5em 1em;
+            border: 1px solid #e0e0e0;
+            background-color: #f8f8f8;
+            text-decoration: none;
+          }
+
+          @media (max-width: 768px) {
+            .grid { grid-template-columns: 1fr; gap: 2em; }
+          }
+          EOF
+
+          # Convert index markdown to HTML
+          pandoc pages-content/index.md \
+            --from markdown \
+            --to html5 \
+            --css shared-style.css \
+            --standalone \
+            --output pages-content/index.html
 
       - name: Upload combined results
         uses: actions/upload-pages-artifact@v3
