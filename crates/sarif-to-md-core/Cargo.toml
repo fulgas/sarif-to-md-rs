@@ -1,6 +1,6 @@
 [package]
 name = "sarif-to-md-core"
-version = "0.1.0"
+version = "1.0.0"
 edition = "2021"
 authors = ["Nelson Silva <nelson.emanuel.silva@gmail.com>"]
 description = "Core library for converting SARIF security reports to Markdown."
