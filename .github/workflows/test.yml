@@ -1,10 +1,10 @@
-name: Build & Test
+name: Test
 
 on:
   push:
-    branches: [ main ]
+    branches: [ main, beta ]
   pull_request:
-    branches: [ main ]
+    branches: [ main, beta ]
 
 permissions:
   contents: read
