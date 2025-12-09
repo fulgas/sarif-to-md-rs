@@ -2,10 +2,11 @@ name: Publish to Crates
 
 on:
   release:
-    types: [ published ]
+    types: [published]
 
 permissions:
   contents: write
+  pull-requests: write
 
 jobs:
   publish:
