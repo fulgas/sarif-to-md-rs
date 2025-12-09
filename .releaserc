@@ -61,6 +61,10 @@
             ],
         }]
     }],
+    ["@semantic-release/git", {
+      "assets": ["crates/*/Cargo.toml", "CHANGELOG.md", "Cargo.lock"],
+      "message": "chore(release): ${nextRelease.version} [skip ci]"
+    }],
     [
       "@semantic-release/github",
       {

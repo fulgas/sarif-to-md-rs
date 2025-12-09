@@ -58,9 +58,9 @@ jobs:
           cd crates/sarif-to-md-core
           if [ "${{ steps.prerelease.outputs.is_prerelease }}" = "true" ]; then
             echo "Publishing pre-release with --allow-dirty"
-            #cargo publish --token "$CARGO_REGISTRY_TOKEN" --allow-dirty
+            cargo publish --token "$CARGO_REGISTRY_TOKEN" --allow-dirty
           else
-            #cargo publish --token "$CARGO_REGISTRY_TOKEN"
+            cargo publish --token "$CARGO_REGISTRY_TOKEN"
           fi
 
       - name: Publish sarif-to-md
@@ -70,9 +70,9 @@ jobs:
           cd crates/sarif-to-md
           if [ "${{ steps.prerelease.outputs.is_prerelease }}" = "true" ]; then
             echo "Publishing pre-release with --allow-dirty"
-            #cargo publish --token "$CARGO_REGISTRY_TOKEN" --allow-dirty
+            cargo publish --token "$CARGO_REGISTRY_TOKEN" --allow-dirty
           else
-            #cargo publish --token "$CARGO_REGISTRY_TOKEN"
+            cargo publish --token "$CARGO_REGISTRY_TOKEN"
           fi
 
       - name: Publish complete
