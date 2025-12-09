@@ -262,199 +262,16 @@ jobs:
           echo "🔗 [View performance dashboard](https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}/benchmarks/)"
 
 
-  competitive-benchmark:
-    name: Competitive Benchmarks
+
+  deploy-pages-content:
+    name: Generate GitHub Pages
     runs-on: ubuntu-latest
     if: github.ref == 'refs/heads/main'
     needs: benchmark
 
-    strategy:
-      matrix:
-        tool:
-          - name: microsoft-sarif-multitool
-            install: |
-              curl -fsSL https://deb.nodesource.com/setup_lts.x | sudo -E bash -
-              sudo apt-get install -y nodejs
-              npm install -g @microsoft/sarif-multitool
-            command: sarif transform
-            args: --pretty-print
-            output_ext: json
-          - name: sarif-om-python
-            install: |
-              python3 -m pip install --upgrade pip
-              pip3 install sarif-om
-            command: python3
-            args: /tmp/sarif_om_test.py
-            output_ext: json
-          - name: jq-baseline
-            install: |
-              sudo apt-get update
-              sudo apt-get install -y jq
-            command: jq
-            args: .
-            output_ext: json
-
     steps:
       - name: Checkout repository
         uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6
-
-      - name: Install tool - ${{ matrix.tool.name }}
-        run: |
-          echo "Installing ${{ matrix.tool.name }}..."
-          ${{ matrix.tool.install }}
-
-      - name: Verify tool installation
-        id: verify
-        run: |
-          case "${{ matrix.tool.name }}" in
-            "microsoft-sarif-multitool")
-              echo "Checking sarif command availability..."
-              if command -v sarif >/dev/null 2>&1; then
-                echo "sarif command found, checking version..."
-                if sarif --version >/dev/null 2>&1; then
-                  echo "✅ Microsoft SARIF Multitool is available"
-                  sarif --version
-                  echo "available=true" >> $GITHUB_OUTPUT
-                else
-                  echo "❌ sarif command exists but --version failed"
-                  echo "available=false" >> $GITHUB_OUTPUT
-                fi
-              else
-                echo "❌ sarif command not found in PATH"
-                echo "PATH: $PATH"
-                echo "npm global binaries:"
-                npm list -g --depth=0 2>/dev/null || echo "npm list failed"
-                echo "available=false" >> $GITHUB_OUTPUT
-              fi
-              ;;
-            "sarif-om-python")
-              if python3 -c "import sarif_om" >/dev/null 2>&1; then
-                echo "available=true" >> $GITHUB_OUTPUT
-                # Create test script for sarif-om
-                cat > /tmp/sarif_om_test.py << 'EOF'
-          import sys
-          import json
-          from sarif_om import SarifLog
-          import time
-
-          start_time = time.time()
-          try:
-              with open(sys.argv[1], 'r') as f:
-                  sarif_log = SarifLog.from_json(json.load(f))
-
-              output = sarif_log.to_json()
-              with open(sys.argv[2], 'w') as f:
-                  json.dump(output, f)
-
-              end_time = time.time()
-              print(f"{end_time - start_time:.3f}")
-          except Exception as e:
-              print("ERROR")
-              sys.exit(1)
-          EOF
-              else
-                echo "available=false" >> $GITHUB_OUTPUT
-              fi
-              ;;
-            "jq-baseline")
-              if command -v jq >/dev/null 2>&1; then
-                echo "available=true" >> $GITHUB_OUTPUT
-              else
-                echo "available=false" >> $GITHUB_OUTPUT
-              fi
-              ;;
-          esac
-
-      - name: Run benchmarks for ${{ matrix.tool.name }}
-        if: steps.verify.outputs.available == 'true'
-        run: |
-          mkdir -p results
-
-          echo "# Benchmark Results for ${{ matrix.tool.name }}" > results/${{ matrix.tool.name }}-results.md
-          echo "" >> results/${{ matrix.tool.name }}-results.md
-          echo "| File | Input Size | Time | Output Size | Status |" >> results/${{ matrix.tool.name }}-results.md
-          echo "|------|------------|------|-------------|---------|" >> results/${{ matrix.tool.name }}-results.md
-
-          for sarif_file in examples/sarif-files/*.sarif; do
-            if [ -f "$sarif_file" ]; then
-              filename=$(basename "$sarif_file")
-              filesize=$(wc -c < "$sarif_file")
-
-              echo -n "| $filename | ${filesize}B | " >> results/${{ matrix.tool.name }}-results.md
-
-              # Run benchmark with timeout
-              case "${{ matrix.tool.name }}" in
-                "microsoft-sarif-multitool")
-                  if time_output=$(/usr/bin/time -f "%e" timeout 30s ${{ matrix.tool.command }} "$sarif_file" ${{ matrix.tool.args }} -o "/tmp/${{ matrix.tool.name }}-$filename.${{ matrix.tool.output_ext }}" 2>&1); then
-                    time_taken=$(echo "$time_output" | tail -1)
-                    output_size=$(wc -c < "/tmp/${{ matrix.tool.name }}-$filename.${{ matrix.tool.output_ext }}" 2>/dev/null || echo "0")
-                    echo "${time_taken}s | ${output_size}B | ✅ |" >> results/${{ matrix.tool.name }}-results.md
-                  else
-                    echo "TIMEOUT | N/A | ⚠️ |" >> results/${{ matrix.tool.name }}-results.md
-                  fi
-                  ;;
-                "sarif-om-python")
-                  # Python tools need more time for startup and processing
-                  if time_result=$(timeout 60s ${{ matrix.tool.command }} ${{ matrix.tool.args }} "$sarif_file" "/tmp/${{ matrix.tool.name }}-$filename.${{ matrix.tool.output_ext }}" 2>/dev/null); then
-                    if [ "$time_result" != "ERROR" ] && [ -n "$time_result" ]; then
-                      output_size=$(wc -c < "/tmp/${{ matrix.tool.name }}-$filename.${{ matrix.tool.output_ext }}" 2>/dev/null || echo "0")
-                      echo "${time_result}s | ${output_size}B | ✅ |" >> results/${{ matrix.tool.name }}-results.md
-                    else
-                      echo "ERROR | N/A | ❌ |" >> results/${{ matrix.tool.name }}-results.md
-                    fi
-                  else
-                    echo "TIMEOUT | N/A | ⚠️ |" >> results/${{ matrix.tool.name }}-results.md
-                  fi
-                  ;;
-                "jq-baseline")
-                  # Separate timing from jq execution for accurate measurement
-                  if timeout 10s ${{ matrix.tool.command }} ${{ matrix.tool.args }} "$sarif_file" > "/tmp/${{ matrix.tool.name }}-$filename.${{ matrix.tool.output_ext }}" 2>/dev/null; then
-                    # Re-run with timing after confirming it works
-                    time_output=$(/usr/bin/time -f "%e" timeout 10s ${{ matrix.tool.command }} ${{ matrix.tool.args }} "$sarif_file" > /dev/null 2>&1)
-                    time_taken=$(echo "$time_output" | grep -E '^[0-9]+\.[0-9]+$' | head -1)
-                    if [ -z "$time_taken" ]; then
-                      time_taken="0.001"  # Fallback for very fast execution
-                    fi
-                    output_size=$(wc -c < "/tmp/${{ matrix.tool.name }}-$filename.${{ matrix.tool.output_ext }}" 2>/dev/null || echo "0")
-                    echo "${time_taken}s | ${output_size}B | ✅ |" >> results/${{ matrix.tool.name }}-results.md
-                  else
-                    echo "ERROR | N/A | ❌ |" >> results/${{ matrix.tool.name }}-results.md
-                  fi
-                  ;;
-              esac
-            fi
-          done
-
-      - name: Generate unavailable notice
-        if: steps.verify.outputs.available == 'false'
-        run: |
-          mkdir -p results
-          echo "# ${{ matrix.tool.name }} - Not Available" > results/${{ matrix.tool.name }}-results.md
-          echo "" >> results/${{ matrix.tool.name }}-results.md
-          echo "Tool installation failed or not compatible with this environment." >> results/${{ matrix.tool.name }}-results.md
-
-      - name: Upload individual results
-        uses: actions/upload-artifact@v4
-        with:
-          name: ${{ matrix.tool.name }}-results
-          path: results/${{ matrix.tool.name }}-results.md
-
-  combine-results:
-    name: Combine Competitive Results
-    runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/main'
-    needs: [benchmark, competitive-benchmark]
-
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6
-
-      - name: Download all competitive results
-        uses: actions/download-artifact@v4
-        with:
-          pattern: "*-results"
-          merge-multiple: true
-          path: competitive-results
 
       - name: Download main benchmark results
         uses: actions/download-artifact@v4
@@ -470,7 +287,7 @@ jobs:
           path: criterion-reports
         continue-on-error: true
 
-      - name: Combine all results
+      - name: Prepare pages content
         run: |
           mkdir -p pages-content
 
@@ -492,62 +309,17 @@ jobs:
             cp main-benchmarks/performance-trend.md pages-content/
           fi
 
-          # Combine competitive results into markdown first
-          echo "# Competitive Performance Analysis" > temp-comparison.md
-          echo "" >> temp-comparison.md
-          echo "Benchmarking sarif-to-md-rs against other SARIF processing tools." >> temp-comparison.md
-          echo "" >> temp-comparison.md
-          echo "**Test Environment:** Ubuntu Latest, $(nproc) CPU cores" >> temp-comparison.md
-          echo "**Date:** $(date)" >> temp-comparison.md
-          echo "" >> temp-comparison.md
-
-          # Add results from each tool
-          for result_file in competitive-results/*-results.md; do
-            if [ -f "$result_file" ]; then
-              echo "" >> temp-comparison.md
-              cat "$result_file" >> temp-comparison.md
-              echo "" >> temp-comparison.md
-            fi
-          done
-
-          # Add summary
-          echo "## Summary" >> temp-comparison.md
-          echo "" >> temp-comparison.md
-          echo "**Key Findings:**" >> temp-comparison.md
-          echo "- sarif-to-md-rs focuses on Markdown generation" >> temp-comparison.md
-          echo "- Each tool serves different purposes in the SARIF ecosystem" >> temp-comparison.md
-          echo "- Performance varies by file complexity and tool capabilities" >> temp-comparison.md
-
-          # Keep the markdown version
-          cp temp-comparison.md pages-content/comparison.md
-
       - name: Install pandoc for markdown conversion
         run: |
           sudo apt-get update
           sudo apt-get install -y pandoc
-
-      - name: Convert markdown to HTML with custom styling
-        run: |
-          # Add navigation to the top of comparison markdown
-          echo '<div class="back-link"><a href="index.html">← Back to Dashboard</a></div>' > temp-with-nav.md
-          echo "" >> temp-with-nav.md
-          cat pages-content/comparison.md >> temp-with-nav.md
-
-          # Convert markdown to HTML using pandoc with shared styles
-          pandoc temp-with-nav.md \
-            --from markdown \
-            --to html5 \
-            --css shared-style.css \
-            --metadata title="Competitive Performance Analysis - SARIF to Markdown" \
-            --standalone \
-            --output pages-content/comparison.html
 
       - name: Generate index page content
         run: |
           # Create index markdown content
           cat > pages-content/index.md << EOF
           ---
-          title: "SARIF to Markdown Performance Benchmarks"
+          title: "SARIF to Markdown Performance Dashboard"
           ---
 
           <div class="header-info">
@@ -555,29 +327,19 @@ jobs:
           <a href="https://github.com/${{ github.repository }}">${{ github.repository }}</a>
           </div>
 
-          <div class="grid">
-          <div class="section">
+          ## Performance Benchmarks
 
-          ## Internal Benchmarks
+          - [Core Generation](criterion/core_generation/report/) - Comprehensive format and option testing
+          - [File Processing](criterion/file_processing/report/) - End-to-end processing pipeline
+          - [Memory Usage](criterion/memory_usage/report/) - Memory efficiency with large files
+          - [Output Formats](criterion/output_formats/report/) - Format comparison (CommonMark vs GitHub)
+          - [SARIF Complexity](criterion/sarif_complexity/report/) - Complex SARIF feature handling
 
-          - [Core Generation](criterion/core_generation/report/)
-          - [File Processing](criterion/file_processing/report/)
-          - [Memory Usage](criterion/memory_usage/report/)
-          - [Output Formats](criterion/output_formats/report/)
-          - [SARIF Complexity](criterion/sarif_complexity/report/)
+          ## Historical Performance
 
-          </div>
-          <div class="section">
-
-          ## Competitive Analysis
-
-          - [Full Comparison Report](comparison.html)
-          - Matrix-based testing across tools
-          - Multiple SARIF file sizes tested
-          - Performance across different scenarios
-
-          </div>
-          </div>
+          - [Performance Trends](performance-trend.html) - Commit-by-commit performance tracking
+          - Regression detection and optimization history
+          - Memory usage trends over time
 
           ---
 
@@ -652,13 +414,6 @@ jobs:
             font-size: 0.9em;
             margin-bottom: 4em;
           }
-          .grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 4em;
-            margin: 3em 0;
-          }
-          .section { margin: 2em 0; padding: 0; }
           hr {
             border: none;
             border-top: 1px solid #e0e0e0;
@@ -696,9 +451,6 @@ jobs:
             text-decoration: none;
           }
 
-          @media (max-width: 768px) {
-            .grid { grid-template-columns: 1fr; gap: 2em; }
-          }
           EOF
 
           # Convert index markdown to HTML
@@ -709,6 +461,25 @@ jobs:
             --standalone \
             --output pages-content/index.html
 
+          # Convert performance trend to HTML if it exists
+          if [ -f "pages-content/performance-trend.md" ]; then
+            echo "📊 Converting performance trend to HTML..."
+
+            # Add navigation to the top of performance trend
+            echo '<div class="back-link"><a href="index.html">← Back to Dashboard</a></div>' > temp-trend.md
+            echo "" >> temp-trend.md
+            cat pages-content/performance-trend.md >> temp-trend.md
+
+            # Convert to HTML
+            pandoc temp-trend.md \
+              --from markdown \
+              --to html5 \
+              --css shared-style.css \
+              --metadata title="Performance Trends - SARIF to Markdown" \
+              --standalone \
+              --output pages-content/performance-trend.html
+          fi
+
       - name: Upload combined results
         uses: actions/upload-pages-artifact@v3
         with:
@@ -718,7 +489,7 @@ jobs:
     name: Deploy to GitHub Pages
     runs-on: ubuntu-latest
     if: github.ref == 'refs/heads/main'
-    needs: combine-results
+    needs: deploy-pages-content
 
     environment:
       name: github-pages
