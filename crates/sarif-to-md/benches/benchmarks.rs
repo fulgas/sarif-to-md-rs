@@ -103,7 +103,6 @@ fn bench_file_processing(c: &mut Criterion) {
     group.finish();
 }
 
-
 fn bench_memory_usage(c: &mut Criterion) {
     let large_content = load_example_for_bench("08-embedded-content");
 

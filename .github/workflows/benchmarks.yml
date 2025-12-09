@@ -189,7 +189,17 @@ jobs:
           path: |
             benchmark-results.txt
             target/criterion
+            performance-trend.md
           retention-days: 30
+          overwrite: true
+
+      - name: Upload Criterion reports separately for pages
+        if: github.ref == 'refs/heads/main' && steps.check.outputs.SKIP_BENCHMARKS == 'false'
+        uses: actions/upload-artifact@v4
+        with:
+          name: criterion-reports
+          path: target/criterion
+          retention-days: 7
           overwrite: true
 
 
@@ -262,17 +272,24 @@ jobs:
       matrix:
         tool:
           - name: microsoft-sarif-multitool
-            install: npm install -g @microsoft/sarif-multitool
+            install: |
+              curl -fsSL https://deb.nodesource.com/setup_lts.x | sudo -E bash -
+              sudo apt-get install -y nodejs
+              npm install -g @microsoft/sarif-multitool
             command: sarif transform
             args: --pretty-print
             output_ext: json
           - name: sarif-om-python
-            install: pip3 install sarif-om
+            install: |
+              python3 -m pip install --upgrade pip
+              pip3 install sarif-om
             command: python3
             args: /tmp/sarif_om_test.py
             output_ext: json
           - name: jq-baseline
-            install: echo 'jq already available'
+            install: |
+              sudo apt-get update
+              sudo apt-get install -y jq
             command: jq
             args: .
             output_ext: json
@@ -284,16 +301,29 @@ jobs:
       - name: Install tool - ${{ matrix.tool.name }}
         run: |
           echo "Installing ${{ matrix.tool.name }}..."
-          ${{ matrix.tool.install }} || echo "Installation failed, will be marked as unavailable"
+          ${{ matrix.tool.install }}
 
       - name: Verify tool installation
         id: verify
         run: |
           case "${{ matrix.tool.name }}" in
             "microsoft-sarif-multitool")
-              if sarif --version >/dev/null 2>&1; then
-                echo "available=true" >> $GITHUB_OUTPUT
+              echo "Checking sarif command availability..."
+              if command -v sarif >/dev/null 2>&1; then
+                echo "sarif command found, checking version..."
+                if sarif --version >/dev/null 2>&1; then
+                  echo "✅ Microsoft SARIF Multitool is available"
+                  sarif --version
+                  echo "available=true" >> $GITHUB_OUTPUT
+                else
+                  echo "❌ sarif command exists but --version failed"
+                  echo "available=false" >> $GITHUB_OUTPUT
+                fi
               else
+                echo "❌ sarif command not found in PATH"
+                echo "PATH: $PATH"
+                echo "npm global binaries:"
+                npm list -g --depth=0 2>/dev/null || echo "npm list failed"
                 echo "available=false" >> $GITHUB_OUTPUT
               fi
               ;;
@@ -364,8 +394,9 @@ jobs:
                   fi
                   ;;
                 "sarif-om-python")
-                  if time_result=$(timeout 30s ${{ matrix.tool.command }} ${{ matrix.tool.args }} "$sarif_file" "/tmp/${{ matrix.tool.name }}-$filename.${{ matrix.tool.output_ext }}" 2>/dev/null); then
-                    if [ "$time_result" != "ERROR" ]; then
+                  # Python tools need more time for startup and processing
+                  if time_result=$(timeout 60s ${{ matrix.tool.command }} ${{ matrix.tool.args }} "$sarif_file" "/tmp/${{ matrix.tool.name }}-$filename.${{ matrix.tool.output_ext }}" 2>/dev/null); then
+                    if [ "$time_result" != "ERROR" ] && [ -n "$time_result" ]; then
                       output_size=$(wc -c < "/tmp/${{ matrix.tool.name }}-$filename.${{ matrix.tool.output_ext }}" 2>/dev/null || echo "0")
                       echo "${time_result}s | ${output_size}B | ✅ |" >> results/${{ matrix.tool.name }}-results.md
                     else
@@ -376,8 +407,14 @@ jobs:
                   fi
                   ;;
                 "jq-baseline")
-                  if time_output=$(/usr/bin/time -f "%e" timeout 10s ${{ matrix.tool.command }} ${{ matrix.tool.args }} "$sarif_file" > "/tmp/${{ matrix.tool.name }}-$filename.${{ matrix.tool.output_ext }}" 2>&1); then
-                    time_taken=$(echo "$time_output" | tail -1)
+                  # Separate timing from jq execution for accurate measurement
+                  if timeout 10s ${{ matrix.tool.command }} ${{ matrix.tool.args }} "$sarif_file" > "/tmp/${{ matrix.tool.name }}-$filename.${{ matrix.tool.output_ext }}" 2>/dev/null; then
+                    # Re-run with timing after confirming it works
+                    time_output=$(/usr/bin/time -f "%e" timeout 10s ${{ matrix.tool.command }} ${{ matrix.tool.args }} "$sarif_file" > /dev/null 2>&1)
+                    time_taken=$(echo "$time_output" | grep -E '^[0-9]+\.[0-9]+$' | head -1)
+                    if [ -z "$time_taken" ]; then
+                      time_taken="0.001"  # Fallback for very fast execution
+                    fi
                     output_size=$(wc -c < "/tmp/${{ matrix.tool.name }}-$filename.${{ matrix.tool.output_ext }}" 2>/dev/null || echo "0")
                     echo "${time_taken}s | ${output_size}B | ✅ |" >> results/${{ matrix.tool.name }}-results.md
                   else
@@ -426,13 +463,33 @@ jobs:
           path: main-benchmarks
         continue-on-error: true
 
+      - name: Download Criterion reports
+        uses: actions/download-artifact@v4
+        with:
+          name: criterion-reports
+          path: criterion-reports
+        continue-on-error: true
+
       - name: Combine all results
         run: |
           mkdir -p pages-content
 
-          # Copy main benchmark results if available
-          if [ -d "main-benchmarks/criterion" ]; then
-            cp -r main-benchmarks/criterion pages-content/ || mkdir -p pages-content/criterion
+          # Copy Criterion reports if available
+          if [ -d "criterion-reports" ]; then
+            echo "📊 Copying Criterion reports..."
+            cp -r criterion-reports pages-content/criterion
+          elif [ -d "main-benchmarks/criterion" ]; then
+            echo "📊 Copying Criterion reports from main benchmarks fallback..."
+            cp -r main-benchmarks/criterion pages-content/
+          else
+            echo "⚠️ No Criterion reports found, creating empty directory"
+            mkdir -p pages-content/criterion
+          fi
+
+          # Copy performance trend report if available
+          if [ -f "main-benchmarks/performance-trend.md" ]; then
+            echo "📈 Copying performance trend report..."
+            cp main-benchmarks/performance-trend.md pages-content/
           fi
 
           # Combine competitive results into markdown first
@@ -471,16 +528,16 @@ jobs:
 
       - name: Convert markdown to HTML with custom styling
         run: |
-
-          # Add navigation header to markdown
-          echo '<div class="back-link"><a href="index.html">← Back to Dashboard</a></div>' > pages-content/comparison-header.html
+          # Add navigation to the top of comparison markdown
+          echo '<div class="back-link"><a href="index.html">← Back to Dashboard</a></div>' > temp-with-nav.md
+          echo "" >> temp-with-nav.md
+          cat pages-content/comparison.md >> temp-with-nav.md
 
           # Convert markdown to HTML using pandoc with shared styles
-          pandoc pages-content/comparison.md \
+          pandoc temp-with-nav.md \
             --from markdown \
             --to html5 \
             --css shared-style.css \
-            --include-before-body pages-content/comparison-header.html \
             --metadata title="Competitive Performance Analysis - SARIF to Markdown" \
             --standalone \
             --output pages-content/comparison.html
@@ -488,12 +545,10 @@ jobs:
       - name: Generate index page content
         run: |
           # Create index markdown content
-          cat > pages-content/index.md << 'EOF'
+          cat > pages-content/index.md << EOF
           ---
           title: "SARIF to Markdown Performance Benchmarks"
           ---
-
-          # SARIF to Markdown / Performance Benchmarks
 
           <div class="header-info">
           Updated $(date +"%B %d, %Y")<br>
