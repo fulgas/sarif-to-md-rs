@@ -10,9 +10,116 @@ permissions:
   pull-requests: write
 
 jobs:
+  build:
+    name: Build and Test
+    runs-on: ${{ matrix.os }}
+
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          # Linux targets
+          - target: x86_64-unknown-linux-gnu
+            os: ubuntu-latest
+            archive: tar.gz
+            use_cross: false
+          - target: x86_64-unknown-linux-musl
+            os: ubuntu-latest
+            archive: tar.gz
+            use_cross: true
+          - target: aarch64-unknown-linux-gnu
+            os: ubuntu-latest
+            archive: tar.gz
+            use_cross: true
+          - target: aarch64-unknown-linux-musl
+            os: ubuntu-latest
+            archive: tar.gz
+            use_cross: true
+
+          # Windows targets
+          - target: x86_64-pc-windows-msvc
+            os: windows-latest
+            archive: zip
+            use_cross: false
+
+          # macOS targets
+          - target: x86_64-apple-darwin
+            os: macos-15-intel
+            archive: tar.gz
+            use_cross: false
+          - target: aarch64-apple-darwin
+            os: macos-latest
+            archive: tar.gz
+            use_cross: false
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Install Rust toolchain
+        uses: dtolnay/rust-toolchain@stable
+
+      - name: Install cross
+        if: matrix.use_cross
+        uses: taiki-e/install-action@cross
+
+      - name: Install target
+        run: rustup target add ${{ matrix.target }}
+
+      - name: Cache Rust dependencies
+        uses: Swatinem/rust-cache@v2
+        with:
+          key: ${{ matrix.target }}
+
+      - name: Build with cross
+        if: ${{ matrix.use_cross }}
+        run: cross build --release --target ${{ matrix.target }} --package sarif-to-md
+
+      - name: Build with cargo
+        if: ${{ !matrix.use_cross }}
+        run: cargo build --release --target ${{ matrix.target }} --package sarif-to-md
+
+      - name: Package release archive
+        id: archive
+        shell: bash
+        run: |
+          cd target/${{ matrix.target }}/release
+
+          # Get binary name with extension for Windows
+          if [[ "${{ matrix.target }}" == *"windows"* ]]; then
+            BINARY="sarif-to-md.exe"
+          else
+            BINARY="sarif-to-md"
+          fi
+
+          # Create archive name (use commit hash for now)
+          ARCHIVE_NAME="sarif-to-md-${GITHUB_SHA::8}-${{ matrix.target }}"
+
+          if [[ "${{ matrix.archive }}" == "zip" ]]; then
+            7z a "${ARCHIVE_NAME}.zip" "$BINARY"
+            echo "ASSET=${ARCHIVE_NAME}.zip" >> $GITHUB_OUTPUT
+          else
+            tar czf "${ARCHIVE_NAME}.tar.gz" "$BINARY"
+            echo "ASSET=${ARCHIVE_NAME}.tar.gz" >> $GITHUB_OUTPUT
+          fi
+
+          # Move to root for upload
+          mv "${ARCHIVE_NAME}.${{ matrix.archive }}" ../../../
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v5
+        with:
+          name: ${{ matrix.target }}
+          path: ${{ steps.archive.outputs.ASSET }}
+          retention-days: 1
+
   release:
     name: Semantic Release
+    needs: build
     runs-on: ubuntu-latest
+    outputs:
+      new_release_published: ${{ steps.semantic.outputs.new_release_published }}
+      new_release_version: ${{ steps.semantic.outputs.new_release_version }}
 
     steps:
       - name: Checkout
@@ -50,3 +157,114 @@ jobs:
             @semantic-release/github
             conventional-changelog-conventionalcommits
             semantic-release-replace-plugin
+
+  publish:
+    name: Publish Release
+    needs: [release, build]
+    runs-on: ubuntu-latest
+    if: needs.release.outputs.new_release_published == 'true'
+
+    steps:
+      - name: Download all artifacts
+        uses: actions/download-artifact@v6
+        with:
+          merge-multiple: true
+
+      - name: Rename archives with version
+        shell: bash
+        run: |
+          for file in sarif-to-md-*; do
+            # Replace commit hash with version in filename
+            new_name=$(echo "$file" | sed "s/${GITHUB_SHA::8}/${{ needs.release.outputs.new_release_version }}/")
+            mv "$file" "$new_name"
+          done
+
+      - name: Generate GitHub App token
+        id: app_token
+        uses: actions/create-github-app-token@7e473efe3cb98aa54f8d4bac15400b15fad77d94 # v2
+        with:
+          app-id: ${{ secrets.APP_ID }}
+          private-key: ${{ secrets.APP_PRIVATE_KEY }}
+
+      - name: Publish release with binaries
+        uses: softprops/action-gh-release@v2.5.0
+        with:
+          token: ${{ steps.app_token.outputs.token }}
+          tag_name: v${{ needs.release.outputs.new_release_version }}
+          files: sarif-to-md-*
+          draft: false
+          prerelease: ${{ contains(needs.release.outputs.new_release_version, '-') }}
+          make_latest: ${{ !contains(needs.release.outputs.new_release_version, '-') }}
+          generate_release_notes: false
+
+  publish-crates:
+    name: Publish to crates.io
+    needs: [release, publish]
+    runs-on: ubuntu-latest
+    if: needs.release.outputs.new_release_published == 'true'
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Setup Rust
+        uses: dtolnay/rust-toolchain@stable
+
+      - name: Cache Rust dependencies
+        uses: Swatinem/rust-cache@v2
+
+      - name: Check if pre-release
+        id: prerelease
+        run: |
+          if [[ "${{ needs.release.outputs.new_release_version }}" =~ - ]]; then
+            echo "is_prerelease=true" >> $GITHUB_OUTPUT
+            echo "📦 Pre-release detected"
+          else
+            echo "is_prerelease=false" >> $GITHUB_OUTPUT
+            echo "📦 Stable release"
+          fi
+
+      - name: Publish sarif-to-md-core
+        env:
+          CARGO_REGISTRY_TOKEN: ${{ secrets.CARGO_REGISTRY_TOKEN }}
+        run: |
+          cd crates/sarif-to-md-core
+          if [ "${{ steps.prerelease.outputs.is_prerelease }}" = "true" ]; then
+            echo "Publishing pre-release with --allow-dirty"
+            cargo publish --token "$CARGO_REGISTRY_TOKEN" --allow-dirty
+          else
+            cargo publish --token "$CARGO_REGISTRY_TOKEN"
+          fi
+
+      - name: Publish sarif-to-md
+        env:
+          CARGO_REGISTRY_TOKEN: ${{ secrets.CARGO_REGISTRY_TOKEN }}
+        run: |
+          cd crates/sarif-to-md
+          if [ "${{ steps.prerelease.outputs.is_prerelease }}" = "true" ]; then
+            echo "Publishing pre-release with --allow-dirty"
+            cargo publish --token "$CARGO_REGISTRY_TOKEN" --allow-dirty
+          else
+            cargo publish --token "$CARGO_REGISTRY_TOKEN"
+          fi
+
+      - name: Publish complete
+        run: |
+          echo "✅ Published to crates.io!"
+          echo "📦 sarif-to-md-core@${{ needs.release.outputs.new_release_version }}"
+          echo "📦 sarif-to-md@${{ needs.release.outputs.new_release_version }}"
+
+          # Add to job summary
+          echo "## 📦 Published to crates.io" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "Successfully published version \`${{ needs.release.outputs.new_release_version }}\`" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "### Crates Published:" >> $GITHUB_STEP_SUMMARY
+          echo "- [\`sarif-to-md-core@${{ needs.release.outputs.new_release_version }}\`](https://crates.io/crates/sarif-to-md-core)" >> $GITHUB_STEP_SUMMARY
+          echo "- [\`sarif-to-md@${{ needs.release.outputs.new_release_version }}\`](https://crates.io/crates/sarif-to-md)" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          if [ "${{ steps.prerelease.outputs.is_prerelease }}" = "true" ]; then
+            echo "🚨 **Pre-release version**" >> $GITHUB_STEP_SUMMARY
+          else
+            echo "✅ **Stable release**" >> $GITHUB_STEP_SUMMARY
+          fi
