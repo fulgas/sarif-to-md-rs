@@ -1,3 +1,9 @@
+## [1.0.1](https://github.com/fulgas/sarif-to-md-rs/compare/v1.0.0...v1.0.1) (2025-12-10)
+
+### Bug Fixes
+
+* remove invalid rustdoc flags causing docs.rs build failures ([f6fbc0c](https://github.com/fulgas/sarif-to-md-rs/commit/f6fbc0cca161271af4b9a743170530a8abe530ff))
+
 ## 1.0.0 (2025-12-09)
 
 ### ⚠ BREAKING CHANGES
