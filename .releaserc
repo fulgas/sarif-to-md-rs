@@ -13,8 +13,7 @@
           { "type": "perf", "release": "patch" },
           { "type": "revert", "release": "patch" },
           { "type": "docs", "scope": "README", "release": "patch" },
-          { "type": "refactor", "release": "patch" },
-          { "type": "chore", "scope": "deps", "release": "patch" }
+          { "type": "refactor", "release": "patch" }
         ]
       }
     ],
@@ -30,7 +29,7 @@
             { "type": "revert", "section": "Reverts" },
             { "type": "docs", "section": "Documentation" },
             { "type": "refactor", "section": "Code Refactoring" },
-            { "type": "chore", "section": "Miscellaneous", "hidden": true }
+            { "type": "chore", "section": "Miscellaneous" }
           ]
         }
       }
