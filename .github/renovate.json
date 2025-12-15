@@ -22,6 +22,7 @@
         "major"
       ],
       "groupName": "Major Dependencies",
+      "semanticCommitType": "feat",
       "automerge": false
     },
     {
@@ -34,7 +35,8 @@
       "matchPackageNames": [
         "/^serde/",
         "/^serde-*/"
-      ]
+      ],
+      "semanticCommitType": "fix"
     },
     {
       "description": "Group minor/patch updates for the Tokio ecosystem",
@@ -45,7 +47,8 @@
       "groupName": "Tokio ecosystem",
       "matchPackageNames": [
         "/^tokio/"
-      ]
+      ],
+      "semanticCommitType": "fix"
     },
     {
       "description": "Auto-merge patch updates for dev-dependencies",
@@ -55,6 +58,7 @@
       "matchUpdateTypes": [
         "patch"
       ],
+      "semanticCommitType": "fix",
       "automerge": true
     },
     {
