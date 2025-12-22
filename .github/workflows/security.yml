@@ -14,7 +14,7 @@ permissions:
   pull-requests: write
 
 env:
-  CARGO_AUDIT_VERSION: "0.21.2"
+  CARGO_AUDIT_VERSION: "0.22.0"
 
 jobs:
   cargo-audit:
