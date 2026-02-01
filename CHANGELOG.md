@@ -1,3 +1,20 @@
+## [1.0.3](https://github.com/fulgas/sarif-to-md-rs/compare/v1.0.2...v1.0.3) (2026-02-01)
+
+### Bug Fixes
+
+* **deps:** update rust crate serde_json to v1.0.148 ([f7ee655](https://github.com/fulgas/sarif-to-md-rs/commit/f7ee655a727c8197d62695ea4f23c61bf5743800))
+
+### Miscellaneous
+
+* **deps:** lock file maintenance ([4091fa3](https://github.com/fulgas/sarif-to-md-rs/commit/4091fa326bfae0b1ede8ba8f9889525217bd10a5))
+* **deps:** update rust crate insta to v1.45.0 ([21e4cd6](https://github.com/fulgas/sarif-to-md-rs/commit/21e4cd6c54a7d30bba920eaf7a01c3f11e6dd81d))
+* **deps:** update rust crate public-api to v0.50.2 ([99473b8](https://github.com/fulgas/sarif-to-md-rs/commit/99473b84d3213870dea283c02a82b13b730b7362))
+* **deps:** update rust crate rustdoc-json to v0.9.8 ([b5c5864](https://github.com/fulgas/sarif-to-md-rs/commit/b5c5864202bdd813a08cbbc5fe5d2367c060886f))
+* **deps:** update rust crate tempfile to v3.24.0 ([d2d56a9](https://github.com/fulgas/sarif-to-md-rs/commit/d2d56a935cf2678fe00604f18a1a3d9de8e9606e))
+* dont release on chore ([4523958](https://github.com/fulgas/sarif-to-md-rs/commit/45239586da96bba6e7c5c6142fed989c6114f4b8))
+* update cargo audit version to 0.22.0 ([8911e6f](https://github.com/fulgas/sarif-to-md-rs/commit/8911e6f9adf586d3cd1a189c656b9cfce490e644))
+* update renovate bot configuration ([153bb34](https://github.com/fulgas/sarif-to-md-rs/commit/153bb34741bdbdaa381b0401fb4699a67caaebdc))
+
 ## [1.0.2](https://github.com/fulgas/sarif-to-md-rs/compare/v1.0.1...v1.0.2) (2025-12-15)
 
 ## [1.0.1](https://github.com/fulgas/sarif-to-md-rs/compare/v1.0.0...v1.0.1) (2025-12-10)
