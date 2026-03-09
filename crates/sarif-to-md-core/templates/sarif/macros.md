@@ -9,7 +9,7 @@
 
 {%- macro format_severity(severity, with_emoji) -%}
 {%- if with_emoji -%}
-{% call severity_emoji(severity) %} - {{ severity }}
+{{ severity_emoji(severity) }} - {{ severity }}
 {%- else -%}
 {{ severity }}
 {%- endif -%}

@@ -1,6 +1,6 @@
 {%- import "macros.md" as sm -%}
 
-#### {% call sm::format_severity(result.level, with_emoji) %} [{{ result.rule_id }}](https://security.snyk.io/vuln/{{ result.rule_id }})
+#### {{ sm::format_severity(result.level, with_emoji) }} [{{ result.rule_id }}](https://security.snyk.io/vuln/{{ result.rule_id }})
 
 {%- if let Some(metadata) = result.rule_metadata %}
 
@@ -32,9 +32,9 @@
 
 {%- endif %}
 
-| Property | Value |
-|----------|-------|
-| **Level** | {% call sm::format_severity(result.level, with_emoji) %} |
+| Property | Value                                               |
+|----------|-----------------------------------------------------|
+| **Level** | {{ sm::format_severity(result.level, with_emoji) }} |
 
 **Message:** {{ result.message }}
 
@@ -42,6 +42,6 @@
 
 **Locations:**
 {%- for location in result.locations %}
-- {% call sm::format_location(location) %}
+- {{ sm::format_location(location) }}
 {%- endfor %}
 {%- endif %}
