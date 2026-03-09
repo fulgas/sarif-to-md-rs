@@ -1,3 +1,33 @@
+## [1.1.0](https://github.com/fulgas/sarif-to-md-rs/compare/v1.0.3...v1.1.0) (2026-03-09)
+
+### Features
+
+* **deps:** update github actions ([799b13e](https://github.com/fulgas/sarif-to-md-rs/commit/799b13e4b3b26a27dbcb257add4a2eb652b6fbc4))
+
+### Bug Fixes
+
+* **deps:** update rust crate askama to 0.15.0 ([6c63de0](https://github.com/fulgas/sarif-to-md-rs/commit/6c63de085f26f5a8e2a6f1ebcba12dd1e2ad7b9e))
+* **deps:** update rust crate askama to 0.15.4 ([90118fc](https://github.com/fulgas/sarif-to-md-rs/commit/90118fcf94ab6ed81639423c511e75855c2ed60e))
+
+### Miscellaneous
+
+* **deps:** lock file maintenance ([0a8a0ab](https://github.com/fulgas/sarif-to-md-rs/commit/0a8a0abd18c0606447e677214c1da1858f010808))
+* **deps:** update rust crate anyhow to v1.0.101 ([1c1359c](https://github.com/fulgas/sarif-to-md-rs/commit/1c1359ce23de33683a3fbb2219c98e04c6fa2727))
+* **deps:** update rust crate anyhow to v1.0.102 ([655e091](https://github.com/fulgas/sarif-to-md-rs/commit/655e09105959ee7c5ccaed58b431ee9a55f5d881))
+* **deps:** update rust crate assert_cmd to v2.1.2 ([69d298a](https://github.com/fulgas/sarif-to-md-rs/commit/69d298a981cfc8e2c7d3d5969b7090107669df8d))
+* **deps:** update rust crate clap to v4.5.57 ([188240d](https://github.com/fulgas/sarif-to-md-rs/commit/188240dca6718860f29ce10554b3ea2f4b66bc7e))
+* **deps:** update rust crate clap to v4.5.58 ([ef90d77](https://github.com/fulgas/sarif-to-md-rs/commit/ef90d77c37ab2ae738f667ccd2814e097d09df9c))
+* **deps:** update rust crate clap to v4.5.60 ([878abcc](https://github.com/fulgas/sarif-to-md-rs/commit/878abccf70d3fffbc9ae868c0d80ffa645dacc23))
+* **deps:** update rust crate criterion to v0.8.2 ([b178370](https://github.com/fulgas/sarif-to-md-rs/commit/b178370fac59ca0cf0c6ece57292c8dc7d570db3))
+* **deps:** update rust crate insta to v1.46.2 ([a9d4006](https://github.com/fulgas/sarif-to-md-rs/commit/a9d40065b0f93e2bae7a7b0f2abfbb9e3a79007d))
+* **deps:** update rust crate insta to v1.46.3 ([44a4431](https://github.com/fulgas/sarif-to-md-rs/commit/44a44312679712f3e11ed767d939cb93d8ed1bf3))
+* **deps:** update rust crate predicates to v3.1.4 ([f110060](https://github.com/fulgas/sarif-to-md-rs/commit/f1100608816682b9f66b8e9b6f61860f48f489e8))
+* **deps:** update rust crate public-api to v0.50.3 ([d42d20d](https://github.com/fulgas/sarif-to-md-rs/commit/d42d20d5993844758f7a7d2231652ddbeb6b05eb))
+* **deps:** update rust crate public-api to v0.51.0 ([b93d26e](https://github.com/fulgas/sarif-to-md-rs/commit/b93d26ecfd5f877930eb80049fd1c0455f761658))
+* **deps:** update rust crate regex to v1.12.3 ([ecf8a4d](https://github.com/fulgas/sarif-to-md-rs/commit/ecf8a4d4a56341ce48e9a9004695929f9e35fc2e))
+* **deps:** update rust crate rustdoc-json to v0.9.9 ([9078bb8](https://github.com/fulgas/sarif-to-md-rs/commit/9078bb84a2f6726e9812949906d83c6e03dba020))
+* **deps:** update rust crate tempfile to v3.26.0 ([572249d](https://github.com/fulgas/sarif-to-md-rs/commit/572249d1226472a107e9cdafa925851555ac51d4))
+
 ## [1.0.3](https://github.com/fulgas/sarif-to-md-rs/compare/v1.0.2...v1.0.3) (2026-02-01)
 
 ### Bug Fixes
