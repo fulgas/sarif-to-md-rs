@@ -22,7 +22,7 @@
 | Severity | Count |
 |----------|{% if is_gfm %}------:{% else %}-------|{% endif %}
 {%- for severity in run.severity_counts %}
-| {% call sm::format_severity(severity.level, with_emoji) %} | {{ severity.count }} |
+| {{ sm::format_severity(severity.level, with_emoji) }} | {{ severity.count }} |
 {%- endfor %}
 | **Total** | **{{ run.total_results }}** |
 
@@ -34,7 +34,7 @@
 {% if is_gfm -%}
 <details>
 <summary>
-{% call sm::format_severity(result.level, with_emoji) %} [{{ result.rule_id }}]
+{{ sm::format_severity(result.level, with_emoji) }} [{{ result.rule_id }}]
 {%- if let Some(metadata) = result.rule_metadata %}
 {%- if let Some(name) = metadata.name %} - {{ name }}{%- endif %}
 {%- endif %}
@@ -42,7 +42,7 @@
 
 #### Details
 {% else -%}
-#### {% call sm::format_severity(result.level, with_emoji) %} - {{ result.rule_id }}
+#### {{ sm::format_severity(result.level, with_emoji) }} - {{ result.rule_id }}
 {%- endif %}
 
 {%- if is_gfm %}
@@ -119,12 +119,12 @@
 {%- if is_gfm %}
 ```
 {%- for location in result.locations %}
-{% call sm::format_location(location) %}
+{{ sm::format_location(location) }}
 {%- endfor %}
 ```
 {%- else %}
 {%- for location in result.locations %}
-- {% call sm::format_location(location) %}
+- {{ sm::format_location(location) }}
   {%- endfor %}
   {%- endif %}
   {%- endif %}
