@@ -28,7 +28,7 @@ anyhow = "1.0.100"
 sarif-to-md-core = { version = "1.1.0", path = "../sarif-to-md-core" }
 
 [dev-dependencies]
-assert_cmd = "=2.1.2"
+assert_cmd = "=2.2.0"
 predicates = "=3.1.4"
 tempfile = "=3.26.0"
 rstest = "=0.26.1"
