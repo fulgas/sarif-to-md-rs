@@ -1,3 +1,17 @@
+## [1.3.0](https://github.com/fulgas/sarif-to-md-rs/compare/v1.2.0...v1.3.0) (2026-04-13)
+
+### Features
+
+* **deps:** update github actions ([e2aba94](https://github.com/fulgas/sarif-to-md-rs/commit/e2aba9411081805a662d6c3f7f46208d1b6e0383))
+
+### Miscellaneous
+
+* **deps:** lock file maintenance ([cf93e6d](https://github.com/fulgas/sarif-to-md-rs/commit/cf93e6d7b9330e4d0c2bd8dec33719612cb572b9))
+* **deps:** update github actions ([ecfb6c7](https://github.com/fulgas/sarif-to-md-rs/commit/ecfb6c750ecd33e05df14f91444309da2d3ca488))
+* **deps:** update github actions ([1139e00](https://github.com/fulgas/sarif-to-md-rs/commit/1139e00134faf5fda3009c8c42abb26ed98ed730))
+* **deps:** update rust crate insta to v1.47.1 ([95a18a3](https://github.com/fulgas/sarif-to-md-rs/commit/95a18a37f857cf35b6edc944771ad74c7815c386))
+* **deps:** update rust crate insta to v1.47.2 ([13cadec](https://github.com/fulgas/sarif-to-md-rs/commit/13cadec5f55839d42b955790dc18701111f22f73))
+
 ## [1.2.0](https://github.com/fulgas/sarif-to-md-rs/compare/v1.1.0...v1.2.0) (2026-03-26)
 
 ### Features
