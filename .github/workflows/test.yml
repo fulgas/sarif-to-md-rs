@@ -50,13 +50,13 @@ jobs:
           key: ${{ matrix.rust-version }}-nextest
 
       - name: Install cargo-nextest
-        uses: taiki-e/install-action@e9e8e031bcd90cdbe8ac6bb1d376f8596e587fbf # v2
+        uses: taiki-e/install-action@921a4027af787cda265c4f334a0f7f89b21d72e9 # v2
         with:
           tool: cargo-nextest
 
       - name: Install cargo-llvm-cov
         if: matrix.coverage
-        uses: taiki-e/install-action@e9e8e031bcd90cdbe8ac6bb1d376f8596e587fbf # v2
+        uses: taiki-e/install-action@921a4027af787cda265c4f334a0f7f89b21d72e9 # v2
         with:
           tool: cargo-llvm-cov
 

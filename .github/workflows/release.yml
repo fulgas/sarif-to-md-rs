@@ -26,7 +26,7 @@ jobs:
 
       - name: Generate GitHub App token
         id: app_token
-        uses: actions/create-github-app-token@f8d387b68d61c58ab83c6c016672934102569859 # v3
+        uses: actions/create-github-app-token@1b10c78c7865c340bc4f6099eb2f838309f1e8c3 # v3
         with:
           app-id: ${{ secrets.APP_ID }}
           private-key: ${{ secrets.APP_PRIVATE_KEY }}
@@ -107,7 +107,7 @@ jobs:
 
       - name: Install cross
         if: matrix.use_cross
-        uses: taiki-e/install-action@06e1821e928f70c3a625134f4f93bfc876141b9a # cross
+        uses: taiki-e/install-action@26ede61ab2d5029f8319b0aa8c0b074d782bd909 # cross
 
       - name: Install target
         run: rustup target add ${{ matrix.target }}
@@ -153,7 +153,7 @@ jobs:
           mv "${ARCHIVE_NAME}.${{ matrix.archive }}" ../../../
 
       - name: Upload artifact
-        uses: actions/upload-artifact@bbbca2ddaa5d8feaa63e36b76fdaad77386f024f # v7
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7
         with:
           name: ${{ matrix.target }}
           path: ${{ steps.archive.outputs.ASSET }}
@@ -173,13 +173,13 @@ jobs:
 
       - name: Generate GitHub App token
         id: app_token
-        uses: actions/create-github-app-token@f8d387b68d61c58ab83c6c016672934102569859 # v3
+        uses: actions/create-github-app-token@1b10c78c7865c340bc4f6099eb2f838309f1e8c3 # v3
         with:
           app-id: ${{ secrets.APP_ID }}
           private-key: ${{ secrets.APP_PRIVATE_KEY }}
 
       - name: Publish release with binaries
-        uses: softprops/action-gh-release@153bb8e04406b158c6c84fc1615b65b24149a1fe # v2.6.1
+        uses: softprops/action-gh-release@3bb12739c298aeb8a4eeaf626c5b8d85266b0e65 # v2.6.2
         with:
           token: ${{ steps.app_token.outputs.token }}
           tag_name: v${{ needs.release.outputs.new_release_version }}
