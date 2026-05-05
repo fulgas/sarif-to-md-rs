@@ -1,3 +1,15 @@
+## [1.3.2](https://github.com/fulgas/sarif-to-md-rs/compare/v1.3.1...v1.3.2) (2026-05-05)
+
+### Bug Fixes
+
+* pin public_api test to nightly-2026-04-01 (1.95.0-nightly) ([f625cac](https://github.com/fulgas/sarif-to-md-rs/commit/f625cac3567c8cb3d3bcb86e9533852451865f46))
+* use nightly channel for public_api test instead of pinned date ([2976b70](https://github.com/fulgas/sarif-to-md-rs/commit/2976b70d6e37b683299c96e76752af77f49590d3))
+
+### Miscellaneous
+
+* bump MSRV from 1.90 to 1.95 ([2af715a](https://github.com/fulgas/sarif-to-md-rs/commit/2af715ad69f30030684c61e8e2170152df1fab24))
+* update public_api snapshot for nightly-2026-04-01 ([066f38b](https://github.com/fulgas/sarif-to-md-rs/commit/066f38bdbad13215657a37082b1b4306b1489917))
+
 ## [1.3.1](https://github.com/fulgas/sarif-to-md-rs/compare/v1.3.0...v1.3.1) (2026-05-04)
 
 ### Bug Fixes
