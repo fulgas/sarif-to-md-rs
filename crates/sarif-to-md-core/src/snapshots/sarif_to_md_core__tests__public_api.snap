@@ -15,6 +15,7 @@ impl core::marker::Freeze for sarif_to_md_core::error::BuilderError
 impl core::marker::Send for sarif_to_md_core::error::BuilderError
 impl core::marker::Sync for sarif_to_md_core::error::BuilderError
 impl core::marker::Unpin for sarif_to_md_core::error::BuilderError
+impl core::marker::UnsafeUnpin for sarif_to_md_core::error::BuilderError
 impl core::panic::unwind_safe::RefUnwindSafe for sarif_to_md_core::error::BuilderError
 impl core::panic::unwind_safe::UnwindSafe for sarif_to_md_core::error::BuilderError
 impl<T, U> core::convert::Into<U> for sarif_to_md_core::error::BuilderError where U: core::convert::From<T>
@@ -55,6 +56,7 @@ impl core::marker::Freeze for sarif_to_md_core::error::Error
 impl core::marker::Send for sarif_to_md_core::error::Error
 impl core::marker::Sync for sarif_to_md_core::error::Error
 impl core::marker::Unpin for sarif_to_md_core::error::Error
+impl core::marker::UnsafeUnpin for sarif_to_md_core::error::Error
 impl !core::panic::unwind_safe::RefUnwindSafe for sarif_to_md_core::error::Error
 impl !core::panic::unwind_safe::UnwindSafe for sarif_to_md_core::error::Error
 impl<T, U> core::convert::Into<U> for sarif_to_md_core::error::Error where U: core::convert::From<T>
@@ -91,6 +93,7 @@ impl core::marker::Freeze for sarif_to_md_core::error::GeneratorError
 impl core::marker::Send for sarif_to_md_core::error::GeneratorError
 impl core::marker::Sync for sarif_to_md_core::error::GeneratorError
 impl core::marker::Unpin for sarif_to_md_core::error::GeneratorError
+impl core::marker::UnsafeUnpin for sarif_to_md_core::error::GeneratorError
 impl !core::panic::unwind_safe::RefUnwindSafe for sarif_to_md_core::error::GeneratorError
 impl !core::panic::unwind_safe::UnwindSafe for sarif_to_md_core::error::GeneratorError
 impl<T, U> core::convert::Into<U> for sarif_to_md_core::error::GeneratorError where U: core::convert::From<T>
@@ -122,6 +125,7 @@ impl core::marker::Freeze for sarif_to_md_core::markdown::sarif::generator::Sari
 impl core::marker::Send for sarif_to_md_core::markdown::sarif::generator::SarifMarkdownGenerator
 impl core::marker::Sync for sarif_to_md_core::markdown::sarif::generator::SarifMarkdownGenerator
 impl core::marker::Unpin for sarif_to_md_core::markdown::sarif::generator::SarifMarkdownGenerator
+impl core::marker::UnsafeUnpin for sarif_to_md_core::markdown::sarif::generator::SarifMarkdownGenerator
 impl core::panic::unwind_safe::RefUnwindSafe for sarif_to_md_core::markdown::sarif::generator::SarifMarkdownGenerator
 impl core::panic::unwind_safe::UnwindSafe for sarif_to_md_core::markdown::sarif::generator::SarifMarkdownGenerator
 impl<T, U> core::convert::Into<U> for sarif_to_md_core::markdown::sarif::generator::SarifMarkdownGenerator where U: core::convert::From<T>
@@ -153,6 +157,7 @@ impl core::marker::Freeze for sarif_to_md_core::markdown::sarif::generator::Sari
 impl core::marker::Send for sarif_to_md_core::markdown::sarif::generator::SarifMarkdownGenerator
 impl core::marker::Sync for sarif_to_md_core::markdown::sarif::generator::SarifMarkdownGenerator
 impl core::marker::Unpin for sarif_to_md_core::markdown::sarif::generator::SarifMarkdownGenerator
+impl core::marker::UnsafeUnpin for sarif_to_md_core::markdown::sarif::generator::SarifMarkdownGenerator
 impl core::panic::unwind_safe::RefUnwindSafe for sarif_to_md_core::markdown::sarif::generator::SarifMarkdownGenerator
 impl core::panic::unwind_safe::UnwindSafe for sarif_to_md_core::markdown::sarif::generator::SarifMarkdownGenerator
 impl<T, U> core::convert::Into<U> for sarif_to_md_core::markdown::sarif::generator::SarifMarkdownGenerator where U: core::convert::From<T>
@@ -183,6 +188,7 @@ impl core::marker::Freeze for sarif_to_md_core::markdown::MarkdownFormat
 impl core::marker::Send for sarif_to_md_core::markdown::MarkdownFormat
 impl core::marker::Sync for sarif_to_md_core::markdown::MarkdownFormat
 impl core::marker::Unpin for sarif_to_md_core::markdown::MarkdownFormat
+impl core::marker::UnsafeUnpin for sarif_to_md_core::markdown::MarkdownFormat
 impl core::panic::unwind_safe::RefUnwindSafe for sarif_to_md_core::markdown::MarkdownFormat
 impl core::panic::unwind_safe::UnwindSafe for sarif_to_md_core::markdown::MarkdownFormat
 impl<T, U> core::convert::Into<U> for sarif_to_md_core::markdown::MarkdownFormat where U: core::convert::From<T>
@@ -221,6 +227,7 @@ impl<G> core::marker::Freeze for sarif_to_md_core::ReportProcessor<G> where G: c
 impl<G> core::marker::Send for sarif_to_md_core::ReportProcessor<G> where G: core::marker::Send
 impl<G> core::marker::Sync for sarif_to_md_core::ReportProcessor<G> where G: core::marker::Sync
 impl<G> core::marker::Unpin for sarif_to_md_core::ReportProcessor<G> where G: core::marker::Unpin
+impl<G> core::marker::UnsafeUnpin for sarif_to_md_core::ReportProcessor<G> where G: core::marker::UnsafeUnpin
 impl<G> core::panic::unwind_safe::RefUnwindSafe for sarif_to_md_core::ReportProcessor<G> where G: core::panic::unwind_safe::RefUnwindSafe
 impl<G> core::panic::unwind_safe::UnwindSafe for sarif_to_md_core::ReportProcessor<G> where G: core::panic::unwind_safe::UnwindSafe
 impl<T, U> core::convert::Into<U> for sarif_to_md_core::ReportProcessor<G> where U: core::convert::From<T>
@@ -253,6 +260,7 @@ impl<G> core::marker::Freeze for sarif_to_md_core::ReportProcessorBuilder<G> whe
 impl<G> core::marker::Send for sarif_to_md_core::ReportProcessorBuilder<G> where G: core::marker::Send
 impl<G> core::marker::Sync for sarif_to_md_core::ReportProcessorBuilder<G> where G: core::marker::Sync
 impl<G> core::marker::Unpin for sarif_to_md_core::ReportProcessorBuilder<G> where G: core::marker::Unpin
+impl<G> core::marker::UnsafeUnpin for sarif_to_md_core::ReportProcessorBuilder<G> where G: core::marker::UnsafeUnpin
 impl<G> core::panic::unwind_safe::RefUnwindSafe for sarif_to_md_core::ReportProcessorBuilder<G> where G: core::panic::unwind_safe::RefUnwindSafe
 impl<G> core::panic::unwind_safe::UnwindSafe for sarif_to_md_core::ReportProcessorBuilder<G> where G: core::panic::unwind_safe::UnwindSafe
 impl<T, U> core::convert::Into<U> for sarif_to_md_core::ReportProcessorBuilder<G> where U: core::convert::From<T>
