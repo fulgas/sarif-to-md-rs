@@ -10,7 +10,7 @@ homepage = "https://github.com/fulgas/sarif-to-md-rs"
 keywords = ["sarif", "security", "vulnerability", "markdown", "reporting"]
 categories = ["command-line-utilities", "development-tools"]
 readme = "README.md"
-rust-version = "1.90"
+rust-version = "1.95"
 
 [package.metadata.docs.rs]
 rustdoc-args = ["--cfg", "docsrs"]

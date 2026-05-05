@@ -32,7 +32,7 @@ jobs:
           - os: ubuntu-latest
             rust-version: beta
           - os: ubuntu-latest
-            rust-version: 1.90.0  # MSRV
+            rust-version: 1.95.0  # MSRV
 
     steps:
       - name: Checkout sources
