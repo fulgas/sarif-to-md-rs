@@ -99,10 +99,10 @@ mod tests {
 
     #[rstest]
     fn public_api() -> Result<(), Box<dyn std::error::Error>> {
-        rustup_toolchain::install(public_api::MINIMUM_NIGHTLY_RUST_VERSION)?;
+        rustup_toolchain::install("nightly")?;
 
         let rustdoc_json = rustdoc_json::Builder::default()
-            .toolchain(public_api::MINIMUM_NIGHTLY_RUST_VERSION)
+            .toolchain("nightly")
             .build()?;
 
         let public_api = public_api::Builder::from_rustdoc_json(rustdoc_json).build()?;
