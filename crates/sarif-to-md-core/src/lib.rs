@@ -97,12 +97,14 @@ impl<G: MarkdownGenerator> ReportProcessorBuilder<G> {
 mod tests {
     use rstest::*;
 
+    const NIGHTLY: &str = "nightly-2026-04-01";
+
     #[rstest]
     fn public_api() -> Result<(), Box<dyn std::error::Error>> {
-        rustup_toolchain::install("nightly")?;
+        rustup_toolchain::install(NIGHTLY)?;
 
         let rustdoc_json = rustdoc_json::Builder::default()
-            .toolchain("nightly")
+            .toolchain(NIGHTLY)
             .build()?;
 
         let public_api = public_api::Builder::from_rustdoc_json(rustdoc_json).build()?;
