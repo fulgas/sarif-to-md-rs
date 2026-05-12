@@ -1,3 +1,13 @@
+## [1.3.3](https://github.com/fulgas/sarif-to-md-rs/compare/v1.3.2...v1.3.3) (2026-05-12)
+
+### Bug Fixes
+
+* **generator:** align template for GHFM ([97fd916](https://github.com/fulgas/sarif-to-md-rs/commit/97fd916f73be5158a26afcf1b28858fdf0acdda0))
+
+### Miscellaneous
+
+* **deps:** update github actions ([f445866](https://github.com/fulgas/sarif-to-md-rs/commit/f44586606d5065716ce477021480c9096e1defda))
+
 ## [1.3.2](https://github.com/fulgas/sarif-to-md-rs/compare/v1.3.1...v1.3.2) (2026-05-05)
 
 ### Bug Fixes
