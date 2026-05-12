@@ -21,12 +21,11 @@ SarifSamples v1.0
 **Message:**
 > Uninitialized variable.
 
-
 **Locations:**
-```
-`collections/list.h`:15
-```</details></details>
+- `collections/list.h`:15
+</details>
+</details>
 
 ---
 
-<sub>*Report generated on 2025-12-05 12:41:55 UTC*</sub>
+<sub>*Report generated on 2026-05-12 14:37:52 UTC*</sub>

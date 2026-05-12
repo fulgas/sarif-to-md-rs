@@ -21,11 +21,9 @@ SarifSamples v1.0
 **Message:**
 > Result 1: points to an artifact with an explicit encoding.
 
-
 **Locations:**
-```
-`explicit.txt`:2
-```</details>
+- `explicit.txt`:2
+</details>
 <details>
 <summary>
 🟠 - Warning [TUT1002]
@@ -36,12 +34,11 @@ SarifSamples v1.0
 **Message:**
 > Result 2: points to an artifact that inherits the run's default encoding.
 
-
 **Locations:**
-```
-`default.txt`:2
-```</details></details>
+- `default.txt`:2
+</details>
+</details>
 
 ---
 
-<sub>*Report generated on 2025-12-05 12:41:56 UTC*</sub>
+<sub>*Report generated on 2026-05-12 14:37:52 UTC*</sub>

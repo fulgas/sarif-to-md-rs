@@ -50,8 +50,9 @@ SarifSamples v1.0
 
 **Message:**
 > New result.
-</details></details>
+</details>
+</details>
 
 ---
 
-<sub>*Report generated on 2025-12-05 12:41:55 UTC*</sub>
+<sub>*Report generated on 2026-05-12 14:37:52 UTC*</sub>
