@@ -11,7 +11,9 @@
 ---
 
 ###  Detailed Results
+
 #### Error - TUT1001
+
 **Message:** No message
 
 **Description:** Properties defined with the 'uri' or 'uri-reference' format must contain valid URIs.
@@ -24,4 +26,4 @@
 
 ---
 
-*Report generated on 2025-12-05 12:41:58 UTC*
+*Report generated on 2026-05-12 14:37:19 UTC*

@@ -41,29 +41,34 @@
 </summary>
 
 #### Details
-{% else -%}
+{%- else %}
 #### {{ sm::format_severity(result.level, with_emoji) }} - {{ result.rule_id }}
 {%- endif %}
 
 {%- if is_gfm %}
+
 **Message:**
 > {{ result.message }}
-{% else %}
+{%- else %}
+
 **Message:** {{ result.message }}
-{% endif %}
+{%- endif %}
 
 {%- if let Some(metadata) = result.rule_metadata %}
 
 {%- if let Some(description) = metadata.description %}
 {%- if is_gfm %}
+
 **Description:**
 > {{ description }}
 {%- else %}
+
 **Description:** {{ description }}
 {%- endif %}
-{% endif %}
+{%- endif %}
 
 {%- if metadata.cwe_ids.len() > 0 %}
+
 **CWE IDs:**
 {%- for cwe in metadata.cwe_ids %}
 - `{{ cwe }}`
@@ -71,6 +76,7 @@
 {%- endif %}
 
 {%- if metadata.cve_ids.len() > 0 %}
+
 **CVE IDs:**
 {%- for cve in metadata.cve_ids %}
 - `{{ cve }}`
@@ -78,6 +84,7 @@
 {%- endif %}
 
 {%- if metadata.tags.len() > 0 %}
+
 **Tags:**
 {%- for tag in metadata.tags %}
 - `{{ tag }}`
@@ -85,6 +92,7 @@
 {%- endif %}
 
 {%- if let Some(help_uri) = metadata.help_uri %}
+
 **Documentation:** [View details]({{ help_uri }})
 {%- endif %}
 
@@ -93,58 +101,54 @@
 {%- if let Some(properties) = result.properties %}
 
 {%- if let Some(confidence) = properties.issue_confidence %}
+
 **Issue Confidence:** {{ confidence }}
 {%- endif %}
 
 {%- if let Some(precision) = properties.precision %}
+
 **Precision:** {{ precision }}
 {%- endif %}
 
 {%- if let Some(problem_severity) = properties.problem_severity %}
+
 **Problem Severity:** {{ problem_severity }}
 {%- endif %}
 
 {%- if properties.custom_fields.len() > 0 %}
+
 **Additional Properties:**
 {%- for (key, value) in properties.custom_fields %}
 - **{{ key }}:** {{ value }}
   {%- endfor %}
   {%- endif %}
-
 {%- endif %}
 
 {%- if result.locations.len() > 0 %}
 
 **Locations:**
-{%- if is_gfm %}
-```
-{%- for location in result.locations %}
-{{ sm::format_location(location) }}
-{%- endfor %}
-```
-{%- else %}
 {%- for location in result.locations %}
 - {{ sm::format_location(location) }}
-  {%- endfor %}
-  {%- endif %}
-  {%- endif %}
+{%- endfor %}
+{%- endif %}
 
-{%- if is_gfm -%}
+{%- if is_gfm %}
 </details>
 {%- endif %}
 {%- endfor %}
 
-{%- if is_gfm -%}
+{%- if is_gfm %}
 </details>
 {%- endif %}
 
 ---
-
 {%- endfor %}
 {%- endblock %}
 
-{% if is_gfm -%}
+{%- if is_gfm %}
+
 <sub>*Report generated on {{ timestamp }}*</sub>
-{%- else -%}
+{%- else %}
+
 *Report generated on {{ timestamp }}*
-{%- endif -%}
+{%- endif %}

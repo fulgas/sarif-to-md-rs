@@ -21,11 +21,9 @@ SarifSamples v1.0
 **Message:**
 > This result is an error according to the default rule configuration.
 
-
 **Locations:**
-```
-`file:///C:/code/myProject/io/kb.c`
-```</details>
+- `file:///C:/code/myProject/io/kb.c`
+</details>
 <details>
 <summary>
 🟠 - Warning [TUT1002]
@@ -36,12 +34,11 @@ SarifSamples v1.0
 **Message:**
 > This result is a warning according to the default rule configuration.
 
-
 **Locations:**
-```
-`file:///C:/code/myProject/io/file.c`
-```</details></details>
+- `file:///C:/code/myProject/io/file.c`
+</details>
+</details>
 
 ---
 
-<sub>*Report generated on 2025-12-05 12:41:57 UTC*</sub>
+<sub>*Report generated on 2026-05-12 14:37:52 UTC*</sub>

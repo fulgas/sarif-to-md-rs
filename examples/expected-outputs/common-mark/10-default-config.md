@@ -11,19 +11,21 @@
 ---
 
 ###  Detailed Results
-#### Warning - TUT1001
-**Message:** This result is an error according to the default rule configuration.
 
+#### Warning - TUT1001
+
+**Message:** This result is an error according to the default rule configuration.
 
 **Locations:**
 - `file:///C:/code/myProject/io/kb.c`
-#### Warning - TUT1002
-**Message:** This result is a warning according to the default rule configuration.
 
+#### Warning - TUT1002
+
+**Message:** This result is a warning according to the default rule configuration.
 
 **Locations:**
 - `file:///C:/code/myProject/io/file.c`
 
 ---
 
-*Report generated on 2025-12-05 12:42:01 UTC*
+*Report generated on 2026-05-12 14:37:19 UTC*

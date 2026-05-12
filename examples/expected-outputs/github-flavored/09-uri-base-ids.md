@@ -21,11 +21,9 @@ SarifSamples v1.0
 **Message:**
 > A result outside the source tree.
 
-
 **Locations:**
-```
-`README.md`
-```</details>
+- `README.md`
+</details>
 <details>
 <summary>
 🟠 - Warning [TUT1002]
@@ -36,11 +34,9 @@ SarifSamples v1.0
 **Message:**
 > A result in a source file.
 
-
 **Locations:**
-```
-`io/kb.c`
-```</details>
+- `io/kb.c`
+</details>
 <details>
 <summary>
 🟠 - Warning [TUT1003]
@@ -51,12 +47,11 @@ SarifSamples v1.0
 **Message:**
 > A result in a directory, for instance, 'This repo does not contain a LICENSE file.'.
 
-
 **Locations:**
-```
-`.`
-```</details></details>
+- `.`
+</details>
+</details>
 
 ---
 
-<sub>*Report generated on 2025-12-05 12:41:56 UTC*</sub>
+<sub>*Report generated on 2026-05-12 14:37:52 UTC*</sub>

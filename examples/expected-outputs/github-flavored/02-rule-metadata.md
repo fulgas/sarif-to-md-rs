@@ -28,10 +28,10 @@ SarifSamples v1.0
 - **comment:** The ruleIndex property points into the array tool.driver.rules.
 
 **Locations:**
-```
-`test.json`:15:8
-```</details></details>
+- `test.json`:15:8
+</details>
+</details>
 
 ---
 
-<sub>*Report generated on 2025-12-05 12:41:53 UTC*</sub>
+<sub>*Report generated on 2026-05-12 14:37:52 UTC*</sub>
