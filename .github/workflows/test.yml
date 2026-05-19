@@ -50,13 +50,13 @@ jobs:
           key: ${{ matrix.rust-version }}-nextest
 
       - name: Install cargo-nextest
-        uses: taiki-e/install-action@fa0dd4cd0a40696e6f9766370614a5ce482e6aa8 # v2
+        uses: taiki-e/install-action@213ccc1a076163c093f914550b94feb90fab916d # v2
         with:
           tool: cargo-nextest
 
       - name: Install cargo-llvm-cov
         if: matrix.coverage
-        uses: taiki-e/install-action@fa0dd4cd0a40696e6f9766370614a5ce482e6aa8 # v2
+        uses: taiki-e/install-action@213ccc1a076163c093f914550b94feb90fab916d # v2
         with:
           tool: cargo-llvm-cov
 
@@ -75,7 +75,7 @@ jobs:
 
       - name: Upload coverage to Codecov
         if: matrix.coverage
-        uses: codecov/codecov-action@57e3a136b779b570ffcdbf80b3bdc90e7fab3de2 # v6
+        uses: codecov/codecov-action@e79a6962e0d4c0c17b229090214935d2e33f8354 # v6
         with:
           files: cobertura.xml
           fail_ci_if_error: false
