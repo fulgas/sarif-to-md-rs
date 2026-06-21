@@ -107,7 +107,7 @@ jobs:
 
       - name: Install cross
         if: matrix.use_cross
-        uses: taiki-e/install-action@903f26e8b95aae0a27e09ef88bbd23ace6415d8e # cross
+        uses: taiki-e/install-action@b8ee98f5c9fdce9140f37a77bf1cbec54e672235 # cross
 
       - name: Install target
         run: rustup target add ${{ matrix.target }}
@@ -179,7 +179,7 @@ jobs:
           private-key: ${{ secrets.APP_PRIVATE_KEY }}
 
       - name: Publish release with binaries
-        uses: softprops/action-gh-release@b4309332981a82ec1c5618f44dd2e27cc8bfbfda # v3.0.0
+        uses: softprops/action-gh-release@718ea10b132b3b2eba29c1007bb80653f286566b # v3.0.1
         with:
           token: ${{ steps.app_token.outputs.token }}
           tag_name: v${{ needs.release.outputs.new_release_version }}
