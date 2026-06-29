@@ -33,5 +33,5 @@ predicates = "=3.1.4"
 tempfile = "=3.27.0"
 rstest = "=0.26.1"
 anyhow = "=1.0.103"
-regex = "=1.12.3"
+regex = "=1.12.4"
 criterion = { version = "=0.8.2", features = ["html_reports"] }
