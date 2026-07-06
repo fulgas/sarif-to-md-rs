@@ -982,9 +982,9 @@ dependencies = [
 
 [[package]]
 name = "rustdoc-json"
-version = "0.9.9"
+version = "0.9.10"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "fb043802e453091b5cbf79b8e6a3ff4c3ae4487d2ccf6c38842bff19865eb7c9"
+checksum = "a9b2c5783825e93b4e3df439f1f98b8803f5912b2c2ce396a4c70eac909e558c"
 dependencies = [
  "cargo-manifest",
  "cargo_metadata",
