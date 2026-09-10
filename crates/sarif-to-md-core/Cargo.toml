@@ -20,19 +20,19 @@ name = "sarif_to_md_core"
 path = "src/lib.rs"
 
 [dependencies]
-anyhow = "1.0.100"
-serde = { version = "1.0.228", features = ["derive", "default"] }
-serde_json = "1.0.145"
+anyhow = "1.0.104"
+serde = { version = "1.0.229", features = ["derive", "default"] }
+serde_json = "1.0.151"
 serde-sarif = {  version = "0.8.0", features = ["anyhow"] }
-askama = { version = "0.16.0"}
-chrono = "0.4.42"
-thiserror = "2.0.17"
+askama = { version = "0.16.1"}
+chrono = "0.4.45"
+thiserror = "2.0.20"
 
 [dev-dependencies]
 tempfile = "=3.27.0"
-rstest = "=0.26.1"
+rstest = "=0.27.0"
 anyhow = "=1.0.104"
 rustup-toolchain = "=0.1.10"
 rustdoc-json = "=0.9.10"
-public-api = "=0.51.0"
+public-api = "=0.52.1"
 insta = "=1.48.0"

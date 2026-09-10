@@ -8,9 +8,9 @@ pub enum sarif_to_md_core::error::BuilderError
 pub sarif_to_md_core::error::BuilderError::MissingContent
 impl core::error::Error for sarif_to_md_core::error::BuilderError
 impl core::fmt::Debug for sarif_to_md_core::error::BuilderError
-pub fn sarif_to_md_core::error::BuilderError::fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result
+pub fn sarif_to_md_core::error::BuilderError::fmt(&self, &mut core::fmt::Formatter<'_>) -> core::fmt::Result
 impl core::fmt::Display for sarif_to_md_core::error::BuilderError
-pub fn sarif_to_md_core::error::BuilderError::fmt(&self, __formatter: &mut core::fmt::Formatter<'_>) -> core::fmt::Result
+pub fn sarif_to_md_core::error::BuilderError::fmt(&self, &mut core::fmt::Formatter<'_>) -> core::fmt::Result
 impl core::marker::Freeze for sarif_to_md_core::error::BuilderError
 impl core::marker::Send for sarif_to_md_core::error::BuilderError
 impl core::marker::Sync for sarif_to_md_core::error::BuilderError
@@ -22,7 +22,7 @@ impl<T, U> core::convert::Into<U> for sarif_to_md_core::error::BuilderError wher
 pub fn sarif_to_md_core::error::BuilderError::into(self) -> U
 impl<T, U> core::convert::TryFrom<U> for sarif_to_md_core::error::BuilderError where U: core::convert::Into<T>
 pub type sarif_to_md_core::error::BuilderError::Error = core::convert::Infallible
-pub fn sarif_to_md_core::error::BuilderError::try_from(value: U) -> core::result::Result<T, <T as core::convert::TryFrom<U>>::Error>
+pub fn sarif_to_md_core::error::BuilderError::try_from(U) -> core::result::Result<T, <T as core::convert::TryFrom<U>>::Error>
 impl<T, U> core::convert::TryInto<U> for sarif_to_md_core::error::BuilderError where U: core::convert::TryFrom<T>
 pub type sarif_to_md_core::error::BuilderError::Error = <U as core::convert::TryFrom<T>>::Error
 pub fn sarif_to_md_core::error::BuilderError::try_into(self) -> core::result::Result<U, <U as core::convert::TryFrom<T>>::Error>
@@ -35,23 +35,23 @@ pub fn sarif_to_md_core::error::BuilderError::borrow(&self) -> &T
 impl<T> core::borrow::BorrowMut<T> for sarif_to_md_core::error::BuilderError where T: ?core::marker::Sized
 pub fn sarif_to_md_core::error::BuilderError::borrow_mut(&mut self) -> &mut T
 impl<T> core::convert::From<T> for sarif_to_md_core::error::BuilderError
-pub fn sarif_to_md_core::error::BuilderError::from(t: T) -> T
+pub fn sarif_to_md_core::error::BuilderError::from(T) -> T
 pub enum sarif_to_md_core::error::Error
 pub sarif_to_md_core::error::Error::GeneratorError(sarif_to_md_core::error::GeneratorError)
 pub sarif_to_md_core::error::Error::IoError(std::io::error::Error)
 pub sarif_to_md_core::error::Error::JsonError(serde_json::error::Error)
 impl core::convert::From<sarif_to_md_core::error::GeneratorError> for sarif_to_md_core::error::Error
-pub fn sarif_to_md_core::error::Error::from(source: sarif_to_md_core::error::GeneratorError) -> Self
+pub fn sarif_to_md_core::error::Error::from(sarif_to_md_core::error::GeneratorError) -> Self
 impl core::convert::From<serde_json::error::Error> for sarif_to_md_core::error::Error
-pub fn sarif_to_md_core::error::Error::from(source: serde_json::error::Error) -> Self
+pub fn sarif_to_md_core::error::Error::from(serde_json::error::Error) -> Self
 impl core::convert::From<std::io::error::Error> for sarif_to_md_core::error::Error
-pub fn sarif_to_md_core::error::Error::from(source: std::io::error::Error) -> Self
+pub fn sarif_to_md_core::error::Error::from(std::io::error::Error) -> Self
 impl core::error::Error for sarif_to_md_core::error::Error
 pub fn sarif_to_md_core::error::Error::source(&self) -> core::option::Option<&(dyn core::error::Error + 'static)>
 impl core::fmt::Debug for sarif_to_md_core::error::Error
-pub fn sarif_to_md_core::error::Error::fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result
+pub fn sarif_to_md_core::error::Error::fmt(&self, &mut core::fmt::Formatter<'_>) -> core::fmt::Result
 impl core::fmt::Display for sarif_to_md_core::error::Error
-pub fn sarif_to_md_core::error::Error::fmt(&self, __formatter: &mut core::fmt::Formatter<'_>) -> core::fmt::Result
+pub fn sarif_to_md_core::error::Error::fmt(&self, &mut core::fmt::Formatter<'_>) -> core::fmt::Result
 impl core::marker::Freeze for sarif_to_md_core::error::Error
 impl core::marker::Send for sarif_to_md_core::error::Error
 impl core::marker::Sync for sarif_to_md_core::error::Error
@@ -63,7 +63,7 @@ impl<T, U> core::convert::Into<U> for sarif_to_md_core::error::Error where U: co
 pub fn sarif_to_md_core::error::Error::into(self) -> U
 impl<T, U> core::convert::TryFrom<U> for sarif_to_md_core::error::Error where U: core::convert::Into<T>
 pub type sarif_to_md_core::error::Error::Error = core::convert::Infallible
-pub fn sarif_to_md_core::error::Error::try_from(value: U) -> core::result::Result<T, <T as core::convert::TryFrom<U>>::Error>
+pub fn sarif_to_md_core::error::Error::try_from(U) -> core::result::Result<T, <T as core::convert::TryFrom<U>>::Error>
 impl<T, U> core::convert::TryInto<U> for sarif_to_md_core::error::Error where U: core::convert::TryFrom<T>
 pub type sarif_to_md_core::error::Error::Error = <U as core::convert::TryFrom<T>>::Error
 pub fn sarif_to_md_core::error::Error::try_into(self) -> core::result::Result<U, <U as core::convert::TryFrom<T>>::Error>
@@ -76,19 +76,19 @@ pub fn sarif_to_md_core::error::Error::borrow(&self) -> &T
 impl<T> core::borrow::BorrowMut<T> for sarif_to_md_core::error::Error where T: ?core::marker::Sized
 pub fn sarif_to_md_core::error::Error::borrow_mut(&mut self) -> &mut T
 impl<T> core::convert::From<T> for sarif_to_md_core::error::Error
-pub fn sarif_to_md_core::error::Error::from(t: T) -> T
+pub fn sarif_to_md_core::error::Error::from(T) -> T
 pub enum sarif_to_md_core::error::GeneratorError
 pub sarif_to_md_core::error::GeneratorError::TemplateError(askama::error::Error)
 impl core::convert::From<askama::error::Error> for sarif_to_md_core::error::GeneratorError
-pub fn sarif_to_md_core::error::GeneratorError::from(source: askama::error::Error) -> Self
+pub fn sarif_to_md_core::error::GeneratorError::from(askama::error::Error) -> Self
 impl core::convert::From<sarif_to_md_core::error::GeneratorError> for sarif_to_md_core::error::Error
-pub fn sarif_to_md_core::error::Error::from(source: sarif_to_md_core::error::GeneratorError) -> Self
+pub fn sarif_to_md_core::error::Error::from(sarif_to_md_core::error::GeneratorError) -> Self
 impl core::error::Error for sarif_to_md_core::error::GeneratorError
 pub fn sarif_to_md_core::error::GeneratorError::source(&self) -> core::option::Option<&(dyn core::error::Error + 'static)>
 impl core::fmt::Debug for sarif_to_md_core::error::GeneratorError
-pub fn sarif_to_md_core::error::GeneratorError::fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result
+pub fn sarif_to_md_core::error::GeneratorError::fmt(&self, &mut core::fmt::Formatter<'_>) -> core::fmt::Result
 impl core::fmt::Display for sarif_to_md_core::error::GeneratorError
-pub fn sarif_to_md_core::error::GeneratorError::fmt(&self, __formatter: &mut core::fmt::Formatter<'_>) -> core::fmt::Result
+pub fn sarif_to_md_core::error::GeneratorError::fmt(&self, &mut core::fmt::Formatter<'_>) -> core::fmt::Result
 impl core::marker::Freeze for sarif_to_md_core::error::GeneratorError
 impl core::marker::Send for sarif_to_md_core::error::GeneratorError
 impl core::marker::Sync for sarif_to_md_core::error::GeneratorError
@@ -100,7 +100,7 @@ impl<T, U> core::convert::Into<U> for sarif_to_md_core::error::GeneratorError wh
 pub fn sarif_to_md_core::error::GeneratorError::into(self) -> U
 impl<T, U> core::convert::TryFrom<U> for sarif_to_md_core::error::GeneratorError where U: core::convert::Into<T>
 pub type sarif_to_md_core::error::GeneratorError::Error = core::convert::Infallible
-pub fn sarif_to_md_core::error::GeneratorError::try_from(value: U) -> core::result::Result<T, <T as core::convert::TryFrom<U>>::Error>
+pub fn sarif_to_md_core::error::GeneratorError::try_from(U) -> core::result::Result<T, <T as core::convert::TryFrom<U>>::Error>
 impl<T, U> core::convert::TryInto<U> for sarif_to_md_core::error::GeneratorError where U: core::convert::TryFrom<T>
 pub type sarif_to_md_core::error::GeneratorError::Error = <U as core::convert::TryFrom<T>>::Error
 pub fn sarif_to_md_core::error::GeneratorError::try_into(self) -> core::result::Result<U, <U as core::convert::TryFrom<T>>::Error>
@@ -113,14 +113,14 @@ pub fn sarif_to_md_core::error::GeneratorError::borrow(&self) -> &T
 impl<T> core::borrow::BorrowMut<T> for sarif_to_md_core::error::GeneratorError where T: ?core::marker::Sized
 pub fn sarif_to_md_core::error::GeneratorError::borrow_mut(&mut self) -> &mut T
 impl<T> core::convert::From<T> for sarif_to_md_core::error::GeneratorError
-pub fn sarif_to_md_core::error::GeneratorError::from(t: T) -> T
+pub fn sarif_to_md_core::error::GeneratorError::from(T) -> T
 pub mod sarif_to_md_core::generators
 pub struct sarif_to_md_core::generators::SarifMarkdownGenerator
 impl sarif_to_md_core::markdown::sarif::generator::SarifMarkdownGenerator
-pub fn sarif_to_md_core::markdown::sarif::generator::SarifMarkdownGenerator::new(markdown_format: sarif_to_md_core::markdown::MarkdownFormat, with_emoji: bool) -> Self
+pub fn sarif_to_md_core::markdown::sarif::generator::SarifMarkdownGenerator::new(sarif_to_md_core::markdown::MarkdownFormat, bool) -> Self
 impl sarif_to_md_core::markdown::MarkdownGenerator for sarif_to_md_core::markdown::sarif::generator::SarifMarkdownGenerator
 pub type sarif_to_md_core::markdown::sarif::generator::SarifMarkdownGenerator::Input = serde_sarif::sarif::Sarif
-pub fn sarif_to_md_core::markdown::sarif::generator::SarifMarkdownGenerator::generate_markdown_template(&self, sarif: &Self::Input) -> core::result::Result<alloc::string::String, sarif_to_md_core::error::GeneratorError>
+pub fn sarif_to_md_core::markdown::sarif::generator::SarifMarkdownGenerator::generate_markdown_template(&self, &Self::Input) -> core::result::Result<alloc::string::String, sarif_to_md_core::error::GeneratorError>
 impl core::marker::Freeze for sarif_to_md_core::markdown::sarif::generator::SarifMarkdownGenerator
 impl core::marker::Send for sarif_to_md_core::markdown::sarif::generator::SarifMarkdownGenerator
 impl core::marker::Sync for sarif_to_md_core::markdown::sarif::generator::SarifMarkdownGenerator
@@ -132,7 +132,7 @@ impl<T, U> core::convert::Into<U> for sarif_to_md_core::markdown::sarif::generat
 pub fn sarif_to_md_core::markdown::sarif::generator::SarifMarkdownGenerator::into(self) -> U
 impl<T, U> core::convert::TryFrom<U> for sarif_to_md_core::markdown::sarif::generator::SarifMarkdownGenerator where U: core::convert::Into<T>
 pub type sarif_to_md_core::markdown::sarif::generator::SarifMarkdownGenerator::Error = core::convert::Infallible
-pub fn sarif_to_md_core::markdown::sarif::generator::SarifMarkdownGenerator::try_from(value: U) -> core::result::Result<T, <T as core::convert::TryFrom<U>>::Error>
+pub fn sarif_to_md_core::markdown::sarif::generator::SarifMarkdownGenerator::try_from(U) -> core::result::Result<T, <T as core::convert::TryFrom<U>>::Error>
 impl<T, U> core::convert::TryInto<U> for sarif_to_md_core::markdown::sarif::generator::SarifMarkdownGenerator where U: core::convert::TryFrom<T>
 pub type sarif_to_md_core::markdown::sarif::generator::SarifMarkdownGenerator::Error = <U as core::convert::TryFrom<T>>::Error
 pub fn sarif_to_md_core::markdown::sarif::generator::SarifMarkdownGenerator::try_into(self) -> core::result::Result<U, <U as core::convert::TryFrom<T>>::Error>
@@ -143,16 +143,16 @@ pub fn sarif_to_md_core::markdown::sarif::generator::SarifMarkdownGenerator::bor
 impl<T> core::borrow::BorrowMut<T> for sarif_to_md_core::markdown::sarif::generator::SarifMarkdownGenerator where T: ?core::marker::Sized
 pub fn sarif_to_md_core::markdown::sarif::generator::SarifMarkdownGenerator::borrow_mut(&mut self) -> &mut T
 impl<T> core::convert::From<T> for sarif_to_md_core::markdown::sarif::generator::SarifMarkdownGenerator
-pub fn sarif_to_md_core::markdown::sarif::generator::SarifMarkdownGenerator::from(t: T) -> T
+pub fn sarif_to_md_core::markdown::sarif::generator::SarifMarkdownGenerator::from(T) -> T
 pub mod sarif_to_md_core::markdown
 pub mod sarif_to_md_core::markdown::sarif
 pub mod sarif_to_md_core::markdown::sarif::generator
 pub struct sarif_to_md_core::markdown::sarif::generator::SarifMarkdownGenerator
 impl sarif_to_md_core::markdown::sarif::generator::SarifMarkdownGenerator
-pub fn sarif_to_md_core::markdown::sarif::generator::SarifMarkdownGenerator::new(markdown_format: sarif_to_md_core::markdown::MarkdownFormat, with_emoji: bool) -> Self
+pub fn sarif_to_md_core::markdown::sarif::generator::SarifMarkdownGenerator::new(sarif_to_md_core::markdown::MarkdownFormat, bool) -> Self
 impl sarif_to_md_core::markdown::MarkdownGenerator for sarif_to_md_core::markdown::sarif::generator::SarifMarkdownGenerator
 pub type sarif_to_md_core::markdown::sarif::generator::SarifMarkdownGenerator::Input = serde_sarif::sarif::Sarif
-pub fn sarif_to_md_core::markdown::sarif::generator::SarifMarkdownGenerator::generate_markdown_template(&self, sarif: &Self::Input) -> core::result::Result<alloc::string::String, sarif_to_md_core::error::GeneratorError>
+pub fn sarif_to_md_core::markdown::sarif::generator::SarifMarkdownGenerator::generate_markdown_template(&self, &Self::Input) -> core::result::Result<alloc::string::String, sarif_to_md_core::error::GeneratorError>
 impl core::marker::Freeze for sarif_to_md_core::markdown::sarif::generator::SarifMarkdownGenerator
 impl core::marker::Send for sarif_to_md_core::markdown::sarif::generator::SarifMarkdownGenerator
 impl core::marker::Sync for sarif_to_md_core::markdown::sarif::generator::SarifMarkdownGenerator
@@ -164,7 +164,7 @@ impl<T, U> core::convert::Into<U> for sarif_to_md_core::markdown::sarif::generat
 pub fn sarif_to_md_core::markdown::sarif::generator::SarifMarkdownGenerator::into(self) -> U
 impl<T, U> core::convert::TryFrom<U> for sarif_to_md_core::markdown::sarif::generator::SarifMarkdownGenerator where U: core::convert::Into<T>
 pub type sarif_to_md_core::markdown::sarif::generator::SarifMarkdownGenerator::Error = core::convert::Infallible
-pub fn sarif_to_md_core::markdown::sarif::generator::SarifMarkdownGenerator::try_from(value: U) -> core::result::Result<T, <T as core::convert::TryFrom<U>>::Error>
+pub fn sarif_to_md_core::markdown::sarif::generator::SarifMarkdownGenerator::try_from(U) -> core::result::Result<T, <T as core::convert::TryFrom<U>>::Error>
 impl<T, U> core::convert::TryInto<U> for sarif_to_md_core::markdown::sarif::generator::SarifMarkdownGenerator where U: core::convert::TryFrom<T>
 pub type sarif_to_md_core::markdown::sarif::generator::SarifMarkdownGenerator::Error = <U as core::convert::TryFrom<T>>::Error
 pub fn sarif_to_md_core::markdown::sarif::generator::SarifMarkdownGenerator::try_into(self) -> core::result::Result<U, <U as core::convert::TryFrom<T>>::Error>
@@ -175,14 +175,14 @@ pub fn sarif_to_md_core::markdown::sarif::generator::SarifMarkdownGenerator::bor
 impl<T> core::borrow::BorrowMut<T> for sarif_to_md_core::markdown::sarif::generator::SarifMarkdownGenerator where T: ?core::marker::Sized
 pub fn sarif_to_md_core::markdown::sarif::generator::SarifMarkdownGenerator::borrow_mut(&mut self) -> &mut T
 impl<T> core::convert::From<T> for sarif_to_md_core::markdown::sarif::generator::SarifMarkdownGenerator
-pub fn sarif_to_md_core::markdown::sarif::generator::SarifMarkdownGenerator::from(t: T) -> T
+pub fn sarif_to_md_core::markdown::sarif::generator::SarifMarkdownGenerator::from(T) -> T
 pub enum sarif_to_md_core::markdown::MarkdownFormat
 pub sarif_to_md_core::markdown::MarkdownFormat::CommonMark
 pub sarif_to_md_core::markdown::MarkdownFormat::GitHubFlavored
 impl core::clone::Clone for sarif_to_md_core::markdown::MarkdownFormat
 pub fn sarif_to_md_core::markdown::MarkdownFormat::clone(&self) -> sarif_to_md_core::markdown::MarkdownFormat
 impl core::fmt::Debug for sarif_to_md_core::markdown::MarkdownFormat
-pub fn sarif_to_md_core::markdown::MarkdownFormat::fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result
+pub fn sarif_to_md_core::markdown::MarkdownFormat::fmt(&self, &mut core::fmt::Formatter<'_>) -> core::fmt::Result
 impl core::marker::Copy for sarif_to_md_core::markdown::MarkdownFormat
 impl core::marker::Freeze for sarif_to_md_core::markdown::MarkdownFormat
 impl core::marker::Send for sarif_to_md_core::markdown::MarkdownFormat
@@ -195,13 +195,13 @@ impl<T, U> core::convert::Into<U> for sarif_to_md_core::markdown::MarkdownFormat
 pub fn sarif_to_md_core::markdown::MarkdownFormat::into(self) -> U
 impl<T, U> core::convert::TryFrom<U> for sarif_to_md_core::markdown::MarkdownFormat where U: core::convert::Into<T>
 pub type sarif_to_md_core::markdown::MarkdownFormat::Error = core::convert::Infallible
-pub fn sarif_to_md_core::markdown::MarkdownFormat::try_from(value: U) -> core::result::Result<T, <T as core::convert::TryFrom<U>>::Error>
+pub fn sarif_to_md_core::markdown::MarkdownFormat::try_from(U) -> core::result::Result<T, <T as core::convert::TryFrom<U>>::Error>
 impl<T, U> core::convert::TryInto<U> for sarif_to_md_core::markdown::MarkdownFormat where U: core::convert::TryFrom<T>
 pub type sarif_to_md_core::markdown::MarkdownFormat::Error = <U as core::convert::TryFrom<T>>::Error
 pub fn sarif_to_md_core::markdown::MarkdownFormat::try_into(self) -> core::result::Result<U, <U as core::convert::TryFrom<T>>::Error>
 impl<T> alloc::borrow::ToOwned for sarif_to_md_core::markdown::MarkdownFormat where T: core::clone::Clone
 pub type sarif_to_md_core::markdown::MarkdownFormat::Owned = T
-pub fn sarif_to_md_core::markdown::MarkdownFormat::clone_into(&self, target: &mut T)
+pub fn sarif_to_md_core::markdown::MarkdownFormat::clone_into(&self, &mut T)
 pub fn sarif_to_md_core::markdown::MarkdownFormat::to_owned(&self) -> T
 impl<T> core::any::Any for sarif_to_md_core::markdown::MarkdownFormat where T: 'static + ?core::marker::Sized
 pub fn sarif_to_md_core::markdown::MarkdownFormat::type_id(&self) -> core::any::TypeId
@@ -210,19 +210,19 @@ pub fn sarif_to_md_core::markdown::MarkdownFormat::borrow(&self) -> &T
 impl<T> core::borrow::BorrowMut<T> for sarif_to_md_core::markdown::MarkdownFormat where T: ?core::marker::Sized
 pub fn sarif_to_md_core::markdown::MarkdownFormat::borrow_mut(&mut self) -> &mut T
 impl<T> core::clone::CloneToUninit for sarif_to_md_core::markdown::MarkdownFormat where T: core::clone::Clone
-pub unsafe fn sarif_to_md_core::markdown::MarkdownFormat::clone_to_uninit(&self, dest: *mut u8)
+pub unsafe fn sarif_to_md_core::markdown::MarkdownFormat::clone_to_uninit(&self, *mut u8)
 impl<T> core::convert::From<T> for sarif_to_md_core::markdown::MarkdownFormat
-pub fn sarif_to_md_core::markdown::MarkdownFormat::from(t: T) -> T
+pub fn sarif_to_md_core::markdown::MarkdownFormat::from(T) -> T
 pub trait sarif_to_md_core::markdown::MarkdownGenerator
 pub type sarif_to_md_core::markdown::MarkdownGenerator::Input: serde_core::de::DeserializeOwned
-pub fn sarif_to_md_core::markdown::MarkdownGenerator::generate_markdown_template(&self, report: &Self::Input) -> core::result::Result<alloc::string::String, sarif_to_md_core::error::GeneratorError>
+pub fn sarif_to_md_core::markdown::MarkdownGenerator::generate_markdown_template(&self, &Self::Input) -> core::result::Result<alloc::string::String, sarif_to_md_core::error::GeneratorError>
 impl sarif_to_md_core::markdown::MarkdownGenerator for sarif_to_md_core::markdown::sarif::generator::SarifMarkdownGenerator
 pub type sarif_to_md_core::markdown::sarif::generator::SarifMarkdownGenerator::Input = serde_sarif::sarif::Sarif
-pub fn sarif_to_md_core::markdown::sarif::generator::SarifMarkdownGenerator::generate_markdown_template(&self, sarif: &Self::Input) -> core::result::Result<alloc::string::String, sarif_to_md_core::error::GeneratorError>
+pub fn sarif_to_md_core::markdown::sarif::generator::SarifMarkdownGenerator::generate_markdown_template(&self, &Self::Input) -> core::result::Result<alloc::string::String, sarif_to_md_core::error::GeneratorError>
 pub struct sarif_to_md_core::ReportProcessor<G: sarif_to_md_core::markdown::MarkdownGenerator>
 impl<G: sarif_to_md_core::markdown::MarkdownGenerator> sarif_to_md_core::ReportProcessor<G>
 pub fn sarif_to_md_core::ReportProcessor<G>::generate(self) -> core::result::Result<alloc::string::String, sarif_to_md_core::error::Error>
-pub fn sarif_to_md_core::ReportProcessor<G>::new(generator: G, content: alloc::string::String) -> Self
+pub fn sarif_to_md_core::ReportProcessor<G>::new(G, alloc::string::String) -> Self
 impl<G> core::marker::Freeze for sarif_to_md_core::ReportProcessor<G> where G: core::marker::Freeze
 impl<G> core::marker::Send for sarif_to_md_core::ReportProcessor<G> where G: core::marker::Send
 impl<G> core::marker::Sync for sarif_to_md_core::ReportProcessor<G> where G: core::marker::Sync
@@ -234,7 +234,7 @@ impl<T, U> core::convert::Into<U> for sarif_to_md_core::ReportProcessor<G> where
 pub fn sarif_to_md_core::ReportProcessor<G>::into(self) -> U
 impl<T, U> core::convert::TryFrom<U> for sarif_to_md_core::ReportProcessor<G> where U: core::convert::Into<T>
 pub type sarif_to_md_core::ReportProcessor<G>::Error = core::convert::Infallible
-pub fn sarif_to_md_core::ReportProcessor<G>::try_from(value: U) -> core::result::Result<T, <T as core::convert::TryFrom<U>>::Error>
+pub fn sarif_to_md_core::ReportProcessor<G>::try_from(U) -> core::result::Result<T, <T as core::convert::TryFrom<U>>::Error>
 impl<T, U> core::convert::TryInto<U> for sarif_to_md_core::ReportProcessor<G> where U: core::convert::TryFrom<T>
 pub type sarif_to_md_core::ReportProcessor<G>::Error = <U as core::convert::TryFrom<T>>::Error
 pub fn sarif_to_md_core::ReportProcessor<G>::try_into(self) -> core::result::Result<U, <U as core::convert::TryFrom<T>>::Error>
@@ -245,15 +245,15 @@ pub fn sarif_to_md_core::ReportProcessor<G>::borrow(&self) -> &T
 impl<T> core::borrow::BorrowMut<T> for sarif_to_md_core::ReportProcessor<G> where T: ?core::marker::Sized
 pub fn sarif_to_md_core::ReportProcessor<G>::borrow_mut(&mut self) -> &mut T
 impl<T> core::convert::From<T> for sarif_to_md_core::ReportProcessor<G>
-pub fn sarif_to_md_core::ReportProcessor<G>::from(t: T) -> T
+pub fn sarif_to_md_core::ReportProcessor<G>::from(T) -> T
 pub struct sarif_to_md_core::ReportProcessorBuilder<G>
 impl sarif_to_md_core::ReportProcessorBuilder<()>
-pub fn sarif_to_md_core::ReportProcessorBuilder<()>::generator<G: sarif_to_md_core::markdown::MarkdownGenerator>(self, generator: G) -> sarif_to_md_core::ReportProcessorBuilder<G>
+pub fn sarif_to_md_core::ReportProcessorBuilder<()>::generator<G: sarif_to_md_core::markdown::MarkdownGenerator>(self, G) -> sarif_to_md_core::ReportProcessorBuilder<G>
 impl sarif_to_md_core::ReportProcessorBuilder<()>
 pub fn sarif_to_md_core::ReportProcessorBuilder<()>::new() -> Self
 impl<G: sarif_to_md_core::markdown::MarkdownGenerator> sarif_to_md_core::ReportProcessorBuilder<G>
 pub fn sarif_to_md_core::ReportProcessorBuilder<G>::build(self) -> core::result::Result<sarif_to_md_core::ReportProcessor<G>, sarif_to_md_core::error::BuilderError>
-pub fn sarif_to_md_core::ReportProcessorBuilder<G>::content(self, content: alloc::string::String) -> Self
+pub fn sarif_to_md_core::ReportProcessorBuilder<G>::content(self, alloc::string::String) -> Self
 impl core::default::Default for sarif_to_md_core::ReportProcessorBuilder<()>
 pub fn sarif_to_md_core::ReportProcessorBuilder<()>::default() -> Self
 impl<G> core::marker::Freeze for sarif_to_md_core::ReportProcessorBuilder<G> where G: core::marker::Freeze
@@ -267,7 +267,7 @@ impl<T, U> core::convert::Into<U> for sarif_to_md_core::ReportProcessorBuilder<G
 pub fn sarif_to_md_core::ReportProcessorBuilder<G>::into(self) -> U
 impl<T, U> core::convert::TryFrom<U> for sarif_to_md_core::ReportProcessorBuilder<G> where U: core::convert::Into<T>
 pub type sarif_to_md_core::ReportProcessorBuilder<G>::Error = core::convert::Infallible
-pub fn sarif_to_md_core::ReportProcessorBuilder<G>::try_from(value: U) -> core::result::Result<T, <T as core::convert::TryFrom<U>>::Error>
+pub fn sarif_to_md_core::ReportProcessorBuilder<G>::try_from(U) -> core::result::Result<T, <T as core::convert::TryFrom<U>>::Error>
 impl<T, U> core::convert::TryInto<U> for sarif_to_md_core::ReportProcessorBuilder<G> where U: core::convert::TryFrom<T>
 pub type sarif_to_md_core::ReportProcessorBuilder<G>::Error = <U as core::convert::TryFrom<T>>::Error
 pub fn sarif_to_md_core::ReportProcessorBuilder<G>::try_into(self) -> core::result::Result<U, <U as core::convert::TryFrom<T>>::Error>
@@ -278,4 +278,4 @@ pub fn sarif_to_md_core::ReportProcessorBuilder<G>::borrow(&self) -> &T
 impl<T> core::borrow::BorrowMut<T> for sarif_to_md_core::ReportProcessorBuilder<G> where T: ?core::marker::Sized
 pub fn sarif_to_md_core::ReportProcessorBuilder<G>::borrow_mut(&mut self) -> &mut T
 impl<T> core::convert::From<T> for sarif_to_md_core::ReportProcessorBuilder<G>
-pub fn sarif_to_md_core::ReportProcessorBuilder<G>::from(t: T) -> T
+pub fn sarif_to_md_core::ReportProcessorBuilder<G>::from(T) -> T

@@ -23,15 +23,15 @@ name = "benchmarks"
 harness = false
 
 [dependencies]
-clap = { version = "4.5.51", features = ["derive"] }
-anyhow = "1.0.100"
+clap = { version = "4.6.6", features = ["derive"] }
+anyhow = "1.0.104"
 sarif-to-md-core = { version = "1.4.0", path = "../sarif-to-md-core" }
 
 [dev-dependencies]
 assert_cmd = "=2.2.2"
 predicates = "=3.1.4"
 tempfile = "=3.27.0"
-rstest = "=0.26.1"
+rstest = "=0.27.0"
 anyhow = "=1.0.104"
-regex = "=1.12.4"
+regex = "=1.13.1"
 criterion = { version = "=0.8.2", features = ["html_reports"] }
