@@ -51,6 +51,7 @@ jobs:
             @semantic-release/changelog
             @semantic-release/git
             @semantic-release/github
+            conventional-changelog-conventionalcommits@9
             semantic-release-replace-plugin
 
   build:
