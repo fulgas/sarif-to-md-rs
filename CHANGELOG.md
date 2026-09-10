@@ -1,3 +1,26 @@
+## [1.4.1](https://github.com/fulgas/sarif-to-md-rs/compare/v1.4.0...v1.4.1) (2026-09-10)
+
+### Bug Fixes
+
+* **deps:** update dependencies ([aea2622](https://github.com/fulgas/sarif-to-md-rs/commit/aea26221677b7b0ee5b3ea11aa1c3810c8f3376b))
+
+### Miscellaneous
+
+* **deps:** lock file maintenance ([b3566fb](https://github.com/fulgas/sarif-to-md-rs/commit/b3566fb9fa1069ecdecfbf38b12ef1a6578d27c2))
+* **deps:** update github actions ([a851bf6](https://github.com/fulgas/sarif-to-md-rs/commit/a851bf673829c61c97e51c487863612ef405f57b))
+* **deps:** update github actions ([3585c52](https://github.com/fulgas/sarif-to-md-rs/commit/3585c5237dd7648c28dd747b6dffad79c97bcb9e))
+* **deps:** update github actions ([ae9f835](https://github.com/fulgas/sarif-to-md-rs/commit/ae9f835cee204774c003b711a74f2ae56532d4be))
+* **deps:** update github actions ([044e7e6](https://github.com/fulgas/sarif-to-md-rs/commit/044e7e6234a699ff0b6e848eaf502afff05bdaf5))
+* **deps:** update rust crate anyhow to v1.0.103 ([910ae52](https://github.com/fulgas/sarif-to-md-rs/commit/910ae5293ba183e9c461c450de4bfee32aba58e5))
+* **deps:** update rust crate anyhow to v1.0.104 ([5edacbc](https://github.com/fulgas/sarif-to-md-rs/commit/5edacbc039ba5502b6ef20c22f5382daf05e8d66))
+* **deps:** update rust crate clap to v4.6.6 ([6cf5296](https://github.com/fulgas/sarif-to-md-rs/commit/6cf5296eb9b98e74769ca2dc353f22089fd4eaa0))
+* **deps:** update rust crate insta to v1.48.0 ([d46628f](https://github.com/fulgas/sarif-to-md-rs/commit/d46628f8af56e06ae13abb130232de72364684c6))
+* **deps:** update rust crate regex to v1.12.4 ([618403a](https://github.com/fulgas/sarif-to-md-rs/commit/618403a7b9a8e5c2cae1d691ea9305b49ca5ad91))
+* **deps:** update rust crate rustdoc-json to v0.9.10 ([a6fd16d](https://github.com/fulgas/sarif-to-md-rs/commit/a6fd16dcacc5042e51ceecc2000360cbd83e4ccb))
+* **deps:** update rust crate thiserror to v2.0.20 ([940dced](https://github.com/fulgas/sarif-to-md-rs/commit/940dced6940564de51410e310b8f53de6e580588))
+* update semantic release dependencies ([9a41507](https://github.com/fulgas/sarif-to-md-rs/commit/9a4150783bf30b3ecbd5c1027dc390672e4917fe))
+* use version 9 of conventional commits ([3141090](https://github.com/fulgas/sarif-to-md-rs/commit/3141090fed7e10b2080c18522cce8d708ff1d9d0))
+
 ## [1.4.0](https://github.com/fulgas/sarif-to-md-rs/compare/v1.3.3...v1.4.0) (2026-06-23)
 
 ### Features
