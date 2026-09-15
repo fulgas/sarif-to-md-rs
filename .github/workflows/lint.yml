@@ -64,7 +64,7 @@ jobs:
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
 
       - name: Lint markdown files
-        uses: reviewdog/action-markdownlint@8a6529a4b8ffbb3193a55a255bedd31989a67fc2 # v0.29.0
+        uses: reviewdog/action-markdownlint@d7862f0a8dbbee78e016f527260747a4f2bb2a64 # v0.30.0
         with:
           github_token: ${{ github.token }}
           markdownlint_flags: 'examples/expected-outputs/**/*.md'

@@ -107,7 +107,7 @@ jobs:
 
       - name: Install cross
         if: matrix.use_cross
-        uses: taiki-e/install-action@ece28a32f963c771852fb93994c89a8e0f016ea6 # cross
+        uses: taiki-e/install-action@709fafbb81dd47b244226207dfc2b2f87bab2152 # cross
 
       - name: Install target
         run: rustup target add ${{ matrix.target }}
