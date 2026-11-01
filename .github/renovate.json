@@ -5,7 +5,7 @@
   ],
   "prConcurrentLimit": 3,
   "schedule": [
-    "before 6am on monday"
+    "* 0-5 1,15 * *"
   ],
   "separateMajorMinor": true,
   "packageRules": [
@@ -73,7 +73,7 @@
     "enabled": true,
     "automerge": true,
     "schedule": [
-      "before 6am on the first day of the month"
+      "* 0-5 1,15 * *"
     ]
   }
 }
