@@ -5,7 +5,8 @@ SarifSamples v1.0
 
 | Severity | Count |
 |----------|------:
-| 🟠 - Warning | 2 |
+| 🔴 - Error | 1 |
+| 🟠 - Warning | 1 |
 | **Total** | **2** |
 
 ---
@@ -13,7 +14,7 @@ SarifSamples v1.0
 ### 🐛 Detailed Results
 <details>
 <summary>
-🟠 - Warning [TUT1001]
+🔴 - Error [TUT1001]
 </summary>
 
 #### Details
@@ -41,4 +42,4 @@ SarifSamples v1.0
 
 ---
 
-<sub>*Report generated on 2026-05-12 14:37:52 UTC*</sub>
+<sub>*Report generated on 2026-11-24 15:10:13 UTC*</sub>

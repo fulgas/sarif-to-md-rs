@@ -545,3 +545,59 @@ fn test_include_suppressed_marks_them(suppressions_sarif: String) -> Result<()> 
     assert_eq!(result.matches("(suppressed)").count(), 3);
     Ok(())
 }
+
+#[rstest]
+fn test_result_level_falls_back_to_rule_default_configuration() -> Result<()> {
+    // A: level from defaultConfiguration via ruleIndex; B: default "none";
+    // C: kind "pass" without level is "none"; D: an explicit level wins;
+    // E: no level and no rule default is "warning".
+    let sarif = r#"{"version":"2.1.0","runs":[{"tool":{"driver":{"name":"t","rules":[
+        {"id":"A","defaultConfiguration":{"level":"error"}},
+        {"id":"B","defaultConfiguration":{"level":"none"}}]}},
+      "results":[
+        {"ruleId":"A","ruleIndex":0,"message":{"text":"a"}},
+        {"ruleId":"B","ruleIndex":1,"message":{"text":"b"}},
+        {"ruleId":"A","ruleIndex":0,"kind":"pass","message":{"text":"c"}},
+        {"ruleId":"A","ruleIndex":0,"level":"note","message":{"text":"d"}},
+        {"ruleId":"Z","message":{"text":"e"}}]}]}"#;
+
+    let result = ReportProcessor::new(
+        SarifMarkdownGenerator::new(MarkdownFormat::CommonMark, false),
+        sarif.to_string(),
+    )
+    .generate()?;
+
+    assert!(result.contains("| Error | 1 |"), "{result}");
+    assert!(result.contains("| Warning | 1 |"), "{result}");
+    assert!(result.contains("| Note | 1 |"), "{result}");
+    assert!(result.contains("| None | 2 |"), "{result}");
+    Ok(())
+}
+
+#[rstest]
+fn test_rule_lookup_via_rule_reference_and_explicit_levels() -> Result<()> {
+    // Results locate their rule through `rule.index` or `rule.id` (no ruleId/ruleIndex),
+    // carry explicit warning/none levels, or reference no rule at all.
+    let sarif = r#"{"version":"2.1.0","runs":[{"tool":{"driver":{"name":"t","rules":[
+        {"id":"R0","name":"ByIndex","defaultConfiguration":{"level":"error"}},
+        {"id":"R1","name":"ById","defaultConfiguration":{"level":"note"}}]}},
+      "results":[
+        {"rule":{"index":0},"message":{"text":"by rule.index"}},
+        {"rule":{"id":"R1"},"message":{"text":"by rule.id"}},
+        {"ruleId":"R0","level":"warning","message":{"text":"explicit warning"}},
+        {"ruleId":"R0","level":"none","message":{"text":"explicit none"}},
+        {"message":{"text":"no rule"}}]}]}"#;
+
+    let result = ReportProcessor::new(
+        SarifMarkdownGenerator::new(MarkdownFormat::CommonMark, false),
+        sarif.to_string(),
+    )
+    .generate()?;
+
+    assert!(result.contains("#### Error - R0"), "{result}");
+    assert!(result.contains("#### Note - R1"), "{result}");
+    assert!(result.contains("| Warning | 2 |"), "{result}");
+    assert!(result.contains("| None | 1 |"), "{result}");
+    assert!(result.contains("#### Warning - unknown"), "{result}");
+    Ok(())
+}
