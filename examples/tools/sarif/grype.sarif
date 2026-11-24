@@ -1,0 +1,341 @@
+{
+  "version": "2.1.0",
+  "$schema": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/errata01/os/schemas/sarif-schema-2.1.0.json",
+  "runs": [
+    {
+      "tool": {
+        "driver": {
+          "name": "grype",
+          "version": "0.118.0",
+          "informationUri": "https://github.com/anchore/grype",
+          "rules": [
+            {
+              "id": "GHSA-8q59-q68h-6hv4-pyyaml",
+              "name": "PythonMatcherExactDirectMatch",
+              "shortDescription": {
+                "text": "GHSA-8q59-q68h-6hv4 critical vulnerability for pyyaml package"
+              },
+              "fullDescription": {
+                "text": "Improper Input Validation in PyYAML"
+              },
+              "helpUri": "https://github.com/advisories/GHSA-8q59-q68h-6hv4",
+              "help": {
+                "text": "Vulnerability GHSA-8q59-q68h-6hv4\nSeverity: critical\nPackage: pyyaml\nVersion: 5.3\nFix Version: 5.4\nType: python\nLocation: /requirements.txt\nData Namespace: github:language:python\nLink: [GHSA-8q59-q68h-6hv4](https://github.com/advisories/GHSA-8q59-q68h-6hv4)",
+                "markdown": "**Vulnerability GHSA-8q59-q68h-6hv4**\n| Severity | Package | Version | Fix Version | Type | Location | Data Namespace | Link |\n| --- | --- | --- | --- | --- | --- | --- | --- |\n| critical  | pyyaml  | 5.3  | 5.4  | python  | /requirements.txt  | github:language:python  | [GHSA-8q59-q68h-6hv4](https://github.com/advisories/GHSA-8q59-q68h-6hv4)  |\n"
+              },
+              "properties": {
+                "purls": [
+                  "pkg:pypi/pyyaml@5.3"
+                ],
+                "security-severity": "9.8"
+              }
+            },
+            {
+              "id": "GHSA-x84v-xcm2-53pg-requests",
+              "name": "PythonMatcherExactDirectMatch",
+              "shortDescription": {
+                "text": "GHSA-x84v-xcm2-53pg high vulnerability for requests package"
+              },
+              "fullDescription": {
+                "text": "Insufficiently Protected Credentials in Requests"
+              },
+              "helpUri": "https://github.com/advisories/GHSA-x84v-xcm2-53pg",
+              "help": {
+                "text": "Vulnerability GHSA-x84v-xcm2-53pg\nSeverity: high\nPackage: requests\nVersion: 2.19.0\nFix Version: 2.20.0\nType: python\nLocation: /requirements.txt\nData Namespace: github:language:python\nLink: [GHSA-x84v-xcm2-53pg](https://github.com/advisories/GHSA-x84v-xcm2-53pg)",
+                "markdown": "**Vulnerability GHSA-x84v-xcm2-53pg**\n| Severity | Package | Version | Fix Version | Type | Location | Data Namespace | Link |\n| --- | --- | --- | --- | --- | --- | --- | --- |\n| high  | requests  | 2.19.0  | 2.20.0  | python  | /requirements.txt  | github:language:python  | [GHSA-x84v-xcm2-53pg](https://github.com/advisories/GHSA-x84v-xcm2-53pg)  |\n"
+              },
+              "properties": {
+                "purls": [
+                  "pkg:pypi/requests@2.19.0"
+                ],
+                "security-severity": "7.5"
+              }
+            },
+            {
+              "id": "GHSA-6757-jp84-gxfx-pyyaml",
+              "name": "PythonMatcherExactDirectMatch",
+              "shortDescription": {
+                "text": "GHSA-6757-jp84-gxfx critical vulnerability for pyyaml package"
+              },
+              "fullDescription": {
+                "text": "Improper Input Validation in PyYAML"
+              },
+              "helpUri": "https://github.com/advisories/GHSA-6757-jp84-gxfx",
+              "help": {
+                "text": "Vulnerability GHSA-6757-jp84-gxfx\nSeverity: critical\nPackage: pyyaml\nVersion: 5.3\nFix Version: 5.3.1\nType: python\nLocation: /requirements.txt\nData Namespace: github:language:python\nLink: [GHSA-6757-jp84-gxfx](https://github.com/advisories/GHSA-6757-jp84-gxfx)",
+                "markdown": "**Vulnerability GHSA-6757-jp84-gxfx**\n| Severity | Package | Version | Fix Version | Type | Location | Data Namespace | Link |\n| --- | --- | --- | --- | --- | --- | --- | --- |\n| critical  | pyyaml  | 5.3  | 5.3.1  | python  | /requirements.txt  | github:language:python  | [GHSA-6757-jp84-gxfx](https://github.com/advisories/GHSA-6757-jp84-gxfx)  |\n"
+              },
+              "properties": {
+                "purls": [
+                  "pkg:pypi/pyyaml@5.3"
+                ],
+                "security-severity": "9.8"
+              }
+            },
+            {
+              "id": "GHSA-j8r2-6x86-q33q-requests",
+              "name": "PythonMatcherExactDirectMatch",
+              "shortDescription": {
+                "text": "GHSA-j8r2-6x86-q33q medium vulnerability for requests package"
+              },
+              "fullDescription": {
+                "text": "Unintended leak of Proxy-Authorization header in requests"
+              },
+              "helpUri": "https://github.com/advisories/GHSA-j8r2-6x86-q33q",
+              "help": {
+                "text": "Vulnerability GHSA-j8r2-6x86-q33q\nSeverity: medium\nPackage: requests\nVersion: 2.19.0\nFix Version: 2.31.0\nType: python\nLocation: /requirements.txt\nData Namespace: github:language:python\nLink: [GHSA-j8r2-6x86-q33q](https://github.com/advisories/GHSA-j8r2-6x86-q33q)",
+                "markdown": "**Vulnerability GHSA-j8r2-6x86-q33q**\n| Severity | Package | Version | Fix Version | Type | Location | Data Namespace | Link |\n| --- | --- | --- | --- | --- | --- | --- | --- |\n| medium  | requests  | 2.19.0  | 2.31.0  | python  | /requirements.txt  | github:language:python  | [GHSA-j8r2-6x86-q33q](https://github.com/advisories/GHSA-j8r2-6x86-q33q)  |\n"
+              },
+              "properties": {
+                "purls": [
+                  "pkg:pypi/requests@2.19.0"
+                ],
+                "security-severity": "6.1"
+              }
+            },
+            {
+              "id": "GHSA-9hjg-9r4m-mvj7-requests",
+              "name": "PythonMatcherExactDirectMatch",
+              "shortDescription": {
+                "text": "GHSA-9hjg-9r4m-mvj7 medium vulnerability for requests package"
+              },
+              "fullDescription": {
+                "text": "Requests vulnerable to .netrc credentials leak via malicious URLs"
+              },
+              "helpUri": "https://github.com/advisories/GHSA-9hjg-9r4m-mvj7",
+              "help": {
+                "text": "Vulnerability GHSA-9hjg-9r4m-mvj7\nSeverity: medium\nPackage: requests\nVersion: 2.19.0\nFix Version: 2.32.4\nType: python\nLocation: /requirements.txt\nData Namespace: github:language:python\nLink: [GHSA-9hjg-9r4m-mvj7](https://github.com/advisories/GHSA-9hjg-9r4m-mvj7)",
+                "markdown": "**Vulnerability GHSA-9hjg-9r4m-mvj7**\n| Severity | Package | Version | Fix Version | Type | Location | Data Namespace | Link |\n| --- | --- | --- | --- | --- | --- | --- | --- |\n| medium  | requests  | 2.19.0  | 2.32.4  | python  | /requirements.txt  | github:language:python  | [GHSA-9hjg-9r4m-mvj7](https://github.com/advisories/GHSA-9hjg-9r4m-mvj7)  |\n"
+              },
+              "properties": {
+                "purls": [
+                  "pkg:pypi/requests@2.19.0"
+                ],
+                "security-severity": "5.3"
+              }
+            },
+            {
+              "id": "GHSA-9wx4-h78v-vm56-requests",
+              "name": "PythonMatcherExactDirectMatch",
+              "shortDescription": {
+                "text": "GHSA-9wx4-h78v-vm56 medium vulnerability for requests package"
+              },
+              "fullDescription": {
+                "text": "Requests `Session` object does not verify requests after making first request with verify=False"
+              },
+              "helpUri": "https://github.com/advisories/GHSA-9wx4-h78v-vm56",
+              "help": {
+                "text": "Vulnerability GHSA-9wx4-h78v-vm56\nSeverity: medium\nPackage: requests\nVersion: 2.19.0\nFix Version: 2.32.0\nType: python\nLocation: /requirements.txt\nData Namespace: github:language:python\nLink: [GHSA-9wx4-h78v-vm56](https://github.com/advisories/GHSA-9wx4-h78v-vm56)",
+                "markdown": "**Vulnerability GHSA-9wx4-h78v-vm56**\n| Severity | Package | Version | Fix Version | Type | Location | Data Namespace | Link |\n| --- | --- | --- | --- | --- | --- | --- | --- |\n| medium  | requests  | 2.19.0  | 2.32.0  | python  | /requirements.txt  | github:language:python  | [GHSA-9wx4-h78v-vm56](https://github.com/advisories/GHSA-9wx4-h78v-vm56)  |\n"
+              },
+              "properties": {
+                "purls": [
+                  "pkg:pypi/requests@2.19.0"
+                ],
+                "security-severity": "5.6"
+              }
+            },
+            {
+              "id": "GHSA-gc5v-m9x4-r6x2-requests",
+              "name": "PythonMatcherExactDirectMatch",
+              "shortDescription": {
+                "text": "GHSA-gc5v-m9x4-r6x2 medium vulnerability for requests package"
+              },
+              "fullDescription": {
+                "text": "Requests has Insecure Temp File Reuse in its extract_zipped_paths() utility function"
+              },
+              "helpUri": "https://github.com/advisories/GHSA-gc5v-m9x4-r6x2",
+              "help": {
+                "text": "Vulnerability GHSA-gc5v-m9x4-r6x2\nSeverity: medium\nPackage: requests\nVersion: 2.19.0\nFix Version: 2.33.0\nType: python\nLocation: /requirements.txt\nData Namespace: github:language:python\nLink: [GHSA-gc5v-m9x4-r6x2](https://github.com/advisories/GHSA-gc5v-m9x4-r6x2)",
+                "markdown": "**Vulnerability GHSA-gc5v-m9x4-r6x2**\n| Severity | Package | Version | Fix Version | Type | Location | Data Namespace | Link |\n| --- | --- | --- | --- | --- | --- | --- | --- |\n| medium  | requests  | 2.19.0  | 2.33.0  | python  | /requirements.txt  | github:language:python  | [GHSA-gc5v-m9x4-r6x2](https://github.com/advisories/GHSA-gc5v-m9x4-r6x2)  |\n"
+              },
+              "properties": {
+                "purls": [
+                  "pkg:pypi/requests@2.19.0"
+                ],
+                "security-severity": "4.4"
+              }
+            }
+          ]
+        }
+      },
+      "results": [
+        {
+          "ruleId": "GHSA-8q59-q68h-6hv4-pyyaml",
+          "level": "error",
+          "message": {
+            "text": "A critical vulnerability in python package: pyyaml, version 5.3 was found at: /requirements.txt"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/requirements.txt"
+                },
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
+                }
+              }
+            }
+          ],
+          "partialFingerprints": {
+            "primaryLocationLineHash": "340a60e673af89ed323181191baf022d00e34cc2fbee71a2a920c874209c7bc0:1"
+          }
+        },
+        {
+          "ruleId": "GHSA-x84v-xcm2-53pg-requests",
+          "level": "error",
+          "message": {
+            "text": "A high vulnerability in python package: requests, version 2.19.0 was found at: /requirements.txt"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/requirements.txt"
+                },
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
+                }
+              }
+            }
+          ],
+          "partialFingerprints": {
+            "primaryLocationLineHash": "2446daec2f6579ceade5573b186f2bcecf868b6ea6b90c4c03684637c9e9e948:1"
+          }
+        },
+        {
+          "ruleId": "GHSA-6757-jp84-gxfx-pyyaml",
+          "level": "error",
+          "message": {
+            "text": "A critical vulnerability in python package: pyyaml, version 5.3 was found at: /requirements.txt"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/requirements.txt"
+                },
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
+                }
+              }
+            }
+          ],
+          "partialFingerprints": {
+            "primaryLocationLineHash": "340a60e673af89ed323181191baf022d00e34cc2fbee71a2a920c874209c7bc0:1"
+          }
+        },
+        {
+          "ruleId": "GHSA-j8r2-6x86-q33q-requests",
+          "level": "warning",
+          "message": {
+            "text": "A medium vulnerability in python package: requests, version 2.19.0 was found at: /requirements.txt"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/requirements.txt"
+                },
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
+                }
+              }
+            }
+          ],
+          "partialFingerprints": {
+            "primaryLocationLineHash": "2446daec2f6579ceade5573b186f2bcecf868b6ea6b90c4c03684637c9e9e948:1"
+          }
+        },
+        {
+          "ruleId": "GHSA-9hjg-9r4m-mvj7-requests",
+          "level": "warning",
+          "message": {
+            "text": "A medium vulnerability in python package: requests, version 2.19.0 was found at: /requirements.txt"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/requirements.txt"
+                },
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
+                }
+              }
+            }
+          ],
+          "partialFingerprints": {
+            "primaryLocationLineHash": "2446daec2f6579ceade5573b186f2bcecf868b6ea6b90c4c03684637c9e9e948:1"
+          }
+        },
+        {
+          "ruleId": "GHSA-9wx4-h78v-vm56-requests",
+          "level": "warning",
+          "message": {
+            "text": "A medium vulnerability in python package: requests, version 2.19.0 was found at: /requirements.txt"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/requirements.txt"
+                },
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
+                }
+              }
+            }
+          ],
+          "partialFingerprints": {
+            "primaryLocationLineHash": "2446daec2f6579ceade5573b186f2bcecf868b6ea6b90c4c03684637c9e9e948:1"
+          }
+        },
+        {
+          "ruleId": "GHSA-gc5v-m9x4-r6x2-requests",
+          "level": "warning",
+          "message": {
+            "text": "A medium vulnerability in python package: requests, version 2.19.0 was found at: /requirements.txt"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/requirements.txt"
+                },
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
+                }
+              }
+            }
+          ],
+          "partialFingerprints": {
+            "primaryLocationLineHash": "2446daec2f6579ceade5573b186f2bcecf868b6ea6b90c4c03684637c9e9e948:1"
+          }
+        }
+      ]
+    }
+  ]
+}
