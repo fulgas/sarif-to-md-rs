@@ -488,3 +488,20 @@ fn test_api_stability_constructor_signatures() {
     let _builder = ReportProcessorBuilder::new();
     let _default_builder = ReportProcessorBuilder::default();
 }
+
+#[rstest]
+#[case("v2.1.20")]
+#[case("2.1.20")]
+fn test_tool_version_single_v_prefix(#[case] version: &str) -> Result<()> {
+    let sarif = format!(
+        r#"{{"version":"2.1.0","runs":[{{"tool":{{"driver":{{"name":"KICS","version":"{version}"}}}},"results":[]}}]}}"#
+    );
+    for format in [MarkdownFormat::CommonMark, MarkdownFormat::GitHubFlavored] {
+        let result =
+            ReportProcessor::new(SarifMarkdownGenerator::new(format, false), sarif.clone())
+                .generate()?;
+        assert!(result.contains("KICS v2.1.20"), "{result}");
+        assert!(!result.contains("vv2.1.20"));
+    }
+    Ok(())
+}

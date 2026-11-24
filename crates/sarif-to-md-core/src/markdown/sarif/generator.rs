@@ -50,7 +50,13 @@ impl SarifMarkdownGenerator {
             .iter()
             .map(|run| {
                 let tool_name = run.tool.driver.name.clone();
-                let tool_version = run.tool.driver.version.clone();
+                // Template prefixes "v"; strip one already present (KICS emits "v2.1.20").
+                let tool_version = run
+                    .tool
+                    .driver
+                    .version
+                    .as_deref()
+                    .map(|v| v.strip_prefix(['v', 'V']).unwrap_or(v).to_string());
 
                 let mut rules_map = HashMap::new();
                 if let Some(rules) = &run.tool.driver.rules {
