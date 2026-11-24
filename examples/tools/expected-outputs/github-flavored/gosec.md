@@ -192,8 +192,7 @@ gosec vdev
 **Locations:**
 - `main.go`:22:2
 </details>
-</details>
 
 ---
 
-<sub>*Report generated on 2026-11-24 15:30:20 UTC*</sub>
+<sub>*Report generated on 2026-11-24 15:53:43 UTC*</sub>

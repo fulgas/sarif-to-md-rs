@@ -37,8 +37,7 @@ SarifSamples v1.0
 **Locations:**
 - `default.txt`:2
 </details>
-</details>
 
 ---
 
-<sub>*Report generated on 2026-05-12 14:37:52 UTC*</sub>
+<sub>*Report generated on 2026-11-24 15:53:38 UTC*</sub>

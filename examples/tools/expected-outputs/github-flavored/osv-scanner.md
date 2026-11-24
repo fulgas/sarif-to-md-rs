@@ -779,8 +779,7 @@ osv-scanner v2.7.1
 **Locations:**
 - `file:///src/requirements.txt`
 </details>
-</details>
 
 ---
 
-<sub>*Report generated on 2026-11-24 15:30:29 UTC*</sub>
+<sub>*Report generated on 2026-11-24 15:53:46 UTC*</sub>

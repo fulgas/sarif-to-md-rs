@@ -138,8 +138,7 @@ grype v0.118.0
 **Locations:**
 - `/requirements.txt`:1:1
 </details>
-</details>
 
 ---
 
-<sub>*Report generated on 2026-11-24 15:30:22 UTC*</sub>
+<sub>*Report generated on 2026-11-24 15:53:43 UTC*</sub>

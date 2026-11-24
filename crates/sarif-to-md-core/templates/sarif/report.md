@@ -147,10 +147,6 @@
 {%- endif %}
 {%- endfor %}
 
-{%- if is_gfm %}
-</details>
-{%- endif %}
-
 ---
 {%- endfor %}
 {%- endblock %}

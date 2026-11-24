@@ -24,8 +24,7 @@ SarifSamples v1.0
 **Locations:**
 - `collections/list.h`:25:8
 </details>
-</details>
 
 ---
 
-<sub>*Report generated on 2026-05-12 14:37:52 UTC*</sub>
+<sub>*Report generated on 2026-11-24 15:53:35 UTC*</sub>

@@ -247,8 +247,7 @@ defsec
 **Locations:**
 - `main.tf`:1
 </details>
-</details>
 
 ---
 
-<sub>*Report generated on 2026-11-24 15:30:35 UTC*</sub>
+<sub>*Report generated on 2026-11-24 15:53:48 UTC*</sub>

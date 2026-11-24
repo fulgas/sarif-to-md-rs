@@ -38,8 +38,7 @@ SarifSamples v1.0
 **Locations:**
 - `file:///C:/code/myProject/io/file.c`
 </details>
-</details>
 
 ---
 
-<sub>*Report generated on 2026-11-24 15:10:13 UTC*</sub>
+<sub>*Report generated on 2026-11-24 15:53:40 UTC*</sub>

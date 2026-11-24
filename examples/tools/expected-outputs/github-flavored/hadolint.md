@@ -104,8 +104,7 @@ Hadolint v2.14.0
 **Locations:**
 - `Dockerfile`:6:1
 </details>
-</details>
 
 ---
 
-<sub>*Report generated on 2026-11-24 15:30:24 UTC*</sub>
+<sub>*Report generated on 2026-11-24 15:53:44 UTC*</sub>

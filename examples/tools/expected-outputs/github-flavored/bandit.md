@@ -113,8 +113,7 @@ Bandit
 **Locations:**
 - `app.py`:20
 </details>
-</details>
 
 ---
 
-<sub>*Report generated on 2026-11-24 15:30:15 UTC*</sub>
+<sub>*Report generated on 2026-11-24 15:53:41 UTC*</sub>

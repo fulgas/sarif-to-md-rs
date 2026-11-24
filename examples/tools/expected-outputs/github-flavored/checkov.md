@@ -461,8 +461,7 @@ Checkov v3.2.490
 **Locations:**
 - `Dockerfile`:1
 </details>
-</details>
 
 ---
 
-<sub>*Report generated on 2026-11-24 15:30:17 UTC*</sub>
+<sub>*Report generated on 2026-11-24 15:53:41 UTC*</sub>

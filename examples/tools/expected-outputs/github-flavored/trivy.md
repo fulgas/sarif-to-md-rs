@@ -1245,8 +1245,7 @@ Trivy v0.67.2
 **Locations:**
 - `main.tf`:1:1
 </details>
-</details>
 
 ---
 
-<sub>*Report generated on 2026-11-24 15:30:37 UTC*</sub>
+<sub>*Report generated on 2026-11-24 15:53:48 UTC*</sub>
