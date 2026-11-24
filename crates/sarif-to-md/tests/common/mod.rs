@@ -16,8 +16,6 @@ pub fn load_expected_output(name: &str, format: &str) -> Result<String> {
 pub fn normalize_markdown(content: &str) -> String {
     content
         .lines()
-        // The footer carries the generation time, which differs on every run.
-        .filter(|line| !line.contains("Report generated on"))
         .map(|line| line.trim_end())
         .collect::<Vec<_>>()
         .join("\n")

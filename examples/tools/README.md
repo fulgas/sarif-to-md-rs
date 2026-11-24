@@ -41,8 +41,8 @@ Snyk runs only after `snyk auth`. After regenerating, refresh the expected outpu
 ```bash
 for f in examples/tools/sarif/*.sarif; do
   t=$(basename "$f" .sarif)
-  cargo run -q -p sarif-to-md -- -i "$f" -o "examples/tools/expected-outputs/common-mark/$t.md"
-  cargo run -q -p sarif-to-md -- -i "$f" -f github-flavored -e \
+  SOURCE_DATE_EPOCH=0 cargo run -q -p sarif-to-md -- -i "$f" -o "examples/tools/expected-outputs/common-mark/$t.md"
+  SOURCE_DATE_EPOCH=0 cargo run -q -p sarif-to-md -- -i "$f" -f github-flavored -e \
     -o "examples/tools/expected-outputs/github-flavored/$t.md"
 done
 ```

@@ -5,12 +5,14 @@ use crate::markdown::sarif::types::{
 use crate::markdown::{GeneratorError, MarkdownFormat, MarkdownGenerator};
 use askama::Template;
 use std::collections::{BTreeMap, HashMap};
+use std::time::SystemTime;
 
 /// Generator for converting SARIF reports to Markdown format.
 pub struct SarifMarkdownGenerator {
     markdown_format: MarkdownFormat,
     with_emoji: bool,
     include_suppressed: bool,
+    generated_at: Option<SystemTime>,
 }
 
 impl SarifMarkdownGenerator {
@@ -20,6 +22,7 @@ impl SarifMarkdownGenerator {
             markdown_format,
             with_emoji,
             include_suppressed: false,
+            generated_at: None,
         }
     }
 
@@ -32,6 +35,15 @@ impl SarifMarkdownGenerator {
         self.include_suppressed = include_suppressed;
         self
     }
+
+    /// Show `time` in the "Report generated on" footer instead of the current time,
+    /// so the same input always gives the same output (for example from
+    /// `SOURCE_DATE_EPOCH`). Times outside years -9999..=9999 are clamped to that range.
+    #[must_use]
+    pub fn generated_at(mut self, time: SystemTime) -> Self {
+        self.generated_at = Some(time);
+        self
+    }
 }
 
 impl MarkdownGenerator for SarifMarkdownGenerator {
@@ -39,9 +51,18 @@ impl MarkdownGenerator for SarifMarkdownGenerator {
 
     fn generate_markdown_template(&self, sarif: &Self::Input) -> Result<String, GeneratorError> {
         let runs = self.convert_sarif_to_view(sarif);
-        let timestamp = jiff::Timestamp::now()
-            .strftime("%Y-%m-%d %H:%M:%S UTC")
-            .to_string();
+        let timestamp = match self.generated_at {
+            None => jiff::Timestamp::now(),
+            Some(time) => jiff::Timestamp::try_from(time).unwrap_or_else(|_| {
+                if time < SystemTime::UNIX_EPOCH {
+                    jiff::Timestamp::MIN
+                } else {
+                    jiff::Timestamp::MAX
+                }
+            }),
+        }
+        .strftime("%Y-%m-%d %H:%M:%S UTC")
+        .to_string();
 
         let is_gfm = matches!(self.markdown_format, MarkdownFormat::GitHubFlavored);
 
