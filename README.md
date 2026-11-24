@@ -2,7 +2,6 @@
 
 [![Release](https://github.com/fulgas/sarif-to-md-rs/actions/workflows/release.yml/badge.svg)](https://github.com/fulgas/sarif-to-md-rs/actions/workflows/release.yml)
 [![Crates.io](https://img.shields.io/crates/v/sarif-to-md.svg)](https://crates.io/crates/sarif-to-md)
-[![License](https://img.shields.io/badge/license-MIT%2FApache--2.0-blue.svg)](LICENSE-MIT)
 [![Rust Version](https://img.shields.io/badge/rust-1.95%2B-blue.svg)](https://www.rust-lang.org)
 
 A high-performance Rust library and CLI tool for converting SARIF (Static Analysis Results Interchange Format) security reports into human-readable Markdown documentation.
