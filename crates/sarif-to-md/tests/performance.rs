@@ -11,7 +11,10 @@ fn test_performance_smoke_test() -> Result<()> {
 
     Command::cargo_bin("sarif-to-md")?
         .arg("-i")
-        .arg("examples/sarif-files/08-embedded-content.sarif") // Largest example
+        .arg(concat!(
+            env!("CARGO_MANIFEST_DIR"),
+            "/../../examples/sarif-files/08-embedded-content.sarif"
+        )) // Largest example
         .arg("-o")
         .arg(&output)
         .assert()
@@ -36,7 +39,13 @@ fn test_resource_usage_smoke() -> Result<()> {
     let temp_dir = tempdir()?;
 
     for example in ["01-minimal", "02-rule-metadata", "04-code-flows"] {
-        let input = format!("examples/sarif-files/{}.sarif", example);
+        let input = format!(
+            concat!(
+                env!("CARGO_MANIFEST_DIR"),
+                "/../../examples/sarif-files/{}.sarif"
+            ),
+            example
+        );
         let output = temp_dir.path().join(format!("{}.md", example));
 
         Command::cargo_bin("sarif-to-md")?
@@ -57,7 +66,10 @@ fn test_resource_usage_smoke() -> Result<()> {
 #[test]
 fn test_format_performance_parity() -> Result<()> {
     let temp_dir = tempdir()?;
-    let input = "examples/sarif-files/02-rule-metadata.sarif";
+    let input = concat!(
+        env!("CARGO_MANIFEST_DIR"),
+        "/../../examples/sarif-files/02-rule-metadata.sarif"
+    );
 
     for (format, threshold_ms) in [("common-mark", 5000), ("github-flavored", 5000)] {
         let start = std::time::Instant::now();

@@ -23,7 +23,13 @@ fn test_example_commonmark_conversion(
     )]
     example: &str,
 ) -> Result<()> {
-    let input = format!("examples/sarif-files/{}.sarif", example);
+    let input = format!(
+        concat!(
+            env!("CARGO_MANIFEST_DIR"),
+            "/../../examples/sarif-files/{}.sarif"
+        ),
+        example
+    );
     let temp_dir = tempdir()?;
     let output = temp_dir.path().join("output.md");
 
@@ -58,9 +64,27 @@ fn test_example_commonmark_conversion(
 
 #[rstest]
 fn test_example_github_conversion(
-    #[values("01-minimal", "02-rule-metadata", "03-suppressions", "04-code-flows")] example: &str,
+    #[values(
+        "01-minimal",
+        "02-rule-metadata",
+        "03-suppressions",
+        "04-code-flows",
+        "05-context-region",
+        "06-baseline",
+        "07-result-stacks",
+        "08-embedded-content",
+        "09-uri-base-ids",
+        "10-default-config"
+    )]
+    example: &str,
 ) -> Result<()> {
-    let input = format!("examples/sarif-files/{}.sarif", example);
+    let input = format!(
+        concat!(
+            env!("CARGO_MANIFEST_DIR"),
+            "/../../examples/sarif-files/{}.sarif"
+        ),
+        example
+    );
     let temp_dir = tempdir()?;
     let output = temp_dir.path().join("output.md");
 
@@ -71,6 +95,8 @@ fn test_example_github_conversion(
         .arg(&output)
         .arg("-f")
         .arg("github-flavored")
+        // The github-flavored expected outputs are generated with emoji.
+        .arg("-e")
         .assert()
         .success();
 
@@ -101,7 +127,10 @@ fn test_format_emoji_combinations(#[case] format: &str, #[case] with_emoji: bool
 
     let mut cmd = Command::cargo_bin("sarif-to-md")?;
     cmd.arg("-i")
-        .arg("examples/sarif-files/02-rule-metadata.sarif")
+        .arg(concat!(
+            env!("CARGO_MANIFEST_DIR"),
+            "/../../examples/sarif-files/02-rule-metadata.sarif"
+        ))
         .arg("-o")
         .arg(&output)
         .arg("-f")
@@ -143,22 +172,22 @@ fn test_format_emoji_combinations(#[case] format: &str, #[case] with_emoji: bool
 
 #[rstest]
 fn test_stdout_output() -> Result<()> {
-    let expected = common::load_expected_output("01-minimal", "common-mark")
-        .unwrap_or_else(|_| "# Security Report".to_string());
-
     Command::cargo_bin("sarif-to-md")?
         .arg("-i")
-        .arg("examples/sarif-files/01-minimal.sarif")
+        .arg(concat!(
+            env!("CARGO_MANIFEST_DIR"),
+            "/../../examples/sarif-files/01-minimal.sarif"
+        ))
         .assert()
         .success()
-        .stdout(predicate::str::contains("# Security Report") | predicate::str::contains("#"));
+        .stdout(predicate::str::contains("# SARIF Security Report"));
 
     Ok(())
 }
 
 #[rstest]
 #[case("nonexistent.sarif", "No such file")]
-#[case("examples/README.md", "Failed to parse")] // Wrong file type
+#[case(concat!(env!("CARGO_MANIFEST_DIR"), "/../../examples/README.md"), "Failed to parse")] // Wrong file type
 fn test_error_handling(
     #[case] input_file: &str,
     #[case] expected_error_fragment: &str,
@@ -191,4 +220,3 @@ fn test_cli_info_commands(#[case] args: &[&str], #[case] expected_output: &str) 
 
     Ok(())
 }
-
