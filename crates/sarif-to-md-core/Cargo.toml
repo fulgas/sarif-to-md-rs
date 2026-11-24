@@ -6,7 +6,6 @@ authors = ["Nelson Silva <nelson.emanuel.silva@gmail.com>"]
 description = "Core library for converting SARIF security reports to Markdown."
 license = "MIT OR Apache-2.0"
 repository = "https://github.com/fulgas/sarif-to-md-rs"
-homepage = "https://github.com/fulgas/sarif-to-md-rs"
 keywords = ["sarif", "security", "vulnerability", "markdown", "reporting"]
 categories = ["command-line-utilities", "development-tools"]
 readme = "README.md"
