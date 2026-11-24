@@ -73,8 +73,7 @@ SarifSamples v1.0
 **Message:**
 > This result is hidden because at least one suppression has not yet been rejected (it is still under review).
 </details>
-</details>
 
 ---
 
-<sub>*Report generated on 2026-11-24 14:50:58 UTC*</sub>
+<sub>*Report generated on 2026-11-24 15:53:35 UTC*</sub>

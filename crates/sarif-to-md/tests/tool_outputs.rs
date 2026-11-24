@@ -40,3 +40,52 @@ fn test_tool_sarif_renders_as_expected(
 
     common::assert_markdown_equivalent(&actual, &expected, &format!("{tool} {format}"))
 }
+
+/// Every `</details>` must close a `<details>` opened earlier, or a report embedded in
+/// another collapsed section (a job summary, a PR comment) closes that section early.
+fn assert_details_balanced(sarif: &PathBuf) -> Result<()> {
+    let output = Command::cargo_bin("sarif-to-md")?
+        .arg("-i")
+        .arg(sarif)
+        .arg("-f")
+        .arg("github-flavored")
+        .assert()
+        .success()
+        .get_output()
+        .stdout
+        .clone();
+    let markdown = String::from_utf8(output)?;
+
+    let mut open = 0usize;
+    for line in markdown.lines() {
+        match line.trim() {
+            "<details>" => open += 1,
+            "</details>" => {
+                open = open
+                    .checked_sub(1)
+                    .with_context(|| format!("unmatched </details> in {}", sarif.display()))?;
+            }
+            _ => {}
+        }
+    }
+    anyhow::ensure!(
+        open == 0,
+        "{open} unclosed <details> in {}",
+        sarif.display()
+    );
+    Ok(())
+}
+
+#[rstest]
+fn test_details_balanced_for_tool_sarif(
+    #[files("../../examples/tools/sarif/*.sarif")] sarif: PathBuf,
+) -> Result<()> {
+    assert_details_balanced(&sarif)
+}
+
+#[rstest]
+fn test_details_balanced_for_spec_examples(
+    #[files("../../examples/sarif-files/*.sarif")] sarif: PathBuf,
+) -> Result<()> {
+    assert_details_balanced(&sarif)
+}

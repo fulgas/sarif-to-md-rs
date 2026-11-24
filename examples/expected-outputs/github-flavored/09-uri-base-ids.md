@@ -50,8 +50,7 @@ SarifSamples v1.0
 **Locations:**
 - `.`
 </details>
-</details>
 
 ---
 
-<sub>*Report generated on 2026-05-12 14:37:52 UTC*</sub>
+<sub>*Report generated on 2026-11-24 15:53:39 UTC*</sub>

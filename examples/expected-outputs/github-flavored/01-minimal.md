@@ -29,8 +29,7 @@ ESLint
 **Locations:**
 - `file:///C:/dev/sarif/sarif-tutorials/samples/Introduction/simple-example.js`:1:5
 </details>
-</details>
 
 ---
 
-<sub>*Report generated on 2026-05-12 14:37:52 UTC*</sub>
+<sub>*Report generated on 2026-11-24 15:53:33 UTC*</sub>

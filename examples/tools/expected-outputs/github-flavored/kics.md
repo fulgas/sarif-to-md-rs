@@ -770,8 +770,7 @@ KICS v2.2.1
 **Locations:**
 - `../../path/main.tf`:6
 </details>
-</details>
 
 ---
 
-<sub>*Report generated on 2026-11-24 15:30:26 UTC*</sub>
+<sub>*Report generated on 2026-11-24 15:53:45 UTC*</sub>

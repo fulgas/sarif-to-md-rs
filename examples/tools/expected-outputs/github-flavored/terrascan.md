@@ -333,8 +333,7 @@ terrascan v1.19.9
 **Locations:**
 - `file:///iac/main.tf`:1
 </details>
-</details>
 
 ---
 
-<sub>*Report generated on 2026-11-24 15:30:33 UTC*</sub>
+<sub>*Report generated on 2026-11-24 15:53:47 UTC*</sub>

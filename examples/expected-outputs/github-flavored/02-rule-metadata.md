@@ -30,8 +30,7 @@ SarifSamples v1.0
 **Locations:**
 - `test.json`:15:8
 </details>
-</details>
 
 ---
 
-<sub>*Report generated on 2026-05-12 14:37:52 UTC*</sub>
+<sub>*Report generated on 2026-11-24 15:53:34 UTC*</sub>
