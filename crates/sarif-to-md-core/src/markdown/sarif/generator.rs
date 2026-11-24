@@ -69,13 +69,7 @@ impl SarifMarkdownGenerator {
                     .as_deref()
                     .map(|v| v.strip_prefix(['v', 'V']).unwrap_or(v).to_string());
 
-                let mut rules_map = HashMap::new();
-                if let Some(rules) = &run.tool.driver.rules {
-                    for rule in rules {
-                        let metadata = self.extract_rule_metadata(rule);
-                        rules_map.insert(rule.id.clone(), metadata);
-                    }
-                }
+                let rules = run.tool.driver.rules.as_deref().unwrap_or_default();
 
                 let mut results: Vec<SarifResultView> = run
                     .results
@@ -83,7 +77,7 @@ impl SarifMarkdownGenerator {
                     .map(|results| {
                         results
                             .iter()
-                            .map(|r| self.convert_result(r, &rules_map))
+                            .map(|r| self.convert_result(r, rules))
                             .collect()
                     })
                     .unwrap_or_default();
@@ -162,18 +156,10 @@ impl SarifMarkdownGenerator {
     fn convert_result(
         &self,
         result: &serde_sarif::sarif::Result,
-        rules_map: &HashMap<String, RuleMetadata>,
+        rules: &[serde_sarif::sarif::ReportingDescriptor],
     ) -> SarifResultView {
-        let level = result
-            .level
-            .as_ref()
-            .map(|l| match l {
-                serde_sarif::sarif::ResultLevel::Error => SarifLevel::Error,
-                serde_sarif::sarif::ResultLevel::Warning => SarifLevel::Warning,
-                serde_sarif::sarif::ResultLevel::Note => SarifLevel::Note,
-                _ => SarifLevel::None,
-            })
-            .unwrap_or(SarifLevel::Warning);
+        let rule = find_rule(result, rules);
+        let level = result_level(result, rule);
 
         let message = result
             .message
@@ -202,8 +188,10 @@ impl SarifMarkdownGenerator {
         let rule_id = result
             .rule_id
             .clone()
+            .or_else(|| result.rule.as_ref().and_then(|r| r.id.clone()))
+            .or_else(|| rule.map(|r| r.id.clone()))
             .unwrap_or_else(|| "unknown".to_string());
-        let rule_metadata = rules_map.get(&rule_id).cloned();
+        let rule_metadata = rule.map(|r| self.extract_rule_metadata(r));
 
         let properties = result
             .properties
@@ -345,5 +333,61 @@ fn describe_suppression(suppression: &serde_sarif::sarif::Suppression) -> String
     match suppression.kind.as_str() {
         Some(kind) => format!("{status} ({kind})"),
         None => status.to_string(),
+    }
+}
+
+/// Finds the result's rule in the driver's rules: by index first (`rule.index`, then
+/// `ruleIndex`), then by id (`rule.id`, then `ruleId`). SARIF 2.1.0 §3.27.5-§3.27.7.
+fn find_rule<'a>(
+    result: &serde_sarif::sarif::Result,
+    rules: &'a [serde_sarif::sarif::ReportingDescriptor],
+) -> Option<&'a serde_sarif::sarif::ReportingDescriptor> {
+    let index = result
+        .rule
+        .as_ref()
+        .and_then(|r| r.index)
+        .or(result.rule_index);
+    let by_index = index
+        .and_then(|i| usize::try_from(i).ok())
+        .and_then(|i| rules.get(i));
+    let id = result
+        .rule
+        .as_ref()
+        .and_then(|r| r.id.as_deref())
+        .or(result.rule_id.as_deref());
+    by_index.or_else(|| id.and_then(|id| rules.iter().find(|r| r.id == id)))
+}
+
+/// SARIF 2.1.0 §3.27.10: an explicit `level` wins. Without one, a result whose `kind`
+/// is not `fail` (absent means `fail`) is `none`; otherwise it takes the rule's
+/// `defaultConfiguration.level`, falling back to `warning`.
+// ponytail: per-invocation ruleConfigurationOverrides are not consulted; add them if
+// a producer relies on them.
+fn result_level(
+    result: &serde_sarif::sarif::Result,
+    rule: Option<&serde_sarif::sarif::ReportingDescriptor>,
+) -> SarifLevel {
+    use serde_sarif::sarif::{ResultKind, ResultLevel};
+
+    if let Some(level) = result.level {
+        return match level {
+            ResultLevel::Error => SarifLevel::Error,
+            ResultLevel::Warning => SarifLevel::Warning,
+            ResultLevel::Note => SarifLevel::Note,
+            ResultLevel::None => SarifLevel::None,
+        };
+    }
+    if result.kind.as_ref().is_some_and(|k| *k != ResultKind::Fail) {
+        return SarifLevel::None;
+    }
+    let default_level = rule
+        .and_then(|r| r.default_configuration.as_ref())
+        .and_then(|c| c.level.as_ref())
+        .and_then(|l| l.as_str());
+    match default_level {
+        Some("error") => SarifLevel::Error,
+        Some("note") => SarifLevel::Note,
+        Some("none") => SarifLevel::None,
+        _ => SarifLevel::Warning,
     }
 }

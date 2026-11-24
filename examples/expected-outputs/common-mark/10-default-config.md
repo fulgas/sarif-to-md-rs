@@ -5,14 +5,15 @@
 
 | Severity | Count |
 |----------|-------|
-| Warning | 2 |
+| Error | 1 |
+| Warning | 1 |
 | **Total** | **2** |
 
 ---
 
 ###  Detailed Results
 
-#### Warning - TUT1001
+#### Error - TUT1001
 
 **Message:** This result is an error according to the default rule configuration.
 
@@ -28,4 +29,4 @@
 
 ---
 
-*Report generated on 2026-05-12 14:37:19 UTC*
+*Report generated on 2026-11-24 15:10:12 UTC*
