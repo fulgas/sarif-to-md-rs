@@ -620,3 +620,31 @@ fn test_null_values_are_treated_as_absent() -> Result<()> {
     assert!(result.contains("hardcoded credentials"));
     Ok(())
 }
+
+#[rstest]
+#[case(
+    MarkdownFormat::GitHubFlavored,
+    "> Package: PyYAML  \n> Installed Version: 5.3"
+)]
+#[case(
+    MarkdownFormat::CommonMark,
+    "**Message:** Package: PyYAML  \nInstalled Version: 5.3"
+)]
+fn test_multiline_messages_keep_their_line_breaks(
+    #[case] format: MarkdownFormat,
+    #[case] expected: &str,
+) -> Result<()> {
+    // trivy puts package, version and fix on separate lines of one message.
+    let sarif = r#"{"version":"2.1.0","runs":[{"tool":{"driver":{"name":"Trivy"}},
+      "results":[{"ruleId":"CVE-2020-14343","level":"error",
+        "message":{"text":"Package: PyYAML\nInstalled Version: 5.3"}}]}]}"#;
+
+    let result = ReportProcessor::new(
+        SarifMarkdownGenerator::new(format, false),
+        sarif.to_string(),
+    )
+    .generate()?;
+
+    assert!(result.contains(expected), "{result}");
+    Ok(())
+}

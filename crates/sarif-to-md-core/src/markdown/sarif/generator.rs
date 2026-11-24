@@ -148,13 +148,28 @@ impl SarifMarkdownGenerator {
             description: rule
                 .short_description
                 .as_ref()
-                .map(|sd| sd.text.clone())
-                .or_else(|| rule.full_description.as_ref().map(|fd| fd.text.clone())),
+                .map(|sd| sd.text.as_str())
+                .or_else(|| rule.full_description.as_ref().map(|fd| fd.text.as_str()))
+                .map(|text| self.keep_line_breaks(text)),
             help_uri: rule.help_uri.clone(),
             tags,
             cwe_ids,
             cve_ids,
         }
+    }
+
+    /// Multi-line text (trivy puts package, version and fix on separate lines) would
+    /// collapse into one paragraph: end each line with a hard break, and in GitHub
+    /// Flavored output keep the continuation lines inside the `> ` quote.
+    fn keep_line_breaks(&self, text: &str) -> String {
+        let separator = match self.markdown_format {
+            MarkdownFormat::GitHubFlavored => "  \n> ",
+            MarkdownFormat::CommonMark => "  \n",
+        };
+        text.lines()
+            .map(str::trim_end)
+            .collect::<Vec<_>>()
+            .join(separator)
     }
 
     fn convert_result(
@@ -172,8 +187,8 @@ impl SarifMarkdownGenerator {
             .text
             .as_deref()
             .or(result.message.markdown.as_deref())
-            .unwrap_or("No message")
-            .to_string();
+            .unwrap_or("No message");
+        let message = self.keep_line_breaks(message);
 
         let locations = result
             .locations
