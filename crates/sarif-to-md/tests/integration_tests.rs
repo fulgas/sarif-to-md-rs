@@ -186,7 +186,8 @@ fn test_stdout_output() -> Result<()> {
 }
 
 #[rstest]
-#[case("nonexistent.sarif", "No such file")]
+// Match our own message: the OS error text differs per platform.
+#[case("nonexistent.sarif", "Could not read file")]
 #[case(concat!(env!("CARGO_MANIFEST_DIR"), "/../../examples/README.md"), "Failed to parse")] // Wrong file type
 fn test_error_handling(
     #[case] input_file: &str,
