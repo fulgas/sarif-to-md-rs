@@ -1,3 +1,16 @@
+## [1.5.2](https://github.com/fulgas/sarif-to-md-rs/compare/v1.5.1...v1.5.2) (2026-11-24)
+
+### Bug Fixes
+
+* close only the details blocks the GitHub-flavored report opens ([#130](https://github.com/fulgas/sarif-to-md-rs/issues/130)) ([1fef6c1](https://github.com/fulgas/sarif-to-md-rs/commit/1fef6c1550fe346f73b8e340533788d4c55a15ee))
+* keep line breaks in multi-line messages and descriptions ([2b0aec8](https://github.com/fulgas/sarif-to-md-rs/commit/2b0aec8bef7f9d841a406746764837a6f86d1d88))
+* take a result's level from its rule's default configuration ([#127](https://github.com/fulgas/sarif-to-md-rs/issues/127)) ([61141df](https://github.com/fulgas/sarif-to-md-rs/commit/61141df9bc262b09c2e153634b9e3f5ae908b0b9))
+* treat null SARIF values as absent instead of failing ([#128](https://github.com/fulgas/sarif-to-md-rs/issues/128)) ([5658c2d](https://github.com/fulgas/sarif-to-md-rs/commit/5658c2dd36bd99ddfedfc6165b15fafcaf00860b))
+
+### Miscellaneous
+
+* drop redundant homepage from sarif-to-md-core ([#126](https://github.com/fulgas/sarif-to-md-rs/issues/126)) ([2005228](https://github.com/fulgas/sarif-to-md-rs/commit/200522840a013407228851c1075fedbf684d43d6))
+
 ## [1.5.1](https://github.com/fulgas/sarif-to-md-rs/compare/v1.5.0...v1.5.1) (2026-11-24)
 
 ### Bug Fixes
