@@ -5,8 +5,10 @@ SarifSamples v1.0
 
 | Severity | Count |
 |----------|------:
-| 🟠 - Warning | 9 |
-| **Total** | **9** |
+| 🟠 - Warning | 6 |
+| **Total** | **6** |
+
+**Suppressed:** 3 (not counted above; not shown)
 
 ---
 
@@ -29,37 +31,7 @@ SarifSamples v1.0
 #### Details
 
 **Message:**
-> This result is hidden because it is suppressed in source.
-</details>
-<details>
-<summary>
-🟠 - Warning [TUT1001]
-</summary>
-
-#### Details
-
-**Message:**
-> This result is hidden because it is suppressed externally.
-</details>
-<details>
-<summary>
-🟠 - Warning [TUT1001]
-</summary>
-
-#### Details
-
-**Message:**
 > This result is visible because its suppression was rejected.
-</details>
-<details>
-<summary>
-🟠 - Warning [TUT1001]
-</summary>
-
-#### Details
-
-**Message:**
-> This result is hidden because its suppression was accepted.
 </details>
 <details>
 <summary>
@@ -105,4 +77,4 @@ SarifSamples v1.0
 
 ---
 
-<sub>*Report generated on 2026-05-12 14:37:52 UTC*</sub>
+<sub>*Report generated on 2026-11-24 14:50:58 UTC*</sub>

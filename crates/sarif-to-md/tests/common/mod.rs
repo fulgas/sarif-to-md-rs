@@ -3,13 +3,21 @@ use std::fs;
 use std::path::Path;
 
 pub fn load_expected_output(name: &str, format: &str) -> Result<String> {
-    let path = format!("examples/expected-outputs/{}/{}.md", format, name);
+    let path = format!(
+        concat!(
+            env!("CARGO_MANIFEST_DIR"),
+            "/../../examples/expected-outputs/{}/{}.md"
+        ),
+        format, name
+    );
     fs::read_to_string(&path).with_context(|| format!("Failed to load expected output: {}", path))
 }
 
 pub fn normalize_markdown(content: &str) -> String {
     content
         .lines()
+        // The footer carries the generation time, which differs on every run.
+        .filter(|line| !line.contains("Report generated on"))
         .map(|line| line.trim_end())
         .collect::<Vec<_>>()
         .join("\n")
@@ -38,6 +46,12 @@ pub fn assert_markdown_equivalent(actual: &str, expected: &str, context: &str) -
 }
 
 pub fn has_expected_output(example: &str, format: &str) -> bool {
-    let path = format!("examples/expected-outputs/{}/{}.md", format, example);
+    let path = format!(
+        concat!(
+            env!("CARGO_MANIFEST_DIR"),
+            "/../../examples/expected-outputs/{}/{}.md"
+        ),
+        format, example
+    );
     Path::new(&path).exists()
 }
