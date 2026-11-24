@@ -89,7 +89,7 @@ sarif-to-md -i report.sarif -f common-mark
 Add to your `Cargo.toml`:
 ```toml
 [dependencies]
-sarif-to-md-core = "0.1"
+sarif-to-md-core = "1"
 ```
 
 Example code:
