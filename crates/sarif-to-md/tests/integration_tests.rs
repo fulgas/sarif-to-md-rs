@@ -38,6 +38,7 @@ fn test_example_commonmark_conversion(
         .arg(&input)
         .arg("-o")
         .arg(&output)
+        .env("SOURCE_DATE_EPOCH", "0")
         .assert()
         .success();
 
@@ -97,6 +98,7 @@ fn test_example_github_conversion(
         .arg("github-flavored")
         // The github-flavored expected outputs are generated with emoji.
         .arg("-e")
+        .env("SOURCE_DATE_EPOCH", "0")
         .assert()
         .success();
 
@@ -219,5 +221,50 @@ fn test_cli_info_commands(#[case] args: &[&str], #[case] expected_output: &str) 
         .success()
         .stdout(predicate::str::contains(expected_output));
 
+    Ok(())
+}
+
+#[rstest]
+#[case::unset(None, "Report generated on 20")]
+#[case::empty_counts_as_unset(Some(""), "Report generated on 20")]
+#[case::epoch(Some("1700000000"), "Report generated on 2023-11-14 22:13:20 UTC")]
+#[case::negative(Some("-86400"), "Report generated on 1969-12-31 00:00:00 UTC")]
+fn test_footer_honors_source_date_epoch(
+    #[case] source_date_epoch: Option<&str>,
+    #[case] expected: &str,
+) -> Result<()> {
+    let mut cmd = Command::cargo_bin("sarif-to-md")?;
+    cmd.arg("-i")
+        .arg(concat!(
+            env!("CARGO_MANIFEST_DIR"),
+            "/../../examples/sarif-files/01-minimal.sarif"
+        ))
+        .env_remove("SOURCE_DATE_EPOCH");
+    if let Some(value) = source_date_epoch {
+        cmd.env("SOURCE_DATE_EPOCH", value);
+    }
+    cmd.assert()
+        .success()
+        .stdout(predicate::str::contains(expected));
+    Ok(())
+}
+
+#[rstest]
+#[case("abc")]
+#[case("1.5")]
+#[case(" 42")]
+fn test_malformed_source_date_epoch_is_an_error(#[case] value: &str) -> Result<()> {
+    Command::cargo_bin("sarif-to-md")?
+        .arg("-i")
+        .arg(concat!(
+            env!("CARGO_MANIFEST_DIR"),
+            "/../../examples/sarif-files/01-minimal.sarif"
+        ))
+        .env("SOURCE_DATE_EPOCH", value)
+        .assert()
+        .failure()
+        .stderr(predicate::str::contains(
+            "SOURCE_DATE_EPOCH must be an integer number of seconds",
+        ));
     Ok(())
 }

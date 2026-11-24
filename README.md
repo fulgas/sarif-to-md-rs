@@ -139,6 +139,20 @@ Options:
   -V, --version                Print version
 ```
 
+### Reproducible output
+
+Every report ends with "Report generated on" and the current time. To get the same
+output for the same input, set
+[`SOURCE_DATE_EPOCH`](https://reproducible-builds.org/specs/source-date-epoch/) to the
+Unix time to show instead, for example the time of the last commit:
+
+```bash
+SOURCE_DATE_EPOCH="$(git log -1 --format=%ct)" sarif-to-md -i report.sarif
+```
+
+The value must be an integer number of seconds, like the output of `date +%s`; anything
+else is an error. An empty value is the same as leaving it unset.
+
 ## Examples
 
 The [`examples/`](examples/) directory contains 10 curated SARIF files demonstrating all major features of the SARIF format, along with pre-generated markdown outputs in both GitHub Flavored and CommonMark formats.

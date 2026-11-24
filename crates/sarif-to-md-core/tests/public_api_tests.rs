@@ -648,3 +648,45 @@ fn test_multiline_messages_keep_their_line_breaks(
     assert!(result.contains(expected), "{result}");
     Ok(())
 }
+
+#[rstest]
+#[case::current_time(None, "Report generated on 20")]
+#[case::epoch(Some(1_700_000_000), "Report generated on 2023-11-14 22:13:20 UTC")]
+#[case::unix_epoch(Some(0), "Report generated on 1970-01-01 00:00:00 UTC")]
+fn test_report_footer_timestamp(
+    minimal_sarif: String,
+    #[case] epoch: Option<u64>,
+    #[case] expected: &str,
+) -> Result<()> {
+    use std::time::{Duration, UNIX_EPOCH};
+
+    let mut generator = SarifMarkdownGenerator::new(MarkdownFormat::CommonMark, false);
+    if let Some(seconds) = epoch {
+        generator = generator.generated_at(UNIX_EPOCH + Duration::from_secs(seconds));
+    }
+    let result = ReportProcessor::new(generator, minimal_sarif).generate()?;
+
+    assert!(result.contains(expected), "{result}");
+    Ok(())
+}
+
+#[rstest]
+fn test_report_footer_clamps_out_of_range_times(minimal_sarif: String) -> Result<()> {
+    use std::time::{Duration, UNIX_EPOCH};
+
+    let far_future = UNIX_EPOCH
+        .checked_add(Duration::from_secs(400_000_000_000))
+        .expect("representable on this platform");
+    let generator =
+        SarifMarkdownGenerator::new(MarkdownFormat::CommonMark, false).generated_at(far_future);
+    let result = ReportProcessor::new(generator, minimal_sarif.clone()).generate()?;
+    assert!(result.contains("Report generated on 9999-"), "{result}");
+
+    if let Some(far_past) = UNIX_EPOCH.checked_sub(Duration::from_secs(400_000_000_000)) {
+        let generator =
+            SarifMarkdownGenerator::new(MarkdownFormat::CommonMark, false).generated_at(far_past);
+        let result = ReportProcessor::new(generator, minimal_sarif).generate()?;
+        assert!(result.contains("Report generated on -9999-"), "{result}");
+    }
+    Ok(())
+}

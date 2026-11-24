@@ -23,7 +23,11 @@ fn test_tool_sarif_renders_as_expected(
         .context("SARIF file name is not UTF-8")?;
 
     let mut cmd = Command::cargo_bin("sarif-to-md")?;
-    cmd.arg("-i").arg(&sarif).arg("-f").arg(format);
+    cmd.arg("-i")
+        .arg(&sarif)
+        .arg("-f")
+        .arg(format)
+        .env("SOURCE_DATE_EPOCH", "0");
     if format == "github-flavored" {
         // The github-flavored expected outputs are generated with emoji.
         cmd.arg("-e");
