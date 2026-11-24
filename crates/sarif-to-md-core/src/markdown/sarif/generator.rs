@@ -27,6 +27,7 @@ impl SarifMarkdownGenerator {
     ///
     /// By default suppressed results are left out of the report. Either way they are
     /// never counted in the severity summary; the summary reports how many there are.
+    #[must_use]
     pub fn include_suppressed(mut self, include_suppressed: bool) -> Self {
         self.include_suppressed = include_suppressed;
         self
@@ -70,6 +71,10 @@ impl SarifMarkdownGenerator {
                     .map(|v| v.strip_prefix(['v', 'V']).unwrap_or(v).to_string());
 
                 let rules = run.tool.driver.rules.as_deref().unwrap_or_default();
+                let rules_metadata: Vec<RuleMetadata> = rules
+                    .iter()
+                    .map(|r| self.extract_rule_metadata(r))
+                    .collect();
 
                 let mut results: Vec<SarifResultView> = run
                     .results
@@ -77,16 +82,15 @@ impl SarifMarkdownGenerator {
                     .map(|results| {
                         results
                             .iter()
-                            .map(|r| self.convert_result(r, rules))
+                            .map(|r| self.convert_result(r, rules, &rules_metadata))
                             .collect()
                     })
                     .unwrap_or_default();
 
-                let (suppressed, active): (Vec<_>, Vec<_>) =
-                    results.iter().partition(|r| r.suppressed);
-                let suppressed_count = suppressed.len();
-                let total_results = active.len();
-                let severity_counts = self.calculate_severity_counts(&active);
+                let suppressed_count = results.iter().filter(|r| r.suppressed).count();
+                let total_results = results.len() - suppressed_count;
+                let severity_counts =
+                    self.calculate_severity_counts(results.iter().filter(|r| !r.suppressed));
 
                 if !self.include_suppressed {
                     results.retain(|r| !r.suppressed);
@@ -157,8 +161,10 @@ impl SarifMarkdownGenerator {
         &self,
         result: &serde_sarif::sarif::Result,
         rules: &[serde_sarif::sarif::ReportingDescriptor],
+        rules_metadata: &[RuleMetadata],
     ) -> SarifResultView {
-        let rule = find_rule(result, rules);
+        let rule_index = find_rule(result, rules);
+        let rule = rule_index.map(|i| &rules[i]);
         let level = result_level(result, rule);
 
         let message = result
@@ -191,7 +197,7 @@ impl SarifMarkdownGenerator {
             .or_else(|| result.rule.as_ref().and_then(|r| r.id.clone()))
             .or_else(|| rule.map(|r| r.id.clone()))
             .unwrap_or_else(|| "unknown".to_string());
-        let rule_metadata = rule.map(|r| self.extract_rule_metadata(r));
+        let rule_metadata = rule_index.map(|i| rules_metadata[i].clone());
 
         let properties = result
             .properties
@@ -279,7 +285,10 @@ impl SarifMarkdownGenerator {
         }
     }
 
-    fn calculate_severity_counts(&self, results: &[&SarifResultView]) -> Vec<SeverityCount> {
+    fn calculate_severity_counts<'a>(
+        &self,
+        results: impl IntoIterator<Item = &'a SarifResultView>,
+    ) -> Vec<SeverityCount> {
         let mut level_counts = HashMap::new();
         for result in results {
             *level_counts.entry(result.level.clone()).or_insert(0) += 1;
@@ -336,12 +345,12 @@ fn describe_suppression(suppression: &serde_sarif::sarif::Suppression) -> String
     }
 }
 
-/// Finds the result's rule in the driver's rules: by index first (`rule.index`, then
+/// Index of the result's rule in the driver's rules: by index first (`rule.index`, then
 /// `ruleIndex`), then by id (`rule.id`, then `ruleId`). SARIF 2.1.0 §3.27.5-§3.27.7.
-fn find_rule<'a>(
+fn find_rule(
     result: &serde_sarif::sarif::Result,
-    rules: &'a [serde_sarif::sarif::ReportingDescriptor],
-) -> Option<&'a serde_sarif::sarif::ReportingDescriptor> {
+    rules: &[serde_sarif::sarif::ReportingDescriptor],
+) -> Option<usize> {
     let index = result
         .rule
         .as_ref()
@@ -349,13 +358,13 @@ fn find_rule<'a>(
         .or(result.rule_index);
     let by_index = index
         .and_then(|i| usize::try_from(i).ok())
-        .and_then(|i| rules.get(i));
+        .filter(|&i| i < rules.len());
     let id = result
         .rule
         .as_ref()
         .and_then(|r| r.id.as_deref())
         .or(result.rule_id.as_deref());
-    by_index.or_else(|| id.and_then(|id| rules.iter().find(|r| r.id == id)))
+    by_index.or_else(|| id.and_then(|id| rules.iter().position(|r| r.id == id)))
 }
 
 /// SARIF 2.1.0 §3.27.10: an explicit `level` wins. Without one, a result whose `kind`
