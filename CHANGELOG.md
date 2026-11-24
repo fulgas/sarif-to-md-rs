@@ -1,3 +1,30 @@
+## [1.5.0](https://github.com/fulgas/sarif-to-md-rs/compare/v1.4.1...v1.5.0) (2026-11-24)
+
+### Features
+
+* **deps:** update cycjimmy/semantic-release-action action to v8 ([41874a3](https://github.com/fulgas/sarif-to-md-rs/commit/41874a39fe143c8b72c6e6667b4e4ef2d1058ed6))
+
+### Bug Fixes
+
+* avoid doubled v prefix in tool version ([#121](https://github.com/fulgas/sarif-to-md-rs/issues/121)) ([efa9436](https://github.com/fulgas/sarif-to-md-rs/commit/efa94363668b531352a658faa8f326b352bb6406))
+* **deps:** resolve unmaintained crate advisories ([#123](https://github.com/fulgas/sarif-to-md-rs/issues/123)) ([d1e3590](https://github.com/fulgas/sarif-to-md-rs/commit/d1e3590bc7b47717c6e8e40d7e4cfb42e6d381c4))
+
+### Miscellaneous
+
+* **deps:** lock file maintenance ([#120](https://github.com/fulgas/sarif-to-md-rs/issues/120)) ([1da3c31](https://github.com/fulgas/sarif-to-md-rs/commit/1da3c31d7b3a55e6c785cd220ba2ada60b75b70c))
+* **deps:** update github actions ([5abda06](https://github.com/fulgas/sarif-to-md-rs/commit/5abda06c4152b48f5039e98768c72d74fa131dbb))
+* **deps:** update github actions ([88e567c](https://github.com/fulgas/sarif-to-md-rs/commit/88e567ccf952e33aa6bc45a88f61dc53d8c503fd))
+* **deps:** update rust crate anyhow to v1.0.105 ([c328a7e](https://github.com/fulgas/sarif-to-md-rs/commit/c328a7e1e26b0936959a0221c24333b979001aa5))
+* **deps:** update rust crate clap to v4.6.7 ([da415d8](https://github.com/fulgas/sarif-to-md-rs/commit/da415d8cf748ccec9633e7492cb7887d2e83c121))
+* **deps:** update rust crate clap to v4.6.9 ([0dd848d](https://github.com/fulgas/sarif-to-md-rs/commit/0dd848d5df3721a548bf9d18b33c67389c8989a0))
+* **deps:** update rust crate insta to v1.49.0 ([faebe00](https://github.com/fulgas/sarif-to-md-rs/commit/faebe00e5b70c18d1686061aa2c5bb650b28f70d))
+* **deps:** update rust crate public-api to v0.52.2 ([e78ad43](https://github.com/fulgas/sarif-to-md-rs/commit/e78ad43b430aa8b93c6a14d9045fffd648d6a177))
+* **deps:** update rust crate regex to v1.13.2 ([b4105c5](https://github.com/fulgas/sarif-to-md-rs/commit/b4105c537629be0b56bd5a09c68843f7cf0300bd))
+* **deps:** update rust crate rstest to v0.29.0 ([06686cb](https://github.com/fulgas/sarif-to-md-rs/commit/06686cb1bb692400691dd7210e63c4bf0e4d534b))
+* **deps:** update rust crate thiserror to v2.0.21 ([41bb8bd](https://github.com/fulgas/sarif-to-md-rs/commit/41bb8bd6619bd4a6ad86d492c84111dc96db9cef))
+* group renovate updates and use major-only version in README ([1f15817](https://github.com/fulgas/sarif-to-md-rs/commit/1f1581736165d04328d7d5dbce192cbf22c371e3))
+* Renovate opens its pull requests on the 1st and 15th of each month ([fc5bf66](https://github.com/fulgas/sarif-to-md-rs/commit/fc5bf6654b064c52a7c86fdce47fc6b158d0e086))
+
 ## [1.4.1](https://github.com/fulgas/sarif-to-md-rs/compare/v1.4.0...v1.4.1) (2026-09-10)
 
 ### Bug Fixes
