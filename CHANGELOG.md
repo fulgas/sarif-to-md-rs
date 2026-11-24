@@ -1,3 +1,9 @@
+## [1.5.1](https://github.com/fulgas/sarif-to-md-rs/compare/v1.5.0...v1.5.1) (2026-11-24)
+
+### Bug Fixes
+
+* exclude suppressed results from the report ([#124](https://github.com/fulgas/sarif-to-md-rs/issues/124)) ([f1f19f8](https://github.com/fulgas/sarif-to-md-rs/commit/f1f19f86388e6b8210c5798d972c5e8cd6866087))
+
 ## [1.5.0](https://github.com/fulgas/sarif-to-md-rs/compare/v1.4.1...v1.5.0) (2026-11-24)
 
 ### Features
