@@ -26,47 +26,43 @@
       "automerge": false
     },
     {
-      "description": "Group minor/patch updates for the Serde ecosystem",
-      "matchUpdateTypes": [
-        "minor",
-        "patch"
+      "description": "Group minor/patch updates for Cargo dependencies",
+      "matchDatasources": [
+        "cargo"
       ],
-      "groupName": "Serde ecosystem",
-      "matchPackageNames": [
-        "/^serde/",
-        "/^serde-*/"
-      ],
-      "semanticCommitType": "fix"
-    },
-    {
-      "description": "Group minor/patch updates for the Tokio ecosystem",
-      "matchUpdateTypes": [
-        "minor",
-        "patch"
-      ],
-      "groupName": "Tokio ecosystem",
-      "matchPackageNames": [
-        "/^tokio/"
-      ],
-      "semanticCommitType": "fix"
-    },
-    {
-      "description": "Auto-merge patch updates for dev-dependencies",
       "matchDepTypes": [
-        "devDependencies"
+        "dependencies"
       ],
       "matchUpdateTypes": [
+        "minor",
         "patch"
       ],
-      "semanticCommitType": "fix",
+      "groupName": "Dependencies",
+      "semanticCommitType": "fix"
+    },
+    {
+      "description": "Group and auto-merge minor/patch updates for Cargo dev-dependencies (no release)",
+      "matchDatasources": [
+        "cargo"
+      ],
+      "matchDepTypes": [
+        "dev-dependencies"
+      ],
+      "matchUpdateTypes": [
+        "minor",
+        "patch"
+      ],
+      "groupName": "Dev dependencies",
+      "semanticCommitType": "chore",
       "automerge": true
     },
     {
-      "description": "Group GitHub Actions updates",
+      "description": "Group GitHub Actions updates (no release)",
       "matchManagers": [
         "github-actions"
       ],
-      "groupName": "GitHub Actions"
+      "groupName": "GitHub Actions",
+      "semanticCommitType": "chore"
     }
   ],
   "lockFileMaintenance": {

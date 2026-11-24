@@ -21,7 +21,7 @@ Add to your `Cargo.toml`:
 
 ```toml
 [dependencies]
-sarif-to-md-core = "0.1"
+sarif-to-md-core = "1"
 ```
 
 ## Quick Start
