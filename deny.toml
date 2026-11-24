@@ -14,3 +14,11 @@ multiple-versions = "warn"
 unknown-registry = "deny"
 unknown-git = "deny"
 allow-registry = ["https://github.com/rust-lang/crates.io-index"]
+
+[advisories]
+ignore = [
+    # basic-toml is unmaintained; it comes in only through askama_derive (compile-time
+    # proc macro reading askama config), and askama 0.16.1 is the latest release.
+    # Drop this once askama moves off basic-toml.
+    { id = "RUSTSEC-2026-0374", reason = "transitive build-time dep of askama_derive, no upgrade available" },
+]

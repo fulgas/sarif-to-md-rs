@@ -27,8 +27,8 @@ impl MarkdownGenerator for SarifMarkdownGenerator {
 
     fn generate_markdown_template(&self, sarif: &Self::Input) -> Result<String, GeneratorError> {
         let runs = self.convert_sarif_to_view(sarif);
-        let timestamp = chrono::Utc::now()
-            .format("%Y-%m-%d %H:%M:%S UTC")
+        let timestamp = jiff::Timestamp::now()
+            .strftime("%Y-%m-%d %H:%M:%S UTC")
             .to_string();
 
         let is_gfm = matches!(self.markdown_format, MarkdownFormat::GitHubFlavored);
