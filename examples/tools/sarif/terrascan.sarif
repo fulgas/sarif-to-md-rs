@@ -1,0 +1,808 @@
+{
+  "version": "2.1.0",
+  "$schema": "https://json.schemastore.org/sarif-2.1.0-rtm.5.json",
+  "runs": [
+    {
+      "tool": {
+        "driver": {
+          "informationUri": "https://github.com/tenable/terrascan",
+          "name": "terrascan",
+          "rules": [
+            {
+              "id": "AC_DOCKER_0041",
+              "name": "imageVersionnotusinglatest",
+              "shortDescription": {
+                "text": "Ensure :latest version is not used for Docker file"
+              },
+              "properties": {
+                "category": "Infrastructure Security",
+                "severity": "MEDIUM"
+              }
+            },
+            {
+              "id": "AC_DOCKER_0010",
+              "name": "pipUnpinnedVersion",
+              "shortDescription": {
+                "text": "Ensure Pinned Pip Package Version"
+              },
+              "properties": {
+                "category": "Infrastructure Security",
+                "severity": "MEDIUM"
+              }
+            },
+            {
+              "id": "AC_DOCKER_0031",
+              "name": "pipInstallKeepingCachedPackages",
+              "shortDescription": {
+                "text": "Ensure when installing packages with pip, the '--no-cache-dir' flag should be set to make Docker images smaller"
+              },
+              "properties": {
+                "category": "Infrastructure Security",
+                "severity": "MEDIUM"
+              }
+            },
+            {
+              "id": "AC_K8S_0080",
+              "name": "secCompProfile",
+              "shortDescription": {
+                "text": "Default seccomp profile not enabled will make the container to make non-essential system calls"
+              },
+              "properties": {
+                "category": "Identity and Access Management",
+                "severity": "MEDIUM"
+              }
+            },
+            {
+              "id": "AC_K8S_0097",
+              "name": "CpuRequestsCheck",
+              "shortDescription": {
+                "text": "CPU Request Not Set in config file."
+              },
+              "properties": {
+                "category": "Security Best Practices",
+                "severity": "MEDIUM"
+              }
+            },
+            {
+              "id": "AC_K8S_0072",
+              "name": "noReadinessProbe",
+              "shortDescription": {
+                "text": "No readiness probe will affect automatic recovery in case of unexpected errors"
+              },
+              "properties": {
+                "category": "Security Best Practices",
+                "severity": "LOW"
+              }
+            },
+            {
+              "id": "AC_K8S_0070",
+              "name": "nolivenessProbe",
+              "shortDescription": {
+                "text": "No liveness probe will ensure there is no recovery in case of unexpected errors"
+              },
+              "properties": {
+                "category": "Security Best Practices",
+                "severity": "LOW"
+              }
+            },
+            {
+              "id": "AC_K8S_0068",
+              "name": "imageWithLatestTag",
+              "shortDescription": {
+                "text": "No tag or container image with :Latest tag makes difficult to rollback and track"
+              },
+              "properties": {
+                "category": "Security Best Practices",
+                "severity": "LOW"
+              }
+            },
+            {
+              "id": "AC_K8S_0098",
+              "name": "CpulimitsCheck",
+              "shortDescription": {
+                "text": "CPU Limits Not Set in config file."
+              },
+              "properties": {
+                "category": "Security Best Practices",
+                "severity": "MEDIUM"
+              }
+            },
+            {
+              "id": "AC_K8S_0100",
+              "name": "MemorylimitsCheck",
+              "shortDescription": {
+                "text": "Memory Limits Not Set in config file."
+              },
+              "properties": {
+                "category": "Security Best Practices",
+                "severity": "MEDIUM"
+              }
+            },
+            {
+              "id": "AC_K8S_0099",
+              "name": "MemoryRequestsCheck",
+              "shortDescription": {
+                "text": "Memory Request Not Set in config file."
+              },
+              "properties": {
+                "category": "Security Best Practices",
+                "severity": "MEDIUM"
+              }
+            },
+            {
+              "id": "AC_K8S_0073",
+              "name": "appArmorProfile",
+              "shortDescription": {
+                "text": "AppArmor profile not set to default or custom profile will make the container vulnerable to kernel level threats"
+              },
+              "properties": {
+                "category": "Identity and Access Management",
+                "severity": "MEDIUM"
+              }
+            },
+            {
+              "id": "AC_K8S_0064",
+              "name": "securityContextUsed",
+              "shortDescription": {
+                "text": "Apply Security Context to Your Pods and Containers"
+              },
+              "properties": {
+                "category": "Infrastructure Security",
+                "severity": "MEDIUM"
+              }
+            },
+            {
+              "id": "AC_K8S_0085",
+              "name": "privilegeEscalationCheck",
+              "shortDescription": {
+                "text": "Containers Should Not Run with AllowPrivilegeEscalation"
+              },
+              "properties": {
+                "category": "Compliance Validation",
+                "severity": "HIGH"
+              }
+            },
+            {
+              "id": "AC_K8S_0069",
+              "name": "imageWithoutDigest",
+              "shortDescription": {
+                "text": "Image without digest affects the integrity principle of image security"
+              },
+              "properties": {
+                "category": "Infrastructure Security",
+                "severity": "MEDIUM"
+              }
+            },
+            {
+              "id": "AC_K8S_0087",
+              "name": "runAsNonRootCheck",
+              "shortDescription": {
+                "text": "Minimize Admission of Root Containers"
+              },
+              "properties": {
+                "category": "Identity and Access Management",
+                "severity": "HIGH"
+              }
+            },
+            {
+              "id": "AC_K8S_0078",
+              "name": "readOnlyFileSystem",
+              "shortDescription": {
+                "text": "Container images with readOnlyRootFileSystem set as false mounts the container root file system with write permissions"
+              },
+              "properties": {
+                "category": "Identity and Access Management",
+                "severity": "MEDIUM"
+              }
+            },
+            {
+              "id": "AC_AWS_0227",
+              "name": "port22OpenToInternet",
+              "shortDescription": {
+                "text": "Security Groups - Unrestricted Specific Ports - (SSH,22)"
+              },
+              "properties": {
+                "category": "Infrastructure Security",
+                "severity": "HIGH"
+              }
+            },
+            {
+              "id": "AC_AWS_0214",
+              "name": "s3Versioning",
+              "shortDescription": {
+                "text": "Enabling S3 versioning will enable easy recovery from both unintended user actions, like deletes and overwrites"
+              },
+              "properties": {
+                "category": "Resilience",
+                "severity": "HIGH"
+              }
+            },
+            {
+              "id": "AC_AWS_0210",
+              "name": "allUsersReadAccess",
+              "shortDescription": {
+                "text": "Misconfigured S3 buckets can leak private information to the entire internet or allow unauthorized data tampering / deletion"
+              },
+              "properties": {
+                "category": "Identity and Access Management",
+                "severity": "HIGH"
+              }
+            }
+          ],
+          "version": "1.19.9"
+        }
+      },
+      "invocations": [
+        {
+          "executionSuccessful": true,
+          "toolExecutionNotifications": [
+            {
+              "level": "warning",
+              "message": {
+                "text": "ARM files not found in the directory /iac"
+              }
+            },
+            {
+              "level": "warning",
+              "message": {
+                "text": "directory '/iac/go' has no terraform config files"
+              }
+            },
+            {
+              "level": "warning",
+              "message": {
+                "text": "directory '/iac/k8s' has no terraform config files"
+              }
+            },
+            {
+              "level": "warning",
+              "message": {
+                "text": "error while loading iac file '/iac/k8s/deployment.yaml', err: failed to find valid Resources key in file: /iac/k8s/deployment.yaml"
+              }
+            },
+            {
+              "level": "warning",
+              "message": {
+                "text": "error while loading iac file '/iac/requirements.txt', err: unsupported extension for file /iac/requirements.txt"
+              }
+            },
+            {
+              "level": "warning",
+              "message": {
+                "text": "kustomization.y(a)ml file not found in the directory /iac"
+              }
+            },
+            {
+              "level": "warning",
+              "message": {
+                "text": "no helm charts found in directory /iac"
+              }
+            }
+          ]
+        }
+      ],
+      "results": [
+        {
+          "ruleId": "AC_DOCKER_0041",
+          "ruleIndex": 0,
+          "level": "warning",
+          "message": {
+            "text": "Ensure :latest version is not used for Docker file"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///iac/Dockerfile"
+                },
+                "region": {
+                  "startLine": 1
+                }
+              },
+              "logicalLocations": [
+                {
+                  "name": "Dockerfile",
+                  "kind": "docker_FROM"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "AC_DOCKER_0010",
+          "ruleIndex": 1,
+          "level": "warning",
+          "message": {
+            "text": "Ensure Pinned Pip Package Version"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///iac/Dockerfile"
+                },
+                "region": {
+                  "startLine": 5
+                }
+              },
+              "logicalLocations": [
+                {
+                  "name": "Dockerfile",
+                  "kind": "docker_RUN"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "AC_DOCKER_0031",
+          "ruleIndex": 2,
+          "level": "warning",
+          "message": {
+            "text": "Ensure when installing packages with pip, the '--no-cache-dir' flag should be set to make Docker images smaller"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///iac/Dockerfile"
+                },
+                "region": {
+                  "startLine": 5
+                }
+              },
+              "logicalLocations": [
+                {
+                  "name": "Dockerfile",
+                  "kind": "docker_RUN"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "AC_K8S_0080",
+          "ruleIndex": 3,
+          "level": "warning",
+          "message": {
+            "text": "Default seccomp profile not enabled will make the container to make non-essential system calls"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///iac/k8s/deployment.yaml"
+                },
+                "region": {
+                  "startLine": 1
+                }
+              },
+              "logicalLocations": [
+                {
+                  "name": "app",
+                  "kind": "kubernetes_deployment"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "AC_K8S_0097",
+          "ruleIndex": 4,
+          "level": "warning",
+          "message": {
+            "text": "CPU Request Not Set in config file."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///iac/k8s/deployment.yaml"
+                },
+                "region": {
+                  "startLine": 1
+                }
+              },
+              "logicalLocations": [
+                {
+                  "name": "app",
+                  "kind": "kubernetes_deployment"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "AC_K8S_0072",
+          "ruleIndex": 5,
+          "level": "note",
+          "message": {
+            "text": "No readiness probe will affect automatic recovery in case of unexpected errors"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///iac/k8s/deployment.yaml"
+                },
+                "region": {
+                  "startLine": 1
+                }
+              },
+              "logicalLocations": [
+                {
+                  "name": "app",
+                  "kind": "kubernetes_deployment"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "AC_K8S_0070",
+          "ruleIndex": 6,
+          "level": "note",
+          "message": {
+            "text": "No liveness probe will ensure there is no recovery in case of unexpected errors"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///iac/k8s/deployment.yaml"
+                },
+                "region": {
+                  "startLine": 1
+                }
+              },
+              "logicalLocations": [
+                {
+                  "name": "app",
+                  "kind": "kubernetes_deployment"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "AC_K8S_0068",
+          "ruleIndex": 7,
+          "level": "note",
+          "message": {
+            "text": "No tag or container image with :Latest tag makes difficult to rollback and track"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///iac/k8s/deployment.yaml"
+                },
+                "region": {
+                  "startLine": 1
+                }
+              },
+              "logicalLocations": [
+                {
+                  "name": "app",
+                  "kind": "kubernetes_deployment"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "AC_K8S_0098",
+          "ruleIndex": 8,
+          "level": "warning",
+          "message": {
+            "text": "CPU Limits Not Set in config file."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///iac/k8s/deployment.yaml"
+                },
+                "region": {
+                  "startLine": 1
+                }
+              },
+              "logicalLocations": [
+                {
+                  "name": "app",
+                  "kind": "kubernetes_deployment"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "AC_K8S_0100",
+          "ruleIndex": 9,
+          "level": "warning",
+          "message": {
+            "text": "Memory Limits Not Set in config file."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///iac/k8s/deployment.yaml"
+                },
+                "region": {
+                  "startLine": 1
+                }
+              },
+              "logicalLocations": [
+                {
+                  "name": "app",
+                  "kind": "kubernetes_deployment"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "AC_K8S_0099",
+          "ruleIndex": 10,
+          "level": "warning",
+          "message": {
+            "text": "Memory Request Not Set in config file."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///iac/k8s/deployment.yaml"
+                },
+                "region": {
+                  "startLine": 1
+                }
+              },
+              "logicalLocations": [
+                {
+                  "name": "app",
+                  "kind": "kubernetes_deployment"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "AC_K8S_0073",
+          "ruleIndex": 11,
+          "level": "warning",
+          "message": {
+            "text": "AppArmor profile not set to default or custom profile will make the container vulnerable to kernel level threats"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///iac/k8s/deployment.yaml"
+                },
+                "region": {
+                  "startLine": 1
+                }
+              },
+              "logicalLocations": [
+                {
+                  "name": "app",
+                  "kind": "kubernetes_deployment"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "AC_K8S_0064",
+          "ruleIndex": 12,
+          "level": "warning",
+          "message": {
+            "text": "Apply Security Context to Your Pods and Containers"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///iac/k8s/deployment.yaml"
+                },
+                "region": {
+                  "startLine": 1
+                }
+              },
+              "logicalLocations": [
+                {
+                  "name": "app",
+                  "kind": "kubernetes_deployment"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "AC_K8S_0085",
+          "ruleIndex": 13,
+          "level": "error",
+          "message": {
+            "text": "Containers Should Not Run with AllowPrivilegeEscalation"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///iac/k8s/deployment.yaml"
+                },
+                "region": {
+                  "startLine": 1
+                }
+              },
+              "logicalLocations": [
+                {
+                  "name": "app",
+                  "kind": "kubernetes_deployment"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "AC_K8S_0069",
+          "ruleIndex": 14,
+          "level": "warning",
+          "message": {
+            "text": "Image without digest affects the integrity principle of image security"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///iac/k8s/deployment.yaml"
+                },
+                "region": {
+                  "startLine": 1
+                }
+              },
+              "logicalLocations": [
+                {
+                  "name": "app",
+                  "kind": "kubernetes_deployment"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "AC_K8S_0087",
+          "ruleIndex": 15,
+          "level": "error",
+          "message": {
+            "text": "Minimize Admission of Root Containers"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///iac/k8s/deployment.yaml"
+                },
+                "region": {
+                  "startLine": 1
+                }
+              },
+              "logicalLocations": [
+                {
+                  "name": "app",
+                  "kind": "kubernetes_deployment"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "AC_K8S_0078",
+          "ruleIndex": 16,
+          "level": "warning",
+          "message": {
+            "text": "Container images with readOnlyRootFileSystem set as false mounts the container root file system with write permissions"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///iac/k8s/deployment.yaml"
+                },
+                "region": {
+                  "startLine": 1
+                }
+              },
+              "logicalLocations": [
+                {
+                  "name": "app",
+                  "kind": "kubernetes_deployment"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "AC_AWS_0227",
+          "ruleIndex": 17,
+          "level": "error",
+          "message": {
+            "text": "Security Groups - Unrestricted Specific Ports - (SSH,22)"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///iac/main.tf"
+                },
+                "region": {
+                  "startLine": 6
+                }
+              },
+              "logicalLocations": [
+                {
+                  "name": "ssh",
+                  "kind": "aws_security_group"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "AC_AWS_0214",
+          "ruleIndex": 18,
+          "level": "error",
+          "message": {
+            "text": "Enabling S3 versioning will enable easy recovery from both unintended user actions, like deletes and overwrites"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///iac/main.tf"
+                },
+                "region": {
+                  "startLine": 1
+                }
+              },
+              "logicalLocations": [
+                {
+                  "name": "data",
+                  "kind": "aws_s3_bucket"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "AC_AWS_0210",
+          "ruleIndex": 19,
+          "level": "error",
+          "message": {
+            "text": "Misconfigured S3 buckets can leak private information to the entire internet or allow unauthorized data tampering / deletion"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///iac/main.tf"
+                },
+                "region": {
+                  "startLine": 1
+                }
+              },
+              "logicalLocations": [
+                {
+                  "name": "data",
+                  "kind": "aws_s3_bucket"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
