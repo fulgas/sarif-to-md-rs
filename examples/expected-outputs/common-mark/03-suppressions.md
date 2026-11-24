@@ -5,8 +5,10 @@
 
 | Severity | Count |
 |----------|-------|
-| Warning | 9 |
-| **Total** | **9** |
+| Warning | 6 |
+| **Total** | **6** |
+
+**Suppressed:** 3 (not counted above; not shown)
 
 ---
 
@@ -18,19 +20,7 @@
 
 #### Warning - TUT1001
 
-**Message:** This result is hidden because it is suppressed in source.
-
-#### Warning - TUT1001
-
-**Message:** This result is hidden because it is suppressed externally.
-
-#### Warning - TUT1001
-
 **Message:** This result is visible because its suppression was rejected.
-
-#### Warning - TUT1001
-
-**Message:** This result is hidden because its suppression was accepted.
 
 #### Warning - TUT1001
 
@@ -50,4 +40,4 @@
 
 ---
 
-*Report generated on 2026-05-12 14:37:19 UTC*
+*Report generated on 2026-11-24 14:50:56 UTC*
