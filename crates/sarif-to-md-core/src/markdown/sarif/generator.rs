@@ -10,6 +10,7 @@ use std::collections::{BTreeMap, HashMap};
 pub struct SarifMarkdownGenerator {
     markdown_format: MarkdownFormat,
     with_emoji: bool,
+    include_suppressed: bool,
 }
 
 impl SarifMarkdownGenerator {
@@ -18,7 +19,17 @@ impl SarifMarkdownGenerator {
         Self {
             markdown_format,
             with_emoji,
+            include_suppressed: false,
         }
+    }
+
+    /// Include suppressed results in the detailed results, marked as suppressed.
+    ///
+    /// By default suppressed results are left out of the report. Either way they are
+    /// never counted in the severity summary; the summary reports how many there are.
+    pub fn include_suppressed(mut self, include_suppressed: bool) -> Self {
+        self.include_suppressed = include_suppressed;
+        self
     }
 }
 
@@ -66,7 +77,7 @@ impl SarifMarkdownGenerator {
                     }
                 }
 
-                let results: Vec<SarifResultView> = run
+                let mut results: Vec<SarifResultView> = run
                     .results
                     .as_ref()
                     .map(|results| {
@@ -77,12 +88,22 @@ impl SarifMarkdownGenerator {
                     })
                     .unwrap_or_default();
 
-                let severity_counts = self.calculate_severity_counts(&results);
+                let (suppressed, active): (Vec<_>, Vec<_>) =
+                    results.iter().partition(|r| r.suppressed);
+                let suppressed_count = suppressed.len();
+                let total_results = active.len();
+                let severity_counts = self.calculate_severity_counts(&active);
+
+                if !self.include_suppressed {
+                    results.retain(|r| !r.suppressed);
+                }
 
                 SarifRun {
                     tool_name,
                     tool_version,
-                    total_results: results.len(),
+                    total_results,
+                    suppressed_count,
+                    include_suppressed: self.include_suppressed,
                     severity_counts,
                     results,
                 }
@@ -189,6 +210,14 @@ impl SarifMarkdownGenerator {
             .as_ref()
             .map(|props| self.extract_result_properties(&props.additional_properties));
 
+        let suppressions = result.suppressions.as_deref().unwrap_or_default();
+        let suppressed = is_suppressed(suppressions);
+        let suppressions = if suppressed {
+            suppressions.iter().map(describe_suppression).collect()
+        } else {
+            Vec::new()
+        };
+
         SarifResultView {
             rule_id,
             level,
@@ -196,6 +225,8 @@ impl SarifMarkdownGenerator {
             locations,
             rule_metadata,
             properties,
+            suppressed,
+            suppressions,
         }
     }
 
@@ -260,7 +291,7 @@ impl SarifMarkdownGenerator {
         }
     }
 
-    fn calculate_severity_counts(&self, results: &[SarifResultView]) -> Vec<SeverityCount> {
+    fn calculate_severity_counts(&self, results: &[&SarifResultView]) -> Vec<SeverityCount> {
         let mut level_counts = HashMap::new();
         for result in results {
             *level_counts.entry(result.level.clone()).or_insert(0) += 1;
@@ -287,5 +318,32 @@ impl SarifMarkdownGenerator {
 
         severity_counts.retain(|sc| sc.count > 0);
         severity_counts
+    }
+}
+
+/// SARIF 2.1.0 §3.27.23 says to examine the suppressions' `status` values but does not
+/// say how to combine several of them. A result counts as suppressed only when it has at
+/// least one suppression and every one of them is `accepted` or has no status, so a
+/// result anyone marked `rejected` or `underReview` is never hidden.
+fn is_suppressed(suppressions: &[serde_sarif::sarif::Suppression]) -> bool {
+    !suppressions.is_empty()
+        && suppressions.iter().all(|s| {
+            matches!(
+                s.status.as_ref().and_then(|v| v.as_str()),
+                None | Some("accepted")
+            )
+        })
+}
+
+/// "accepted (external)", "no status (inSource)", ...
+fn describe_suppression(suppression: &serde_sarif::sarif::Suppression) -> String {
+    let status = suppression
+        .status
+        .as_ref()
+        .and_then(|v| v.as_str())
+        .unwrap_or("no status");
+    match suppression.kind.as_str() {
+        Some(kind) => format!("{status} ({kind})"),
+        None => status.to_string(),
     }
 }

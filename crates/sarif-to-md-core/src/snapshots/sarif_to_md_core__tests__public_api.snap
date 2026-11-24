@@ -117,6 +117,7 @@ pub fn sarif_to_md_core::error::GeneratorError::from(T) -> T
 pub mod sarif_to_md_core::generators
 pub struct sarif_to_md_core::generators::SarifMarkdownGenerator
 impl sarif_to_md_core::markdown::sarif::generator::SarifMarkdownGenerator
+pub fn sarif_to_md_core::markdown::sarif::generator::SarifMarkdownGenerator::include_suppressed(self, bool) -> Self
 pub fn sarif_to_md_core::markdown::sarif::generator::SarifMarkdownGenerator::new(sarif_to_md_core::markdown::MarkdownFormat, bool) -> Self
 impl sarif_to_md_core::markdown::MarkdownGenerator for sarif_to_md_core::markdown::sarif::generator::SarifMarkdownGenerator
 pub type sarif_to_md_core::markdown::sarif::generator::SarifMarkdownGenerator::Input = serde_sarif::sarif::Sarif
@@ -149,6 +150,7 @@ pub mod sarif_to_md_core::markdown::sarif
 pub mod sarif_to_md_core::markdown::sarif::generator
 pub struct sarif_to_md_core::markdown::sarif::generator::SarifMarkdownGenerator
 impl sarif_to_md_core::markdown::sarif::generator::SarifMarkdownGenerator
+pub fn sarif_to_md_core::markdown::sarif::generator::SarifMarkdownGenerator::include_suppressed(self, bool) -> Self
 pub fn sarif_to_md_core::markdown::sarif::generator::SarifMarkdownGenerator::new(sarif_to_md_core::markdown::MarkdownFormat, bool) -> Self
 impl sarif_to_md_core::markdown::MarkdownGenerator for sarif_to_md_core::markdown::sarif::generator::SarifMarkdownGenerator
 pub type sarif_to_md_core::markdown::sarif::generator::SarifMarkdownGenerator::Input = serde_sarif::sarif::Sarif
