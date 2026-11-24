@@ -38,4 +38,8 @@ pub(crate) struct Cli {
     /// Include emoji in the output
     #[arg(short = 'e', long, default_value = "false")]
     pub(crate) with_emoji: bool,
+
+    /// Include suppressed results in the detailed results (they are never counted)
+    #[arg(long)]
+    pub(crate) include_suppressed: bool,
 }

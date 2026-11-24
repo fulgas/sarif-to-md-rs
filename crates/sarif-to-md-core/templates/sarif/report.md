@@ -25,6 +25,10 @@
 | {{ sm::format_severity(severity.level, with_emoji) }} | {{ severity.count }} |
 {%- endfor %}
 | **Total** | **{{ run.total_results }}** |
+{%- if run.suppressed_count > 0 %}
+
+**Suppressed:** {{ run.suppressed_count }} (not counted above{% if run.include_suppressed %}; listed below and marked as suppressed{% else %}; not shown{% endif %})
+{%- endif %}
 
 ---
 
@@ -38,11 +42,17 @@
 {%- if let Some(metadata) = result.rule_metadata %}
 {%- if let Some(name) = metadata.name %} - {{ name }}{%- endif %}
 {%- endif %}
+{%- if result.suppressed %} (suppressed){%- endif %}
 </summary>
 
 #### Details
 {%- else %}
-#### {{ sm::format_severity(result.level, with_emoji) }} - {{ result.rule_id }}
+#### {{ sm::format_severity(result.level, with_emoji) }} - {{ result.rule_id }}{% if result.suppressed %} (suppressed){% endif %}
+{%- endif %}
+
+{%- if result.suppressed %}
+
+**Suppressed:** {{ result.suppressions|join(", ") }}
 {%- endif %}
 
 {%- if is_gfm %}

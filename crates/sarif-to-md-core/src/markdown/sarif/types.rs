@@ -15,6 +15,8 @@ pub(in crate::markdown) struct SarifRun {
     pub(in crate::markdown) tool_name: String,
     pub(in crate::markdown) tool_version: Option<String>,
     pub(in crate::markdown) total_results: usize,
+    pub(in crate::markdown) suppressed_count: usize,
+    pub(in crate::markdown) include_suppressed: bool,
     pub(in crate::markdown) severity_counts: Vec<SeverityCount>,
     pub(in crate::markdown) results: Vec<SarifResultView>,
 }
@@ -52,6 +54,8 @@ pub(in crate::markdown) struct SarifResultView {
     pub(in crate::markdown) locations: Vec<SarifLocation>,
     pub(in crate::markdown) rule_metadata: Option<RuleMetadata>,
     pub(in crate::markdown) properties: Option<ResultProperties>,
+    pub(in crate::markdown) suppressed: bool,
+    pub(in crate::markdown) suppressions: Vec<String>,
 }
 
 #[derive(Clone, Debug)]

@@ -25,7 +25,7 @@ use sarif_to_md_core::{
 };
 
 mod common;
-use common::{embedded_content_sarif, minimal_sarif, rule_metadata_sarif};
+use common::{embedded_content_sarif, minimal_sarif, rule_metadata_sarif, suppressions_sarif};
 
 #[rstest]
 fn test_public_api_report_processor_direct_construction(minimal_sarif: String) -> Result<()> {
@@ -503,5 +503,45 @@ fn test_tool_version_single_v_prefix(#[case] version: &str) -> Result<()> {
         assert!(result.contains("KICS v2.1.20"), "{result}");
         assert!(!result.contains("vv2.1.20"));
     }
+    Ok(())
+}
+
+#[rstest]
+#[case(MarkdownFormat::CommonMark)]
+#[case(MarkdownFormat::GitHubFlavored)]
+fn test_suppressed_results_hidden_by_default(
+    suppressions_sarif: String,
+    #[case] format: MarkdownFormat,
+) -> Result<()> {
+    let result = ReportProcessor::new(
+        SarifMarkdownGenerator::new(format, false),
+        suppressions_sarif,
+    )
+    .generate()?;
+
+    // Only results whose suppressions are all accepted or status-less are suppressed.
+    assert!(result.contains("| Warning | 6 |"), "{result}");
+    assert!(result.contains("**Suppressed:** 3 (not counted above; not shown)"));
+    assert!(!result.contains("suppressed in source"));
+    assert!(!result.contains("suppressed externally"));
+    assert!(!result.contains("its suppression was accepted"));
+    assert!(result.contains("its suppression was rejected"));
+    assert!(result.contains("still under review."));
+    assert!(result.contains("at least one suppression was accepted"));
+    Ok(())
+}
+
+#[rstest]
+fn test_include_suppressed_marks_them(suppressions_sarif: String) -> Result<()> {
+    let generator =
+        SarifMarkdownGenerator::new(MarkdownFormat::CommonMark, false).include_suppressed(true);
+    let result = ReportProcessor::new(generator, suppressions_sarif).generate()?;
+
+    assert!(result.contains("| Warning | 6 |"), "{result}");
+    assert!(result.contains("listed below and marked as suppressed"));
+    assert!(result.contains("suppressed in source"));
+    assert!(result.contains("**Suppressed:** no status (inSource)"));
+    assert!(result.contains("**Suppressed:** accepted (external)"));
+    assert_eq!(result.matches("(suppressed)").count(), 3);
     Ok(())
 }

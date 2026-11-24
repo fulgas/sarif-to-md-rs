@@ -19,7 +19,10 @@ fn main() -> anyhow::Result<()> {
     let output_format: MarkdownFormat = cli.output_format.into();
 
     let processor = ReportProcessorBuilder::new()
-        .generator(SarifMarkdownGenerator::new(output_format, with_emoji))
+        .generator(
+            SarifMarkdownGenerator::new(output_format, with_emoji)
+                .include_suppressed(cli.include_suppressed),
+        )
         .content(content)
         .build()
         .context("Failed to configure report processor")?;

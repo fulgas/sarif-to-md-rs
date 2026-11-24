@@ -135,6 +135,7 @@ Options:
   -f, --output-format <FORMAT> Markdown format [default: common-mark]
                                [possible values: github-flavored, common-mark]
   -e, --with-emoji             Include emoji in the output
+      --include-suppressed     Include suppressed results in the details (never counted)
   -h, --help                   Print help
   -V, --version                Print version
 ```

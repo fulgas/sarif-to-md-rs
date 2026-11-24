@@ -80,6 +80,7 @@ Options:
   -f, --output-format <FORMAT> Markdown output format [default: common-mark]
                                Values: github-flavored, common-mark
   -e, --with-emoji             Include emoji in severity indicators
+      --include-suppressed     Include suppressed results in the details (never counted)
   -h, --help                   Print help information
   -V, --version                Print version information
 ```
