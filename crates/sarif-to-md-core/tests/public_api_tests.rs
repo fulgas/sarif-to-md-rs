@@ -601,3 +601,22 @@ fn test_rule_lookup_via_rule_reference_and_explicit_levels() -> Result<()> {
     assert!(result.contains("#### Warning - unknown"), "{result}");
     Ok(())
 }
+
+#[rstest]
+fn test_null_values_are_treated_as_absent() -> Result<()> {
+    // gosec emits `"relationships": [null]`; other producers write `null` for optional fields.
+    let sarif = r#"{"version":"2.1.0","runs":[{"tool":{"driver":{"name":"gosec","version":null,
+        "rules":[{"id":"G101","relationships":[null],"helpUri":null}]}},
+      "results":[{"ruleId":"G101","level":"error","message":{"text":"hardcoded credentials"},
+        "locations":null}]}]}"#;
+
+    let result = ReportProcessor::new(
+        SarifMarkdownGenerator::new(MarkdownFormat::CommonMark, false),
+        sarif.to_string(),
+    )
+    .generate()?;
+
+    assert!(result.contains("| Error | 1 |"), "{result}");
+    assert!(result.contains("hardcoded credentials"));
+    Ok(())
+}

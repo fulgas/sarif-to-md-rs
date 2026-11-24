@@ -40,9 +40,28 @@ impl<G: MarkdownGenerator> ReportProcessor<G> {
 
     /// Parse content and generate Markdown output.
     pub fn generate(self) -> Result<String, Error> {
-        let data: G::Input = serde_json::from_str(&self.content)?;
+        let mut value: serde_json::Value = serde_json::from_str(&self.content)?;
+        strip_nulls(&mut value);
+        let data: G::Input = serde_json::from_value(value)?;
         let markdown = self.generator.generate_markdown_template(&data)?;
         Ok(markdown)
+    }
+}
+
+/// Removes `null` object values and array elements, so a `null` optional property is
+/// read as absent. Some producers emit them (gosec writes `"relationships": [null]`)
+/// although the SARIF schema does not allow `null` there.
+fn strip_nulls(value: &mut serde_json::Value) {
+    match value {
+        serde_json::Value::Array(items) => {
+            items.retain(|item| !item.is_null());
+            items.iter_mut().for_each(strip_nulls);
+        }
+        serde_json::Value::Object(map) => {
+            map.retain(|_, v| !v.is_null());
+            map.values_mut().for_each(strip_nulls);
+        }
+        _ => {}
     }
 }
 
