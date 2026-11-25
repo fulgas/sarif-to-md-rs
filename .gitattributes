@@ -1,0 +1,3 @@
+# Templates are compiled into the binary: keep LF so reports have the same line
+# endings on every OS (a Windows checkout would otherwise turn them into CRLF).
+crates/sarif-to-md-core/templates/** text eol=lf
