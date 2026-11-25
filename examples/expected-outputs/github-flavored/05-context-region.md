@@ -19,7 +19,10 @@ SarifSamples v1.0
 #### Details
 
 **Message:**
-> The result.
+
+```text
+The result.
+```
 
 **Locations:**
 - `code/example.cs`:4:19

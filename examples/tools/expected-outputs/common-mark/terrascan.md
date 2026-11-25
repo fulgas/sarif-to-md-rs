@@ -16,180 +16,340 @@
 
 #### Warning - AC_DOCKER_0041
 
-**Message:** Ensure :latest version is not used for Docker file
+**Message:**
 
-**Description:** Ensure :latest version is not used for Docker file
+```text
+Ensure :latest version is not used for Docker file
+```
+
+**Description:**
+
+```text
+Ensure :latest version is not used for Docker file
+```
 
 **Locations:**
 - `file:///iac/Dockerfile`:1
 
 #### Warning - AC_DOCKER_0010
 
-**Message:** Ensure Pinned Pip Package Version
+**Message:**
 
-**Description:** Ensure Pinned Pip Package Version
+```text
+Ensure Pinned Pip Package Version
+```
+
+**Description:**
+
+```text
+Ensure Pinned Pip Package Version
+```
 
 **Locations:**
 - `file:///iac/Dockerfile`:5
 
 #### Warning - AC_DOCKER_0031
 
-**Message:** Ensure when installing packages with pip, the '--no-cache-dir' flag should be set to make Docker images smaller
+**Message:**
 
-**Description:** Ensure when installing packages with pip, the '--no-cache-dir' flag should be set to make Docker images smaller
+```text
+Ensure when installing packages with pip, the '--no-cache-dir' flag should be set to make Docker images smaller
+```
+
+**Description:**
+
+```text
+Ensure when installing packages with pip, the '--no-cache-dir' flag should be set to make Docker images smaller
+```
 
 **Locations:**
 - `file:///iac/Dockerfile`:5
 
 #### Warning - AC_K8S_0080
 
-**Message:** Default seccomp profile not enabled will make the container to make non-essential system calls
+**Message:**
 
-**Description:** Default seccomp profile not enabled will make the container to make non-essential system calls
+```text
+Default seccomp profile not enabled will make the container to make non-essential system calls
+```
+
+**Description:**
+
+```text
+Default seccomp profile not enabled will make the container to make non-essential system calls
+```
 
 **Locations:**
 - `file:///iac/k8s/deployment.yaml`:1
 
 #### Warning - AC_K8S_0097
 
-**Message:** CPU Request Not Set in config file.
+**Message:**
 
-**Description:** CPU Request Not Set in config file.
+```text
+CPU Request Not Set in config file.
+```
+
+**Description:**
+
+```text
+CPU Request Not Set in config file.
+```
 
 **Locations:**
 - `file:///iac/k8s/deployment.yaml`:1
 
 #### Note - AC_K8S_0072
 
-**Message:** No readiness probe will affect automatic recovery in case of unexpected errors
+**Message:**
 
-**Description:** No readiness probe will affect automatic recovery in case of unexpected errors
+```text
+No readiness probe will affect automatic recovery in case of unexpected errors
+```
+
+**Description:**
+
+```text
+No readiness probe will affect automatic recovery in case of unexpected errors
+```
 
 **Locations:**
 - `file:///iac/k8s/deployment.yaml`:1
 
 #### Note - AC_K8S_0070
 
-**Message:** No liveness probe will ensure there is no recovery in case of unexpected errors
+**Message:**
 
-**Description:** No liveness probe will ensure there is no recovery in case of unexpected errors
+```text
+No liveness probe will ensure there is no recovery in case of unexpected errors
+```
+
+**Description:**
+
+```text
+No liveness probe will ensure there is no recovery in case of unexpected errors
+```
 
 **Locations:**
 - `file:///iac/k8s/deployment.yaml`:1
 
 #### Note - AC_K8S_0068
 
-**Message:** No tag or container image with :Latest tag makes difficult to rollback and track
+**Message:**
 
-**Description:** No tag or container image with :Latest tag makes difficult to rollback and track
+```text
+No tag or container image with :Latest tag makes difficult to rollback and track
+```
+
+**Description:**
+
+```text
+No tag or container image with :Latest tag makes difficult to rollback and track
+```
 
 **Locations:**
 - `file:///iac/k8s/deployment.yaml`:1
 
 #### Warning - AC_K8S_0098
 
-**Message:** CPU Limits Not Set in config file.
+**Message:**
 
-**Description:** CPU Limits Not Set in config file.
+```text
+CPU Limits Not Set in config file.
+```
+
+**Description:**
+
+```text
+CPU Limits Not Set in config file.
+```
 
 **Locations:**
 - `file:///iac/k8s/deployment.yaml`:1
 
 #### Warning - AC_K8S_0100
 
-**Message:** Memory Limits Not Set in config file.
+**Message:**
 
-**Description:** Memory Limits Not Set in config file.
+```text
+Memory Limits Not Set in config file.
+```
+
+**Description:**
+
+```text
+Memory Limits Not Set in config file.
+```
 
 **Locations:**
 - `file:///iac/k8s/deployment.yaml`:1
 
 #### Warning - AC_K8S_0099
 
-**Message:** Memory Request Not Set in config file.
+**Message:**
 
-**Description:** Memory Request Not Set in config file.
+```text
+Memory Request Not Set in config file.
+```
+
+**Description:**
+
+```text
+Memory Request Not Set in config file.
+```
 
 **Locations:**
 - `file:///iac/k8s/deployment.yaml`:1
 
 #### Warning - AC_K8S_0073
 
-**Message:** AppArmor profile not set to default or custom profile will make the container vulnerable to kernel level threats
+**Message:**
 
-**Description:** AppArmor profile not set to default or custom profile will make the container vulnerable to kernel level threats
+```text
+AppArmor profile not set to default or custom profile will make the container vulnerable to kernel level threats
+```
+
+**Description:**
+
+```text
+AppArmor profile not set to default or custom profile will make the container vulnerable to kernel level threats
+```
 
 **Locations:**
 - `file:///iac/k8s/deployment.yaml`:1
 
 #### Warning - AC_K8S_0064
 
-**Message:** Apply Security Context to Your Pods and Containers
+**Message:**
 
-**Description:** Apply Security Context to Your Pods and Containers
+```text
+Apply Security Context to Your Pods and Containers
+```
+
+**Description:**
+
+```text
+Apply Security Context to Your Pods and Containers
+```
 
 **Locations:**
 - `file:///iac/k8s/deployment.yaml`:1
 
 #### Error - AC_K8S_0085
 
-**Message:** Containers Should Not Run with AllowPrivilegeEscalation
+**Message:**
 
-**Description:** Containers Should Not Run with AllowPrivilegeEscalation
+```text
+Containers Should Not Run with AllowPrivilegeEscalation
+```
+
+**Description:**
+
+```text
+Containers Should Not Run with AllowPrivilegeEscalation
+```
 
 **Locations:**
 - `file:///iac/k8s/deployment.yaml`:1
 
 #### Warning - AC_K8S_0069
 
-**Message:** Image without digest affects the integrity principle of image security
+**Message:**
 
-**Description:** Image without digest affects the integrity principle of image security
+```text
+Image without digest affects the integrity principle of image security
+```
+
+**Description:**
+
+```text
+Image without digest affects the integrity principle of image security
+```
 
 **Locations:**
 - `file:///iac/k8s/deployment.yaml`:1
 
 #### Error - AC_K8S_0087
 
-**Message:** Minimize Admission of Root Containers
+**Message:**
 
-**Description:** Minimize Admission of Root Containers
+```text
+Minimize Admission of Root Containers
+```
+
+**Description:**
+
+```text
+Minimize Admission of Root Containers
+```
 
 **Locations:**
 - `file:///iac/k8s/deployment.yaml`:1
 
 #### Warning - AC_K8S_0078
 
-**Message:** Container images with readOnlyRootFileSystem set as false mounts the container root file system with write permissions
+**Message:**
 
-**Description:** Container images with readOnlyRootFileSystem set as false mounts the container root file system with write permissions
+```text
+Container images with readOnlyRootFileSystem set as false mounts the container root file system with write permissions
+```
+
+**Description:**
+
+```text
+Container images with readOnlyRootFileSystem set as false mounts the container root file system with write permissions
+```
 
 **Locations:**
 - `file:///iac/k8s/deployment.yaml`:1
 
 #### Error - AC_AWS_0227
 
-**Message:** Security Groups - Unrestricted Specific Ports - (SSH,22)
+**Message:**
 
-**Description:** Security Groups - Unrestricted Specific Ports - (SSH,22)
+```text
+Security Groups - Unrestricted Specific Ports - (SSH,22)
+```
+
+**Description:**
+
+```text
+Security Groups - Unrestricted Specific Ports - (SSH,22)
+```
 
 **Locations:**
 - `file:///iac/main.tf`:6
 
 #### Error - AC_AWS_0214
 
-**Message:** Enabling S3 versioning will enable easy recovery from both unintended user actions, like deletes and overwrites
+**Message:**
 
-**Description:** Enabling S3 versioning will enable easy recovery from both unintended user actions, like deletes and overwrites
+```text
+Enabling S3 versioning will enable easy recovery from both unintended user actions, like deletes and overwrites
+```
+
+**Description:**
+
+```text
+Enabling S3 versioning will enable easy recovery from both unintended user actions, like deletes and overwrites
+```
 
 **Locations:**
 - `file:///iac/main.tf`:1
 
 #### Error - AC_AWS_0210
 
-**Message:** Misconfigured S3 buckets can leak private information to the entire internet or allow unauthorized data tampering / deletion
+**Message:**
 
-**Description:** Misconfigured S3 buckets can leak private information to the entire internet or allow unauthorized data tampering / deletion
+```text
+Misconfigured S3 buckets can leak private information to the entire internet or allow unauthorized data tampering / deletion
+```
+
+**Description:**
+
+```text
+Misconfigured S3 buckets can leak private information to the entire internet or allow unauthorized data tampering / deletion
+```
 
 **Locations:**
 - `file:///iac/main.tf`:1

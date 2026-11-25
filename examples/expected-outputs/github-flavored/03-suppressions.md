@@ -21,7 +21,10 @@ SarifSamples v1.0
 #### Details
 
 **Message:**
-> This result is visible because it is not suppressed.
+
+```text
+This result is visible because it is not suppressed.
+```
 </details>
 <details>
 <summary>
@@ -31,7 +34,10 @@ SarifSamples v1.0
 #### Details
 
 **Message:**
-> This result is visible because its suppression was rejected.
+
+```text
+This result is visible because its suppression was rejected.
+```
 </details>
 <details>
 <summary>
@@ -41,7 +47,10 @@ SarifSamples v1.0
 #### Details
 
 **Message:**
-> This result is visible because its suppression is still under review.
+
+```text
+This result is visible because its suppression is still under review.
+```
 </details>
 <details>
 <summary>
@@ -51,7 +60,10 @@ SarifSamples v1.0
 #### Details
 
 **Message:**
-> This result is hidden because at least one suppression was accepted.
+
+```text
+This result is hidden because at least one suppression was accepted.
+```
 </details>
 <details>
 <summary>
@@ -61,7 +73,10 @@ SarifSamples v1.0
 #### Details
 
 **Message:**
-> This result is hidden because it has at least one unqualified suppression.
+
+```text
+This result is hidden because it has at least one unqualified suppression.
+```
 </details>
 <details>
 <summary>
@@ -71,7 +86,10 @@ SarifSamples v1.0
 #### Details
 
 **Message:**
-> This result is hidden because at least one suppression has not yet been rejected (it is still under review).
+
+```text
+This result is hidden because at least one suppression has not yet been rejected (it is still under review).
+```
 </details>
 
 ---

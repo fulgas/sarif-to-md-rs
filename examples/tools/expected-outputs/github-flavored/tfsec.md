@@ -21,10 +21,16 @@ defsec
 #### Details
 
 **Message:**
-> Security group explicitly uses the default description.
+
+```text
+Security group explicitly uses the default description.
+```
 
 **Description:**
-> Missing description for security group.
+
+```text
+Missing description for security group.
+```
 
 **Documentation:** [View details](https://aquasecurity.github.io/tfsec/v1.28.14/checks/aws/ec2/add-description-to-security-group/)
 
@@ -39,10 +45,16 @@ defsec
 #### Details
 
 **Message:**
-> Security group rule does not have a description.
+
+```text
+Security group rule does not have a description.
+```
 
 **Description:**
-> Missing description for security group rule.
+
+```text
+Missing description for security group rule.
+```
 
 **Documentation:** [View details](https://aquasecurity.github.io/tfsec/v1.28.14/checks/aws/ec2/add-description-to-security-group-rule/)
 
@@ -57,10 +69,16 @@ defsec
 #### Details
 
 **Message:**
-> Security group rule allows ingress from public internet.
+
+```text
+Security group rule allows ingress from public internet.
+```
 
 **Description:**
-> An ingress security group rule allows traffic from /0.
+
+```text
+An ingress security group rule allows traffic from /0.
+```
 
 **Documentation:** [View details](https://aquasecurity.github.io/tfsec/v1.28.14/checks/aws/ec2/no-public-ingress-sgr/)
 
@@ -75,10 +93,16 @@ defsec
 #### Details
 
 **Message:**
-> No public access block so not blocking public acls
+
+```text
+No public access block so not blocking public acls
+```
 
 **Description:**
-> S3 Access block should block public ACL
+
+```text
+S3 Access block should block public ACL
+```
 
 **Documentation:** [View details](https://aquasecurity.github.io/tfsec/v1.28.14/checks/aws/s3/block-public-acls/)
 
@@ -93,10 +117,16 @@ defsec
 #### Details
 
 **Message:**
-> No public access block so not blocking public policies
+
+```text
+No public access block so not blocking public policies
+```
 
 **Description:**
-> S3 Access block should block public policy
+
+```text
+S3 Access block should block public policy
+```
 
 **Documentation:** [View details](https://aquasecurity.github.io/tfsec/v1.28.14/checks/aws/s3/block-public-policy/)
 
@@ -111,10 +141,16 @@ defsec
 #### Details
 
 **Message:**
-> Bucket does not have encryption enabled
+
+```text
+Bucket does not have encryption enabled
+```
 
 **Description:**
-> Unencrypted S3 bucket.
+
+```text
+Unencrypted S3 bucket.
+```
 
 **Documentation:** [View details](https://aquasecurity.github.io/tfsec/v1.28.14/checks/aws/s3/enable-bucket-encryption/)
 
@@ -129,10 +165,16 @@ defsec
 #### Details
 
 **Message:**
-> Bucket does not have logging enabled
+
+```text
+Bucket does not have logging enabled
+```
 
 **Description:**
-> S3 Bucket does not have logging enabled.
+
+```text
+S3 Bucket does not have logging enabled.
+```
 
 **Documentation:** [View details](https://aquasecurity.github.io/tfsec/v1.28.14/checks/aws/s3/enable-bucket-logging/)
 
@@ -147,10 +189,16 @@ defsec
 #### Details
 
 **Message:**
-> Bucket does not have versioning enabled
+
+```text
+Bucket does not have versioning enabled
+```
 
 **Description:**
-> S3 Data should be versioned
+
+```text
+S3 Data should be versioned
+```
 
 **Documentation:** [View details](https://aquasecurity.github.io/tfsec/v1.28.14/checks/aws/s3/enable-versioning/)
 
@@ -165,10 +213,16 @@ defsec
 #### Details
 
 **Message:**
-> Bucket does not encrypt data with a customer managed key.
+
+```text
+Bucket does not encrypt data with a customer managed key.
+```
 
 **Description:**
-> S3 encryption should use Customer Managed Keys
+
+```text
+S3 encryption should use Customer Managed Keys
+```
 
 **Documentation:** [View details](https://aquasecurity.github.io/tfsec/v1.28.14/checks/aws/s3/encryption-customer-key/)
 
@@ -183,10 +237,16 @@ defsec
 #### Details
 
 **Message:**
-> No public access block so not ignoring public acls
+
+```text
+No public access block so not ignoring public acls
+```
 
 **Description:**
-> S3 Access Block should Ignore Public Acl
+
+```text
+S3 Access Block should Ignore Public Acl
+```
 
 **Documentation:** [View details](https://aquasecurity.github.io/tfsec/v1.28.14/checks/aws/s3/ignore-public-acls/)
 
@@ -201,10 +261,16 @@ defsec
 #### Details
 
 **Message:**
-> Bucket has a public ACL: 'public-read'.
+
+```text
+Bucket has a public ACL: 'public-read'.
+```
 
 **Description:**
-> S3 Buckets not publicly accessible through ACL.
+
+```text
+S3 Buckets not publicly accessible through ACL.
+```
 
 **Documentation:** [View details](https://aquasecurity.github.io/tfsec/v1.28.14/checks/aws/s3/no-public-access-with-acl/)
 
@@ -219,10 +285,16 @@ defsec
 #### Details
 
 **Message:**
-> No public access block so not restricting public buckets
+
+```text
+No public access block so not restricting public buckets
+```
 
 **Description:**
-> S3 Access block should restrict public bucket to limit access
+
+```text
+S3 Access block should restrict public bucket to limit access
+```
 
 **Documentation:** [View details](https://aquasecurity.github.io/tfsec/v1.28.14/checks/aws/s3/no-public-buckets/)
 
@@ -237,10 +309,16 @@ defsec
 #### Details
 
 **Message:**
-> Bucket does not have a corresponding public access block.
+
+```text
+Bucket does not have a corresponding public access block.
+```
 
 **Description:**
-> S3 buckets should each define an aws_s3_bucket_public_access_block
+
+```text
+S3 buckets should each define an aws_s3_bucket_public_access_block
+```
 
 **Documentation:** [View details](https://aquasecurity.github.io/tfsec/v1.28.14/checks/aws/s3/specify-public-access-block/)
 

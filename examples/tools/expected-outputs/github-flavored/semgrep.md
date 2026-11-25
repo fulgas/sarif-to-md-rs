@@ -20,10 +20,16 @@ Semgrep OSS
 #### Details
 
 **Message:**
-> Found 'subprocess' function 'call' with 'shell=True'. This is dangerous because this call will spawn the command using a shell process. Doing so propagates current shell settings and variables, which makes it much easier for a malicious actor to execute commands. Use 'shell=False' instead.
+
+```text
+Found 'subprocess' function 'call' with 'shell=True'. This is dangerous because this call will spawn the command using a shell process. Doing so propagates current shell settings and variables, which makes it much easier for a malicious actor to execute commands. Use 'shell=False' instead.
+```
 
 **Description:**
-> Semgrep Finding: python.lang.security.audit.subprocess-shell-true.subprocess-shell-true
+
+```text
+Semgrep Finding: python.lang.security.audit.subprocess-shell-true.subprocess-shell-true
+```
 
 **Tags:**
 - `CWE-78: Improper Neutralization of Special Elements used in an OS Command ('OS Command Injection')`
@@ -46,10 +52,16 @@ Semgrep OSS
 #### Details
 
 **Message:**
-> User data flows into this manually-constructed SQL string. User data can be safely inserted into SQL strings using prepared statements or an object-relational mapper (ORM). Manually-constructed SQL strings is a possible indicator of SQL injection, which could let an attacker steal or manipulate data from the database. Instead, use prepared statements (`db.Query("SELECT * FROM t WHERE id = ?", id)`) or a safe library.
+
+```text
+User data flows into this manually-constructed SQL string. User data can be safely inserted into SQL strings using prepared statements or an object-relational mapper (ORM). Manually-constructed SQL strings is a possible indicator of SQL injection, which could let an attacker steal or manipulate data from the database. Instead, use prepared statements (`db.Query("SELECT * FROM t WHERE id = ?", id)`) or a safe library.
+```
 
 **Description:**
-> Semgrep Finding: go.lang.security.injection.tainted-sql-string.tainted-sql-string
+
+```text
+Semgrep Finding: go.lang.security.injection.tainted-sql-string.tainted-sql-string
+```
 
 **Tags:**
 - `CWE-89: Improper Neutralization of Special Elements used in an SQL Command ('SQL Injection')`
@@ -72,10 +84,16 @@ Semgrep OSS
 #### Details
 
 **Message:**
-> Detected MD5 hash algorithm which is considered insecure. MD5 is not collision resistant and is therefore not suitable as a cryptographic signature. Use SHA256 or SHA3 instead.
+
+```text
+Detected MD5 hash algorithm which is considered insecure. MD5 is not collision resistant and is therefore not suitable as a cryptographic signature. Use SHA256 or SHA3 instead.
+```
 
 **Description:**
-> Semgrep Finding: go.lang.security.audit.crypto.use_of_weak_crypto.use-of-md5
+
+```text
+Semgrep Finding: go.lang.security.audit.crypto.use_of_weak_crypto.use-of-md5
+```
 
 **Tags:**
 - `CWE-328: Use of Weak Hash`
@@ -98,10 +116,16 @@ Semgrep OSS
 #### Details
 
 **Message:**
-> Found an HTTP server without TLS. Use 'http.ListenAndServeTLS' instead. See https://golang.org/pkg/net/http/#ListenAndServeTLS for more information.
+
+```text
+Found an HTTP server without TLS. Use 'http.ListenAndServeTLS' instead. See https://golang.org/pkg/net/http/#ListenAndServeTLS for more information.
+```
 
 **Description:**
-> Semgrep Finding: go.lang.security.audit.net.use-tls.use-tls
+
+```text
+Semgrep Finding: go.lang.security.audit.net.use-tls.use-tls
+```
 
 **Tags:**
 - `CWE-319: Cleartext Transmission of Sensitive Information`

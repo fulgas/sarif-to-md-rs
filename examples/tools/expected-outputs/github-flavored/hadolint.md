@@ -21,7 +21,10 @@ Hadolint v2.14.0
 #### Details
 
 **Message:**
-> Using latest is prone to errors if the image will ever update. Pin the version explicitly to a release tag
+
+```text
+Using latest is prone to errors if the image will ever update. Pin the version explicitly to a release tag
+```
 
 **Locations:**
 - `Dockerfile`:1:1
@@ -34,7 +37,10 @@ Hadolint v2.14.0
 #### Details
 
 **Message:**
-> Pin versions in apt get install. Instead of `apt-get install <package>` use `apt-get install <package>=<version>`
+
+```text
+Pin versions in apt get install. Instead of `apt-get install <package>` use `apt-get install <package>=<version>`
+```
 
 **Locations:**
 - `Dockerfile`:2:1
@@ -47,7 +53,10 @@ Hadolint v2.14.0
 #### Details
 
 **Message:**
-> Avoid additional packages by specifying `--no-install-recommends`
+
+```text
+Avoid additional packages by specifying `--no-install-recommends`
+```
 
 **Locations:**
 - `Dockerfile`:2:1
@@ -60,7 +69,10 @@ Hadolint v2.14.0
 #### Details
 
 **Message:**
-> Delete the apt lists (/var/lib/apt/lists) after installing something
+
+```text
+Delete the apt lists (/var/lib/apt/lists) after installing something
+```
 
 **Locations:**
 - `Dockerfile`:2:1
@@ -73,7 +85,10 @@ Hadolint v2.14.0
 #### Details
 
 **Message:**
-> Use COPY instead of ADD for files and folders
+
+```text
+Use COPY instead of ADD for files and folders
+```
 
 **Locations:**
 - `Dockerfile`:3:1
@@ -86,7 +101,10 @@ Hadolint v2.14.0
 #### Details
 
 **Message:**
-> Avoid use of cache directory with pip. Use `pip install --no-cache-dir <package>`
+
+```text
+Avoid use of cache directory with pip. Use `pip install --no-cache-dir <package>`
+```
 
 **Locations:**
 - `Dockerfile`:5:1
@@ -99,7 +117,10 @@ Hadolint v2.14.0
 #### Details
 
 **Message:**
-> Use arguments JSON notation for CMD and ENTRYPOINT arguments
+
+```text
+Use arguments JSON notation for CMD and ENTRYPOINT arguments
+```
 
 **Locations:**
 - `Dockerfile`:6:1

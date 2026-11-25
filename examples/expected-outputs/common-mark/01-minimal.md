@@ -14,9 +14,17 @@
 
 #### Error - no-unused-vars
 
-**Message:** 'x' is assigned a value but never used.
+**Message:**
 
-**Description:** disallow unused variables
+```text
+'x' is assigned a value but never used.
+```
+
+**Description:**
+
+```text
+disallow unused variables
+```
 
 **Documentation:** [View details](https://eslint.org/docs/rules/no-unused-vars)
 

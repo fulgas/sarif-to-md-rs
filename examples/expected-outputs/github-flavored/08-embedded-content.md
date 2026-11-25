@@ -19,7 +19,10 @@ SarifSamples v1.0
 #### Details
 
 **Message:**
-> Result 1: points to an artifact with an explicit encoding.
+
+```text
+Result 1: points to an artifact with an explicit encoding.
+```
 
 **Locations:**
 - `explicit.txt`:2
@@ -32,7 +35,10 @@ SarifSamples v1.0
 #### Details
 
 **Message:**
-> Result 2: points to an artifact that inherits the run's default encoding.
+
+```text
+Result 2: points to an artifact that inherits the run's default encoding.
+```
 
 **Locations:**
 - `default.txt`:2

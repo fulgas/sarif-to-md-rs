@@ -19,10 +19,16 @@ ESLint
 #### Details
 
 **Message:**
-> 'x' is assigned a value but never used.
+
+```text
+'x' is assigned a value but never used.
+```
 
 **Description:**
-> disallow unused variables
+
+```text
+disallow unused variables
+```
 
 **Documentation:** [View details](https://eslint.org/docs/rules/no-unused-vars)
 

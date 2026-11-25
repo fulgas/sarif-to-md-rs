@@ -14,9 +14,17 @@
 
 #### Error - CKV_AWS_24
 
-**Message:** Ensure no security groups allow ingress from 0.0.0.0:0 to port 22
+**Message:**
 
-**Description:** Ensure no security groups allow ingress from 0.0.0.0:0 to port 22
+```text
+Ensure no security groups allow ingress from 0.0.0.0:0 to port 22
+```
+
+**Description:**
+
+```text
+Ensure no security groups allow ingress from 0.0.0.0:0 to port 22
+```
 
 **Documentation:** [View details](https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-networking-policies/networking-1-port-security)
 
@@ -25,9 +33,17 @@
 
 #### Error - CKV_AWS_23
 
-**Message:** Ensure every security group and rule has a description
+**Message:**
 
-**Description:** Ensure every security group and rule has a description
+```text
+Ensure every security group and rule has a description
+```
+
+**Description:**
+
+```text
+Ensure every security group and rule has a description
+```
 
 **Documentation:** [View details](https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-networking-policies/networking-31)
 
@@ -36,9 +52,17 @@
 
 #### Error - CKV_K8S_37
 
-**Message:** Minimize the admission of containers with capabilities assigned
+**Message:**
 
-**Description:** Minimize the admission of containers with capabilities assigned
+```text
+Minimize the admission of containers with capabilities assigned
+```
+
+**Description:**
+
+```text
+Minimize the admission of containers with capabilities assigned
+```
 
 **Documentation:** [View details](https://docs.prismacloud.io/en/enterprise-edition/policy-reference/kubernetes-policies/kubernetes-policy-index/bc-k8s-34)
 
@@ -47,9 +71,17 @@
 
 #### Error - CKV_K8S_31
 
-**Message:** Ensure that the seccomp profile is set to docker/default or runtime/default
+**Message:**
 
-**Description:** Ensure that the seccomp profile is set to docker/default or runtime/default
+```text
+Ensure that the seccomp profile is set to docker/default or runtime/default
+```
+
+**Description:**
+
+```text
+Ensure that the seccomp profile is set to docker/default or runtime/default
+```
 
 **Documentation:** [View details](https://docs.prismacloud.io/en/enterprise-edition/policy-reference/kubernetes-policies/kubernetes-policy-index/bc-k8s-29)
 
@@ -58,9 +90,17 @@
 
 #### Error - CKV_K8S_8
 
-**Message:** Liveness Probe Should be Configured
+**Message:**
 
-**Description:** Liveness Probe Should be Configured
+```text
+Liveness Probe Should be Configured
+```
+
+**Description:**
+
+```text
+Liveness Probe Should be Configured
+```
 
 **Documentation:** [View details](https://docs.prismacloud.io/en/enterprise-edition/policy-reference/kubernetes-policies/kubernetes-policy-index/bc-k8s-7)
 
@@ -69,9 +109,17 @@
 
 #### Error - CKV_K8S_12
 
-**Message:** Memory requests should be set
+**Message:**
 
-**Description:** Memory requests should be set
+```text
+Memory requests should be set
+```
+
+**Description:**
+
+```text
+Memory requests should be set
+```
 
 **Documentation:** [View details](https://docs.prismacloud.io/en/enterprise-edition/policy-reference/kubernetes-policies/kubernetes-policy-index/bc-k8s-11)
 
@@ -80,9 +128,17 @@
 
 #### Error - CKV_K8S_20
 
-**Message:** Containers should not run with allowPrivilegeEscalation
+**Message:**
 
-**Description:** Containers should not run with allowPrivilegeEscalation
+```text
+Containers should not run with allowPrivilegeEscalation
+```
+
+**Description:**
+
+```text
+Containers should not run with allowPrivilegeEscalation
+```
 
 **Documentation:** [View details](https://docs.prismacloud.io/en/enterprise-edition/policy-reference/kubernetes-policies/kubernetes-policy-index/bc-k8s-19)
 
@@ -91,9 +147,17 @@
 
 #### Error - CKV_K8S_13
 
-**Message:** Memory limits should be set
+**Message:**
 
-**Description:** Memory limits should be set
+```text
+Memory limits should be set
+```
+
+**Description:**
+
+```text
+Memory limits should be set
+```
 
 **Documentation:** [View details](https://docs.prismacloud.io/en/enterprise-edition/policy-reference/kubernetes-policies/kubernetes-policy-index/bc-k8s-12)
 
@@ -102,9 +166,17 @@
 
 #### Error - CKV_K8S_40
 
-**Message:** Containers should run as a high UID to avoid host conflict
+**Message:**
 
-**Description:** Containers should run as a high UID to avoid host conflict
+```text
+Containers should run as a high UID to avoid host conflict
+```
+
+**Description:**
+
+```text
+Containers should run as a high UID to avoid host conflict
+```
 
 **Documentation:** [View details](https://docs.prismacloud.io/en/enterprise-edition/policy-reference/kubernetes-policies/kubernetes-policy-index/bc-k8s-37)
 
@@ -113,9 +185,17 @@
 
 #### Error - CKV_K8S_10
 
-**Message:** CPU requests should be set
+**Message:**
 
-**Description:** CPU requests should be set
+```text
+CPU requests should be set
+```
+
+**Description:**
+
+```text
+CPU requests should be set
+```
 
 **Documentation:** [View details](https://docs.prismacloud.io/en/enterprise-edition/policy-reference/kubernetes-policies/kubernetes-policy-index/bc-k8s-9)
 
@@ -124,9 +204,17 @@
 
 #### Error - CKV_K8S_16
 
-**Message:** Container should not be privileged
+**Message:**
 
-**Description:** Container should not be privileged
+```text
+Container should not be privileged
+```
+
+**Description:**
+
+```text
+Container should not be privileged
+```
 
 **Documentation:** [View details](https://docs.prismacloud.io/en/enterprise-edition/policy-reference/kubernetes-policies/kubernetes-policy-index/bc-k8s-15)
 
@@ -135,9 +223,17 @@
 
 #### Error - CKV_K8S_22
 
-**Message:** Use read-only filesystem for containers where possible
+**Message:**
 
-**Description:** Use read-only filesystem for containers where possible
+```text
+Use read-only filesystem for containers where possible
+```
+
+**Description:**
+
+```text
+Use read-only filesystem for containers where possible
+```
 
 **Documentation:** [View details](https://docs.prismacloud.io/en/enterprise-edition/policy-reference/kubernetes-policies/kubernetes-policy-index/bc-k8s-21)
 
@@ -146,9 +242,17 @@
 
 #### Error - CKV_K8S_9
 
-**Message:** Readiness Probe Should be Configured
+**Message:**
 
-**Description:** Readiness Probe Should be Configured
+```text
+Readiness Probe Should be Configured
+```
+
+**Description:**
+
+```text
+Readiness Probe Should be Configured
+```
 
 **Documentation:** [View details](https://docs.prismacloud.io/en/enterprise-edition/policy-reference/kubernetes-policies/kubernetes-policy-index/bc-k8s-8)
 
@@ -157,9 +261,17 @@
 
 #### Error - CKV_K8S_28
 
-**Message:** Minimize the admission of containers with the NET_RAW capability
+**Message:**
 
-**Description:** Minimize the admission of containers with the NET_RAW capability
+```text
+Minimize the admission of containers with the NET_RAW capability
+```
+
+**Description:**
+
+```text
+Minimize the admission of containers with the NET_RAW capability
+```
 
 **Documentation:** [View details](https://docs.prismacloud.io/en/enterprise-edition/policy-reference/kubernetes-policies/kubernetes-policy-index/bc-k8s-27)
 
@@ -168,9 +280,17 @@
 
 #### Error - CKV_K8S_29
 
-**Message:** Apply security context to your pods and containers
+**Message:**
 
-**Description:** Apply security context to your pods and containers
+```text
+Apply security context to your pods and containers
+```
+
+**Description:**
+
+```text
+Apply security context to your pods and containers
+```
 
 **Documentation:** [View details](https://docs.prismacloud.io/en/enterprise-edition/policy-reference/kubernetes-policies/kubernetes-policy-index/ensure-securitycontext-is-applied-to-pods-and-containers)
 
@@ -179,9 +299,17 @@
 
 #### Error - CKV_K8S_14
 
-**Message:** Image Tag should be fixed - not latest or blank
+**Message:**
 
-**Description:** Image Tag should be fixed - not latest or blank
+```text
+Image Tag should be fixed - not latest or blank
+```
+
+**Description:**
+
+```text
+Image Tag should be fixed - not latest or blank
+```
 
 **Documentation:** [View details](https://docs.prismacloud.io/en/enterprise-edition/policy-reference/kubernetes-policies/kubernetes-policy-index/bc-k8s-13)
 
@@ -190,9 +318,17 @@
 
 #### Error - CKV_K8S_38
 
-**Message:** Ensure that Service Account Tokens are only mounted where necessary
+**Message:**
 
-**Description:** Ensure that Service Account Tokens are only mounted where necessary
+```text
+Ensure that Service Account Tokens are only mounted where necessary
+```
+
+**Description:**
+
+```text
+Ensure that Service Account Tokens are only mounted where necessary
+```
 
 **Documentation:** [View details](https://docs.prismacloud.io/en/enterprise-edition/policy-reference/kubernetes-policies/kubernetes-policy-index/bc-k8s-35)
 
@@ -201,9 +337,17 @@
 
 #### Error - CKV_K8S_21
 
-**Message:** The default namespace should not be used
+**Message:**
 
-**Description:** The default namespace should not be used
+```text
+The default namespace should not be used
+```
+
+**Description:**
+
+```text
+The default namespace should not be used
+```
 
 **Documentation:** [View details](https://docs.prismacloud.io/en/enterprise-edition/policy-reference/kubernetes-policies/kubernetes-policy-index/bc-k8s-20)
 
@@ -212,9 +356,17 @@
 
 #### Error - CKV_K8S_23
 
-**Message:** Minimize the admission of root containers
+**Message:**
 
-**Description:** Minimize the admission of root containers
+```text
+Minimize the admission of root containers
+```
+
+**Description:**
+
+```text
+Minimize the admission of root containers
+```
 
 **Documentation:** [View details](https://docs.prismacloud.io/en/enterprise-edition/policy-reference/kubernetes-policies/kubernetes-policy-index/bc-k8s-22)
 
@@ -223,9 +375,17 @@
 
 #### Error - CKV_K8S_43
 
-**Message:** Image should use digest
+**Message:**
 
-**Description:** Image should use digest
+```text
+Image should use digest
+```
+
+**Description:**
+
+```text
+Image should use digest
+```
 
 **Documentation:** [View details](https://docs.prismacloud.io/en/enterprise-edition/policy-reference/kubernetes-policies/kubernetes-policy-index/bc-k8s-39)
 
@@ -234,9 +394,17 @@
 
 #### Error - CKV_K8S_11
 
-**Message:** CPU limits should be set
+**Message:**
 
-**Description:** CPU limits should be set
+```text
+CPU limits should be set
+```
+
+**Description:**
+
+```text
+CPU limits should be set
+```
 
 **Documentation:** [View details](https://docs.prismacloud.io/en/enterprise-edition/policy-reference/kubernetes-policies/kubernetes-policy-index/bc-k8s-10)
 
@@ -245,9 +413,17 @@
 
 #### Error - CKV_DOCKER_7
 
-**Message:** Ensure the base image uses a non latest version tag
+**Message:**
 
-**Description:** Ensure the base image uses a non latest version tag
+```text
+Ensure the base image uses a non latest version tag
+```
+
+**Description:**
+
+```text
+Ensure the base image uses a non latest version tag
+```
 
 **Documentation:** [View details](https://docs.prismacloud.io/en/enterprise-edition/policy-reference/docker-policies/docker-policy-index/ensure-the-base-image-uses-a-non-latest-version-tag)
 
@@ -256,9 +432,17 @@
 
 #### Error - CKV_DOCKER_4
 
-**Message:** Ensure that COPY is used instead of ADD in Dockerfiles
+**Message:**
 
-**Description:** Ensure that COPY is used instead of ADD in Dockerfiles
+```text
+Ensure that COPY is used instead of ADD in Dockerfiles
+```
+
+**Description:**
+
+```text
+Ensure that COPY is used instead of ADD in Dockerfiles
+```
 
 **Documentation:** [View details](https://docs.prismacloud.io/en/enterprise-edition/policy-reference/docker-policies/docker-policy-index/ensure-that-copy-is-used-instead-of-add-in-dockerfiles)
 
@@ -267,9 +451,17 @@
 
 #### Error - CKV_DOCKER_2
 
-**Message:** Ensure that HEALTHCHECK instructions have been added to container images
+**Message:**
 
-**Description:** Ensure that HEALTHCHECK instructions have been added to container images
+```text
+Ensure that HEALTHCHECK instructions have been added to container images
+```
+
+**Description:**
+
+```text
+Ensure that HEALTHCHECK instructions have been added to container images
+```
 
 **Documentation:** [View details](https://docs.prismacloud.io/en/enterprise-edition/policy-reference/docker-policies/docker-policy-index/ensure-that-healthcheck-instructions-have-been-added-to-container-images)
 
@@ -278,9 +470,17 @@
 
 #### Error - CKV_DOCKER_3
 
-**Message:** Ensure that a user for the container has been created
+**Message:**
 
-**Description:** Ensure that a user for the container has been created
+```text
+Ensure that a user for the container has been created
+```
+
+**Description:**
+
+```text
+Ensure that a user for the container has been created
+```
 
 **Documentation:** [View details](https://docs.prismacloud.io/en/enterprise-edition/policy-reference/docker-policies/docker-policy-index/ensure-that-a-user-for-the-container-has-been-created)
 

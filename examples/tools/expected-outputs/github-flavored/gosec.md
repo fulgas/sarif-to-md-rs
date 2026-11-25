@@ -20,10 +20,16 @@ gosec vdev
 #### Details
 
 **Message:**
-> SQL injection via taint analysis
+
+```text
+SQL injection via taint analysis
+```
 
 **Description:**
-> SQL injection via taint analysis
+
+```text
+SQL injection via taint analysis
+```
 
 **Tags:**
 - `security`
@@ -40,10 +46,16 @@ gosec vdev
 #### Details
 
 **Message:**
-> Command injection via taint analysis
+
+```text
+Command injection via taint analysis
+```
 
 **Description:**
-> Command injection via taint analysis
+
+```text
+Command injection via taint analysis
+```
 
 **Tags:**
 - `security`
@@ -60,10 +72,16 @@ gosec vdev
 #### Details
 
 **Message:**
-> XSS via taint analysis
+
+```text
+XSS via taint analysis
+```
 
 **Description:**
-> XSS via taint analysis
+
+```text
+XSS via taint analysis
+```
 
 **Tags:**
 - `security`
@@ -80,10 +98,16 @@ gosec vdev
 #### Details
 
 **Message:**
-> Use of weak cryptographic primitive
+
+```text
+Use of weak cryptographic primitive
+```
 
 **Description:**
-> Use of weak cryptographic primitive
+
+```text
+Use of weak cryptographic primitive
+```
 
 **Tags:**
 - `security`
@@ -100,10 +124,16 @@ gosec vdev
 #### Details
 
 **Message:**
-> Use of net/http serve function that has no support for setting timeouts
+
+```text
+Use of net/http serve function that has no support for setting timeouts
+```
 
 **Description:**
-> Use of net/http serve function that has no support for setting timeouts
+
+```text
+Use of net/http serve function that has no support for setting timeouts
+```
 
 **Tags:**
 - `security`
@@ -120,10 +150,16 @@ gosec vdev
 #### Details
 
 **Message:**
-> Subprocess launched with variable
+
+```text
+Subprocess launched with variable
+```
 
 **Description:**
-> Use of net/http serve function that has no support for setting timeouts
+
+```text
+Use of net/http serve function that has no support for setting timeouts
+```
 
 **Tags:**
 - `security`
@@ -140,10 +176,16 @@ gosec vdev
 #### Details
 
 **Message:**
-> SQL string concatenation
+
+```text
+SQL string concatenation
+```
 
 **Description:**
-> Use of net/http serve function that has no support for setting timeouts
+
+```text
+Use of net/http serve function that has no support for setting timeouts
+```
 
 **Tags:**
 - `security`
@@ -160,10 +202,16 @@ gosec vdev
 #### Details
 
 **Message:**
-> Blocklisted import crypto/md5: weak cryptographic primitive
+
+```text
+Blocklisted import crypto/md5: weak cryptographic primitive
+```
 
 **Description:**
-> Use of weak cryptographic primitive
+
+```text
+Use of weak cryptographic primitive
+```
 
 **Tags:**
 - `security`
@@ -180,10 +228,16 @@ gosec vdev
 #### Details
 
 **Message:**
-> Errors unhandled
+
+```text
+Errors unhandled
+```
 
 **Description:**
-> Errors unhandled
+
+```text
+Errors unhandled
+```
 
 **Tags:**
 - `security`

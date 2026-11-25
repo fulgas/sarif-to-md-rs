@@ -19,10 +19,16 @@ SarifSamples v1.0
 #### Details
 
 **Message:**
-> No message
+
+```text
+No message
+```
 
 **Description:**
-> Properties defined with the 'uri' or 'uri-reference' format must contain valid URIs.
+
+```text
+Properties defined with the 'uri' or 'uri-reference' format must contain valid URIs.
+```
 
 **Additional Properties:**
 - **comment:** The ruleIndex property points into the array tool.driver.rules.

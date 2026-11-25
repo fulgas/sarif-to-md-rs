@@ -14,19 +14,35 @@
 
 #### Warning - TUT1001
 
-**Message:** Absent result.
+**Message:**
+
+```text
+Absent result.
+```
 
 #### Warning - TUT1001
 
-**Message:** Unchanged result.
+**Message:**
+
+```text
+Unchanged result.
+```
 
 #### Warning - TUT1001
 
-**Message:** Updated result.
+**Message:**
+
+```text
+Updated result.
+```
 
 #### Warning - TUT1001
 
-**Message:** New result.
+**Message:**
+
+```text
+New result.
+```
 
 ---
 
