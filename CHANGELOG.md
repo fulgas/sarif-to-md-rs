@@ -1,3 +1,13 @@
+## [1.6.0](https://github.com/fulgas/sarif-to-md-rs/compare/v1.5.2...v1.6.0) (2026-11-25)
+
+### Features
+
+* honor SOURCE_DATE_EPOCH for reproducible output ([#131](https://github.com/fulgas/sarif-to-md-rs/issues/131)) ([e948e17](https://github.com/fulgas/sarif-to-md-rs/commit/e948e1759f09b6c6f946305ab1af9e0f0bc6636f))
+
+### Bug Fixes
+
+* show message and description verbatim in a text code block ([#132](https://github.com/fulgas/sarif-to-md-rs/issues/132)) ([912b52f](https://github.com/fulgas/sarif-to-md-rs/commit/912b52fbb1f2cb9d6e79c432d7e5ac457460fc95))
+
 ## [1.5.2](https://github.com/fulgas/sarif-to-md-rs/compare/v1.5.1...v1.5.2) (2026-11-24)
 
 ### Bug Fixes
