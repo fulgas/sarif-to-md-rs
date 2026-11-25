@@ -1,3 +1,9 @@
+## [1.6.1](https://github.com/fulgas/sarif-to-md-rs/compare/v1.6.0...v1.6.1) (2026-11-25)
+
+### Bug Fixes
+
+* keep templates at LF line endings on every OS ([#133](https://github.com/fulgas/sarif-to-md-rs/issues/133)) ([b9cdfab](https://github.com/fulgas/sarif-to-md-rs/commit/b9cdfab2bfd5da00ed293a49c65acd5ec9beca30))
+
 ## [1.6.0](https://github.com/fulgas/sarif-to-md-rs/compare/v1.5.2...v1.6.0) (2026-11-25)
 
 ### Features
