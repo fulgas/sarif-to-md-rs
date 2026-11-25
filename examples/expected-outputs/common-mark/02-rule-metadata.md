@@ -14,9 +14,17 @@
 
 #### Error - TUT1001
 
-**Message:** No message
+**Message:**
 
-**Description:** Properties defined with the 'uri' or 'uri-reference' format must contain valid URIs.
+```text
+No message
+```
+
+**Description:**
+
+```text
+Properties defined with the 'uri' or 'uri-reference' format must contain valid URIs.
+```
 
 **Additional Properties:**
 - **comment:** The ruleIndex property points into the array tool.driver.rules.

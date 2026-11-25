@@ -16,14 +16,22 @@
 
 #### Error - CVE-2020-14343
 
-**Message:** Package: PyYAML  
-Installed Version: 5.3  
-Vulnerability CVE-2020-14343  
-Severity: CRITICAL  
-Fixed Version: 5.4  
-Link: [CVE-2020-14343](https://avd.aquasec.com/nvd/cve-2020-14343)
+**Message:**
 
-**Description:** PyYAML: incomplete fix for CVE-2020-1747
+```text
+Package: PyYAML
+Installed Version: 5.3
+Vulnerability CVE-2020-14343
+Severity: CRITICAL
+Fixed Version: 5.4
+Link: [CVE-2020-14343](https://avd.aquasec.com/nvd/cve-2020-14343)
+```
+
+**Description:**
+
+```text
+PyYAML: incomplete fix for CVE-2020-1747
+```
 
 **Tags:**
 - `vulnerability`
@@ -37,14 +45,22 @@ Link: [CVE-2020-14343](https://avd.aquasec.com/nvd/cve-2020-14343)
 
 #### Error - CVE-2020-1747
 
-**Message:** Package: PyYAML  
-Installed Version: 5.3  
-Vulnerability CVE-2020-1747  
-Severity: CRITICAL  
-Fixed Version: 5.3.1  
-Link: [CVE-2020-1747](https://avd.aquasec.com/nvd/cve-2020-1747)
+**Message:**
 
-**Description:** PyYAML: arbitrary command execution through python/object/new when FullLoader is used
+```text
+Package: PyYAML
+Installed Version: 5.3
+Vulnerability CVE-2020-1747
+Severity: CRITICAL
+Fixed Version: 5.3.1
+Link: [CVE-2020-1747](https://avd.aquasec.com/nvd/cve-2020-1747)
+```
+
+**Description:**
+
+```text
+PyYAML: arbitrary command execution through python/object/new when FullLoader is used
+```
 
 **Tags:**
 - `vulnerability`
@@ -58,14 +74,22 @@ Link: [CVE-2020-1747](https://avd.aquasec.com/nvd/cve-2020-1747)
 
 #### Error - CVE-2018-18074
 
-**Message:** Package: requests  
-Installed Version: 2.19.0  
-Vulnerability CVE-2018-18074  
-Severity: HIGH  
-Fixed Version: 2.20.0  
-Link: [CVE-2018-18074](https://avd.aquasec.com/nvd/cve-2018-18074)
+**Message:**
 
-**Description:** python-requests: Redirect from HTTPS to HTTP does not remove Authorization header
+```text
+Package: requests
+Installed Version: 2.19.0
+Vulnerability CVE-2018-18074
+Severity: HIGH
+Fixed Version: 2.20.0
+Link: [CVE-2018-18074](https://avd.aquasec.com/nvd/cve-2018-18074)
+```
+
+**Description:**
+
+```text
+python-requests: Redirect from HTTPS to HTTP does not remove Authorization header
+```
 
 **Tags:**
 - `vulnerability`
@@ -79,14 +103,22 @@ Link: [CVE-2018-18074](https://avd.aquasec.com/nvd/cve-2018-18074)
 
 #### Warning - CVE-2023-32681
 
-**Message:** Package: requests  
-Installed Version: 2.19.0  
-Vulnerability CVE-2023-32681  
-Severity: MEDIUM  
-Fixed Version: 2.31.0  
-Link: [CVE-2023-32681](https://avd.aquasec.com/nvd/cve-2023-32681)
+**Message:**
 
-**Description:** python-requests: Unintended leak of Proxy-Authorization header
+```text
+Package: requests
+Installed Version: 2.19.0
+Vulnerability CVE-2023-32681
+Severity: MEDIUM
+Fixed Version: 2.31.0
+Link: [CVE-2023-32681](https://avd.aquasec.com/nvd/cve-2023-32681)
+```
+
+**Description:**
+
+```text
+python-requests: Unintended leak of Proxy-Authorization header
+```
 
 **Tags:**
 - `vulnerability`
@@ -100,14 +132,22 @@ Link: [CVE-2023-32681](https://avd.aquasec.com/nvd/cve-2023-32681)
 
 #### Warning - CVE-2024-35195
 
-**Message:** Package: requests  
-Installed Version: 2.19.0  
-Vulnerability CVE-2024-35195  
-Severity: MEDIUM  
-Fixed Version: 2.32.0  
-Link: [CVE-2024-35195](https://avd.aquasec.com/nvd/cve-2024-35195)
+**Message:**
 
-**Description:** requests: subsequent requests to the same host ignore cert verification
+```text
+Package: requests
+Installed Version: 2.19.0
+Vulnerability CVE-2024-35195
+Severity: MEDIUM
+Fixed Version: 2.32.0
+Link: [CVE-2024-35195](https://avd.aquasec.com/nvd/cve-2024-35195)
+```
+
+**Description:**
+
+```text
+requests: subsequent requests to the same host ignore cert verification
+```
 
 **Tags:**
 - `vulnerability`
@@ -121,14 +161,22 @@ Link: [CVE-2024-35195](https://avd.aquasec.com/nvd/cve-2024-35195)
 
 #### Warning - CVE-2024-47081
 
-**Message:** Package: requests  
-Installed Version: 2.19.0  
-Vulnerability CVE-2024-47081  
-Severity: MEDIUM  
-Fixed Version: 2.32.4  
-Link: [CVE-2024-47081](https://avd.aquasec.com/nvd/cve-2024-47081)
+**Message:**
 
-**Description:** requests: Requests vulnerable to .netrc credentials leak via malicious URLs
+```text
+Package: requests
+Installed Version: 2.19.0
+Vulnerability CVE-2024-47081
+Severity: MEDIUM
+Fixed Version: 2.32.4
+Link: [CVE-2024-47081](https://avd.aquasec.com/nvd/cve-2024-47081)
+```
+
+**Description:**
+
+```text
+requests: Requests vulnerable to .netrc credentials leak via malicious URLs
+```
 
 **Tags:**
 - `vulnerability`
@@ -142,14 +190,22 @@ Link: [CVE-2024-47081](https://avd.aquasec.com/nvd/cve-2024-47081)
 
 #### Warning - CVE-2026-25645
 
-**Message:** Package: requests  
-Installed Version: 2.19.0  
-Vulnerability CVE-2026-25645  
-Severity: MEDIUM  
-Fixed Version: 2.33.0  
-Link: [CVE-2026-25645](https://avd.aquasec.com/nvd/cve-2026-25645)
+**Message:**
 
-**Description:** requests: Requests: Security bypass due to predictable temporary file creation
+```text
+Package: requests
+Installed Version: 2.19.0
+Vulnerability CVE-2026-25645
+Severity: MEDIUM
+Fixed Version: 2.33.0
+Link: [CVE-2026-25645](https://avd.aquasec.com/nvd/cve-2026-25645)
+```
+
+**Description:**
+
+```text
+requests: Requests: Security bypass due to predictable temporary file creation
+```
 
 **Tags:**
 - `vulnerability`
@@ -163,14 +219,22 @@ Link: [CVE-2026-25645](https://avd.aquasec.com/nvd/cve-2026-25645)
 
 #### Warning - DS001
 
-**Message:** Artifact: Dockerfile  
-Type: dockerfile  
-Vulnerability DS001  
-Severity: MEDIUM  
-Message: Specify a tag in the 'FROM' statement for image 'python'  
-Link: [DS001](https://avd.aquasec.com/misconfig/ds001)
+**Message:**
 
-**Description:** ':latest' tag used
+```text
+Artifact: Dockerfile
+Type: dockerfile
+Vulnerability DS001
+Severity: MEDIUM
+Message: Specify a tag in the 'FROM' statement for image 'python'
+Link: [DS001](https://avd.aquasec.com/misconfig/ds001)
+```
+
+**Description:**
+
+```text
+':latest' tag used
+```
 
 **Tags:**
 - `misconfiguration`
@@ -184,14 +248,22 @@ Link: [DS001](https://avd.aquasec.com/misconfig/ds001)
 
 #### Error - DS002
 
-**Message:** Artifact: Dockerfile  
-Type: dockerfile  
-Vulnerability DS002  
-Severity: HIGH  
-Message: Specify at least 1 USER command in Dockerfile with non-root user as argument  
-Link: [DS002](https://avd.aquasec.com/misconfig/ds002)
+**Message:**
 
-**Description:** Image user should not be 'root'
+```text
+Artifact: Dockerfile
+Type: dockerfile
+Vulnerability DS002
+Severity: HIGH
+Message: Specify at least 1 USER command in Dockerfile with non-root user as argument
+Link: [DS002](https://avd.aquasec.com/misconfig/ds002)
+```
+
+**Description:**
+
+```text
+Image user should not be 'root'
+```
 
 **Tags:**
 - `misconfiguration`
@@ -205,14 +277,22 @@ Link: [DS002](https://avd.aquasec.com/misconfig/ds002)
 
 #### Note - DS005
 
-**Message:** Artifact: Dockerfile  
-Type: dockerfile  
-Vulnerability DS005  
-Severity: LOW  
-Message: Consider using 'COPY . /app' command instead of 'ADD . /app'  
-Link: [DS005](https://avd.aquasec.com/misconfig/ds005)
+**Message:**
 
-**Description:** ADD instead of COPY
+```text
+Artifact: Dockerfile
+Type: dockerfile
+Vulnerability DS005
+Severity: LOW
+Message: Consider using 'COPY . /app' command instead of 'ADD . /app'
+Link: [DS005](https://avd.aquasec.com/misconfig/ds005)
+```
+
+**Description:**
+
+```text
+ADD instead of COPY
+```
 
 **Tags:**
 - `misconfiguration`
@@ -226,14 +306,22 @@ Link: [DS005](https://avd.aquasec.com/misconfig/ds005)
 
 #### Note - DS026
 
-**Message:** Artifact: Dockerfile  
-Type: dockerfile  
-Vulnerability DS026  
-Severity: LOW  
-Message: Add HEALTHCHECK instruction in your Dockerfile  
-Link: [DS026](https://avd.aquasec.com/misconfig/ds026)
+**Message:**
 
-**Description:** No HEALTHCHECK defined
+```text
+Artifact: Dockerfile
+Type: dockerfile
+Vulnerability DS026
+Severity: LOW
+Message: Add HEALTHCHECK instruction in your Dockerfile
+Link: [DS026](https://avd.aquasec.com/misconfig/ds026)
+```
+
+**Description:**
+
+```text
+No HEALTHCHECK defined
+```
 
 **Tags:**
 - `misconfiguration`
@@ -247,14 +335,22 @@ Link: [DS026](https://avd.aquasec.com/misconfig/ds026)
 
 #### Error - DS029
 
-**Message:** Artifact: Dockerfile  
-Type: dockerfile  
-Vulnerability DS029  
-Severity: HIGH  
-Message: '--no-install-recommends' flag is missed: 'apt-get update && apt-get install -y curl'  
-Link: [DS029](https://avd.aquasec.com/misconfig/ds029)
+**Message:**
 
-**Description:** 'apt-get' missing '--no-install-recommends'
+```text
+Artifact: Dockerfile
+Type: dockerfile
+Vulnerability DS029
+Severity: HIGH
+Message: '--no-install-recommends' flag is missed: 'apt-get update && apt-get install -y curl'
+Link: [DS029](https://avd.aquasec.com/misconfig/ds029)
+```
+
+**Description:**
+
+```text
+'apt-get' missing '--no-install-recommends'
+```
 
 **Tags:**
 - `misconfiguration`
@@ -268,14 +364,22 @@ Link: [DS029](https://avd.aquasec.com/misconfig/ds029)
 
 #### Warning - KSV001
 
-**Message:** Artifact: k8s/deployment.yaml  
-Type: kubernetes  
-Vulnerability KSV001  
-Severity: MEDIUM  
-Message: Container 'app' of Deployment 'app' should set 'securityContext.allowPrivilegeEscalation' to false  
-Link: [KSV001](https://avd.aquasec.com/misconfig/ksv001)
+**Message:**
 
-**Description:** Can elevate its own privileges
+```text
+Artifact: k8s/deployment.yaml
+Type: kubernetes
+Vulnerability KSV001
+Severity: MEDIUM
+Message: Container 'app' of Deployment 'app' should set 'securityContext.allowPrivilegeEscalation' to false
+Link: [KSV001](https://avd.aquasec.com/misconfig/ksv001)
+```
+
+**Description:**
+
+```text
+Can elevate its own privileges
+```
 
 **Tags:**
 - `misconfiguration`
@@ -289,14 +393,22 @@ Link: [KSV001](https://avd.aquasec.com/misconfig/ksv001)
 
 #### Note - KSV003
 
-**Message:** Artifact: k8s/deployment.yaml  
-Type: kubernetes  
-Vulnerability KSV003  
-Severity: LOW  
-Message: Container 'app' of Deployment 'app' should add 'ALL' to 'securityContext.capabilities.drop'  
-Link: [KSV003](https://avd.aquasec.com/misconfig/ksv003)
+**Message:**
 
-**Description:** Default capabilities: some containers do not drop all
+```text
+Artifact: k8s/deployment.yaml
+Type: kubernetes
+Vulnerability KSV003
+Severity: LOW
+Message: Container 'app' of Deployment 'app' should add 'ALL' to 'securityContext.capabilities.drop'
+Link: [KSV003](https://avd.aquasec.com/misconfig/ksv003)
+```
+
+**Description:**
+
+```text
+Default capabilities: some containers do not drop all
+```
 
 **Tags:**
 - `misconfiguration`
@@ -310,14 +422,22 @@ Link: [KSV003](https://avd.aquasec.com/misconfig/ksv003)
 
 #### Note - KSV004
 
-**Message:** Artifact: k8s/deployment.yaml  
-Type: kubernetes  
-Vulnerability KSV004  
-Severity: LOW  
-Message: Container 'app' of 'deployment' 'app' in 'default' namespace should set securityContext.capabilities.drop  
-Link: [KSV004](https://avd.aquasec.com/misconfig/ksv004)
+**Message:**
 
-**Description:** Default capabilities: some containers do not drop any
+```text
+Artifact: k8s/deployment.yaml
+Type: kubernetes
+Vulnerability KSV004
+Severity: LOW
+Message: Container 'app' of 'deployment' 'app' in 'default' namespace should set securityContext.capabilities.drop
+Link: [KSV004](https://avd.aquasec.com/misconfig/ksv004)
+```
+
+**Description:**
+
+```text
+Default capabilities: some containers do not drop any
+```
 
 **Tags:**
 - `misconfiguration`
@@ -331,14 +451,22 @@ Link: [KSV004](https://avd.aquasec.com/misconfig/ksv004)
 
 #### Note - KSV011
 
-**Message:** Artifact: k8s/deployment.yaml  
-Type: kubernetes  
-Vulnerability KSV011  
-Severity: LOW  
-Message: Container 'app' of Deployment 'app' should set 'resources.limits.cpu'  
-Link: [KSV011](https://avd.aquasec.com/misconfig/ksv011)
+**Message:**
 
-**Description:** CPU not limited
+```text
+Artifact: k8s/deployment.yaml
+Type: kubernetes
+Vulnerability KSV011
+Severity: LOW
+Message: Container 'app' of Deployment 'app' should set 'resources.limits.cpu'
+Link: [KSV011](https://avd.aquasec.com/misconfig/ksv011)
+```
+
+**Description:**
+
+```text
+CPU not limited
+```
 
 **Tags:**
 - `misconfiguration`
@@ -352,14 +480,22 @@ Link: [KSV011](https://avd.aquasec.com/misconfig/ksv011)
 
 #### Warning - KSV012
 
-**Message:** Artifact: k8s/deployment.yaml  
-Type: kubernetes  
-Vulnerability KSV012  
-Severity: MEDIUM  
-Message: Container 'app' of Deployment 'app' should set 'securityContext.runAsNonRoot' to true  
-Link: [KSV012](https://avd.aquasec.com/misconfig/ksv012)
+**Message:**
 
-**Description:** Runs as root user
+```text
+Artifact: k8s/deployment.yaml
+Type: kubernetes
+Vulnerability KSV012
+Severity: MEDIUM
+Message: Container 'app' of Deployment 'app' should set 'securityContext.runAsNonRoot' to true
+Link: [KSV012](https://avd.aquasec.com/misconfig/ksv012)
+```
+
+**Description:**
+
+```text
+Runs as root user
+```
 
 **Tags:**
 - `misconfiguration`
@@ -373,14 +509,22 @@ Link: [KSV012](https://avd.aquasec.com/misconfig/ksv012)
 
 #### Warning - KSV013
 
-**Message:** Artifact: k8s/deployment.yaml  
-Type: kubernetes  
-Vulnerability KSV013  
-Severity: MEDIUM  
-Message: Container 'app' of Deployment 'app' should specify an image tag  
-Link: [KSV013](https://avd.aquasec.com/misconfig/ksv013)
+**Message:**
 
-**Description:** Image tag ":latest" used
+```text
+Artifact: k8s/deployment.yaml
+Type: kubernetes
+Vulnerability KSV013
+Severity: MEDIUM
+Message: Container 'app' of Deployment 'app' should specify an image tag
+Link: [KSV013](https://avd.aquasec.com/misconfig/ksv013)
+```
+
+**Description:**
+
+```text
+Image tag ":latest" used
+```
 
 **Tags:**
 - `misconfiguration`
@@ -394,14 +538,22 @@ Link: [KSV013](https://avd.aquasec.com/misconfig/ksv013)
 
 #### Error - KSV014
 
-**Message:** Artifact: k8s/deployment.yaml  
-Type: kubernetes  
-Vulnerability KSV014  
-Severity: HIGH  
-Message: Container 'app' of Deployment 'app' should set 'securityContext.readOnlyRootFilesystem' to true  
-Link: [KSV014](https://avd.aquasec.com/misconfig/ksv014)
+**Message:**
 
-**Description:** Root file system is not read-only
+```text
+Artifact: k8s/deployment.yaml
+Type: kubernetes
+Vulnerability KSV014
+Severity: HIGH
+Message: Container 'app' of Deployment 'app' should set 'securityContext.readOnlyRootFilesystem' to true
+Link: [KSV014](https://avd.aquasec.com/misconfig/ksv014)
+```
+
+**Description:**
+
+```text
+Root file system is not read-only
+```
 
 **Tags:**
 - `misconfiguration`
@@ -415,14 +567,22 @@ Link: [KSV014](https://avd.aquasec.com/misconfig/ksv014)
 
 #### Note - KSV015
 
-**Message:** Artifact: k8s/deployment.yaml  
-Type: kubernetes  
-Vulnerability KSV015  
-Severity: LOW  
-Message: Container 'app' of Deployment 'app' should set 'resources.requests.cpu'  
-Link: [KSV015](https://avd.aquasec.com/misconfig/ksv015)
+**Message:**
 
-**Description:** CPU requests not specified
+```text
+Artifact: k8s/deployment.yaml
+Type: kubernetes
+Vulnerability KSV015
+Severity: LOW
+Message: Container 'app' of Deployment 'app' should set 'resources.requests.cpu'
+Link: [KSV015](https://avd.aquasec.com/misconfig/ksv015)
+```
+
+**Description:**
+
+```text
+CPU requests not specified
+```
 
 **Tags:**
 - `misconfiguration`
@@ -436,14 +596,22 @@ Link: [KSV015](https://avd.aquasec.com/misconfig/ksv015)
 
 #### Note - KSV016
 
-**Message:** Artifact: k8s/deployment.yaml  
-Type: kubernetes  
-Vulnerability KSV016  
-Severity: LOW  
-Message: Container 'app' of Deployment 'app' should set 'resources.requests.memory'  
-Link: [KSV016](https://avd.aquasec.com/misconfig/ksv016)
+**Message:**
 
-**Description:** Memory requests not specified
+```text
+Artifact: k8s/deployment.yaml
+Type: kubernetes
+Vulnerability KSV016
+Severity: LOW
+Message: Container 'app' of Deployment 'app' should set 'resources.requests.memory'
+Link: [KSV016](https://avd.aquasec.com/misconfig/ksv016)
+```
+
+**Description:**
+
+```text
+Memory requests not specified
+```
 
 **Tags:**
 - `misconfiguration`
@@ -457,14 +625,22 @@ Link: [KSV016](https://avd.aquasec.com/misconfig/ksv016)
 
 #### Error - KSV017
 
-**Message:** Artifact: k8s/deployment.yaml  
-Type: kubernetes  
-Vulnerability KSV017  
-Severity: HIGH  
-Message: Container 'app' of Deployment 'app' should set 'securityContext.privileged' to false  
-Link: [KSV017](https://avd.aquasec.com/misconfig/ksv017)
+**Message:**
 
-**Description:** Privileged
+```text
+Artifact: k8s/deployment.yaml
+Type: kubernetes
+Vulnerability KSV017
+Severity: HIGH
+Message: Container 'app' of Deployment 'app' should set 'securityContext.privileged' to false
+Link: [KSV017](https://avd.aquasec.com/misconfig/ksv017)
+```
+
+**Description:**
+
+```text
+Privileged
+```
 
 **Tags:**
 - `misconfiguration`
@@ -478,14 +654,22 @@ Link: [KSV017](https://avd.aquasec.com/misconfig/ksv017)
 
 #### Note - KSV018
 
-**Message:** Artifact: k8s/deployment.yaml  
-Type: kubernetes  
-Vulnerability KSV018  
-Severity: LOW  
-Message: Container 'app' of Deployment 'app' should set 'resources.limits.memory'  
-Link: [KSV018](https://avd.aquasec.com/misconfig/ksv018)
+**Message:**
 
-**Description:** Memory not limited
+```text
+Artifact: k8s/deployment.yaml
+Type: kubernetes
+Vulnerability KSV018
+Severity: LOW
+Message: Container 'app' of Deployment 'app' should set 'resources.limits.memory'
+Link: [KSV018](https://avd.aquasec.com/misconfig/ksv018)
+```
+
+**Description:**
+
+```text
+Memory not limited
+```
 
 **Tags:**
 - `misconfiguration`
@@ -499,14 +683,22 @@ Link: [KSV018](https://avd.aquasec.com/misconfig/ksv018)
 
 #### Note - KSV020
 
-**Message:** Artifact: k8s/deployment.yaml  
-Type: kubernetes  
-Vulnerability KSV020  
-Severity: LOW  
-Message: Container 'app' of Deployment 'app' should set 'securityContext.runAsUser' > 10000  
-Link: [KSV020](https://avd.aquasec.com/misconfig/ksv020)
+**Message:**
 
-**Description:** Runs with UID <= 10000
+```text
+Artifact: k8s/deployment.yaml
+Type: kubernetes
+Vulnerability KSV020
+Severity: LOW
+Message: Container 'app' of Deployment 'app' should set 'securityContext.runAsUser' > 10000
+Link: [KSV020](https://avd.aquasec.com/misconfig/ksv020)
+```
+
+**Description:**
+
+```text
+Runs with UID <= 10000
+```
 
 **Tags:**
 - `misconfiguration`
@@ -520,14 +712,22 @@ Link: [KSV020](https://avd.aquasec.com/misconfig/ksv020)
 
 #### Note - KSV021
 
-**Message:** Artifact: k8s/deployment.yaml  
-Type: kubernetes  
-Vulnerability KSV021  
-Severity: LOW  
-Message: Container 'app' of Deployment 'app' should set 'securityContext.runAsGroup' > 10000  
-Link: [KSV021](https://avd.aquasec.com/misconfig/ksv021)
+**Message:**
 
-**Description:** Runs with GID <= 10000
+```text
+Artifact: k8s/deployment.yaml
+Type: kubernetes
+Vulnerability KSV021
+Severity: LOW
+Message: Container 'app' of Deployment 'app' should set 'securityContext.runAsGroup' > 10000
+Link: [KSV021](https://avd.aquasec.com/misconfig/ksv021)
+```
+
+**Description:**
+
+```text
+Runs with GID <= 10000
+```
 
 **Tags:**
 - `misconfiguration`
@@ -541,14 +741,22 @@ Link: [KSV021](https://avd.aquasec.com/misconfig/ksv021)
 
 #### Note - KSV030
 
-**Message:** Artifact: k8s/deployment.yaml  
-Type: kubernetes  
-Vulnerability KSV030  
-Severity: LOW  
-Message: Either Pod or Container should set 'securityContext.seccompProfile.type' to 'RuntimeDefault'  
-Link: [KSV030](https://avd.aquasec.com/misconfig/ksv030)
+**Message:**
 
-**Description:** Runtime/Default Seccomp profile not set
+```text
+Artifact: k8s/deployment.yaml
+Type: kubernetes
+Vulnerability KSV030
+Severity: LOW
+Message: Either Pod or Container should set 'securityContext.seccompProfile.type' to 'RuntimeDefault'
+Link: [KSV030](https://avd.aquasec.com/misconfig/ksv030)
+```
+
+**Description:**
+
+```text
+Runtime/Default Seccomp profile not set
+```
 
 **Tags:**
 - `misconfiguration`
@@ -562,14 +770,22 @@ Link: [KSV030](https://avd.aquasec.com/misconfig/ksv030)
 
 #### Warning - KSV104
 
-**Message:** Artifact: k8s/deployment.yaml  
-Type: kubernetes  
-Vulnerability KSV104  
-Severity: MEDIUM  
-Message: container "app" of deployment "app" in "default" namespace should specify a seccomp profile  
-Link: [KSV104](https://avd.aquasec.com/misconfig/ksv104)
+**Message:**
 
-**Description:** Seccomp policies disabled
+```text
+Artifact: k8s/deployment.yaml
+Type: kubernetes
+Vulnerability KSV104
+Severity: MEDIUM
+Message: container "app" of deployment "app" in "default" namespace should specify a seccomp profile
+Link: [KSV104](https://avd.aquasec.com/misconfig/ksv104)
+```
+
+**Description:**
+
+```text
+Seccomp policies disabled
+```
 
 **Tags:**
 - `misconfiguration`
@@ -583,14 +799,22 @@ Link: [KSV104](https://avd.aquasec.com/misconfig/ksv104)
 
 #### Note - KSV106
 
-**Message:** Artifact: k8s/deployment.yaml  
-Type: kubernetes  
-Vulnerability KSV106  
-Severity: LOW  
-Message: container should drop all  
-Link: [KSV106](https://avd.aquasec.com/misconfig/ksv106)
+**Message:**
 
-**Description:** Container capabilities must only include NET_BIND_SERVICE
+```text
+Artifact: k8s/deployment.yaml
+Type: kubernetes
+Vulnerability KSV106
+Severity: LOW
+Message: container should drop all
+Link: [KSV106](https://avd.aquasec.com/misconfig/ksv106)
+```
+
+**Description:**
+
+```text
+Container capabilities must only include NET_BIND_SERVICE
+```
 
 **Tags:**
 - `misconfiguration`
@@ -604,14 +828,22 @@ Link: [KSV106](https://avd.aquasec.com/misconfig/ksv106)
 
 #### Note - KSV110
 
-**Message:** Artifact: k8s/deployment.yaml  
-Type: kubernetes  
-Vulnerability KSV110  
-Severity: LOW  
-Message: deployment app in default namespace should set metadata.namespace to a non-default namespace  
-Link: [KSV110](https://avd.aquasec.com/misconfig/ksv110)
+**Message:**
 
-**Description:** Workloads in the default namespace
+```text
+Artifact: k8s/deployment.yaml
+Type: kubernetes
+Vulnerability KSV110
+Severity: LOW
+Message: deployment app in default namespace should set metadata.namespace to a non-default namespace
+Link: [KSV110](https://avd.aquasec.com/misconfig/ksv110)
+```
+
+**Description:**
+
+```text
+Workloads in the default namespace
+```
 
 **Tags:**
 - `misconfiguration`
@@ -625,14 +857,22 @@ Link: [KSV110](https://avd.aquasec.com/misconfig/ksv110)
 
 #### Error - KSV118
 
-**Message:** Artifact: k8s/deployment.yaml  
-Type: kubernetes  
-Vulnerability KSV118  
-Severity: HIGH  
-Message: deployment app in default namespace is using the default security context, which allows root privileges  
-Link: [KSV118](https://avd.aquasec.com/misconfig/ksv118)
+**Message:**
 
-**Description:** Default security context configured
+```text
+Artifact: k8s/deployment.yaml
+Type: kubernetes
+Vulnerability KSV118
+Severity: HIGH
+Message: deployment app in default namespace is using the default security context, which allows root privileges
+Link: [KSV118](https://avd.aquasec.com/misconfig/ksv118)
+```
+
+**Description:**
+
+```text
+Default security context configured
+```
 
 **Tags:**
 - `misconfiguration`
@@ -646,14 +886,22 @@ Link: [KSV118](https://avd.aquasec.com/misconfig/ksv118)
 
 #### Warning - KSV0125
 
-**Message:** Artifact: k8s/deployment.yaml  
-Type: kubernetes  
-Vulnerability KSV0125  
-Severity: MEDIUM  
-Message: Container app in deployment app (namespace: default) uses an image from an untrusted registry.  
-Link: [KSV0125](https://avd.aquasec.com/misconfig/ksv0125)
+**Message:**
 
-**Description:** Restrict container images to trusted registries
+```text
+Artifact: k8s/deployment.yaml
+Type: kubernetes
+Vulnerability KSV0125
+Severity: MEDIUM
+Message: Container app in deployment app (namespace: default) uses an image from an untrusted registry.
+Link: [KSV0125](https://avd.aquasec.com/misconfig/ksv0125)
+```
+
+**Description:**
+
+```text
+Restrict container images to trusted registries
+```
 
 **Tags:**
 - `misconfiguration`
@@ -667,14 +915,22 @@ Link: [KSV0125](https://avd.aquasec.com/misconfig/ksv0125)
 
 #### Error - AVD-AWS-0086
 
-**Message:** Artifact: main.tf  
-Type: terraform  
-Vulnerability AVD-AWS-0086  
-Severity: HIGH  
-Message: No public access block so not blocking public acls  
-Link: [AVD-AWS-0086](https://avd.aquasec.com/misconfig/avd-aws-0086)
+**Message:**
 
-**Description:** S3 Access block should block public ACL
+```text
+Artifact: main.tf
+Type: terraform
+Vulnerability AVD-AWS-0086
+Severity: HIGH
+Message: No public access block so not blocking public acls
+Link: [AVD-AWS-0086](https://avd.aquasec.com/misconfig/avd-aws-0086)
+```
+
+**Description:**
+
+```text
+S3 Access block should block public ACL
+```
 
 **Tags:**
 - `misconfiguration`
@@ -688,14 +944,22 @@ Link: [AVD-AWS-0086](https://avd.aquasec.com/misconfig/avd-aws-0086)
 
 #### Error - AVD-AWS-0087
 
-**Message:** Artifact: main.tf  
-Type: terraform  
-Vulnerability AVD-AWS-0087  
-Severity: HIGH  
-Message: No public access block so not blocking public policies  
-Link: [AVD-AWS-0087](https://avd.aquasec.com/misconfig/avd-aws-0087)
+**Message:**
 
-**Description:** S3 Access block should block public policy
+```text
+Artifact: main.tf
+Type: terraform
+Vulnerability AVD-AWS-0087
+Severity: HIGH
+Message: No public access block so not blocking public policies
+Link: [AVD-AWS-0087](https://avd.aquasec.com/misconfig/avd-aws-0087)
+```
+
+**Description:**
+
+```text
+S3 Access block should block public policy
+```
 
 **Tags:**
 - `misconfiguration`
@@ -709,14 +973,22 @@ Link: [AVD-AWS-0087](https://avd.aquasec.com/misconfig/avd-aws-0087)
 
 #### Error - AVD-AWS-0088
 
-**Message:** Artifact: main.tf  
-Type: terraform  
-Vulnerability AVD-AWS-0088  
-Severity: HIGH  
-Message: Bucket does not have encryption enabled  
-Link: [AVD-AWS-0088](https://avd.aquasec.com/misconfig/avd-aws-0088)
+**Message:**
 
-**Description:** Unencrypted S3 bucket.
+```text
+Artifact: main.tf
+Type: terraform
+Vulnerability AVD-AWS-0088
+Severity: HIGH
+Message: Bucket does not have encryption enabled
+Link: [AVD-AWS-0088](https://avd.aquasec.com/misconfig/avd-aws-0088)
+```
+
+**Description:**
+
+```text
+Unencrypted S3 bucket.
+```
 
 **Tags:**
 - `misconfiguration`
@@ -730,14 +1002,22 @@ Link: [AVD-AWS-0088](https://avd.aquasec.com/misconfig/avd-aws-0088)
 
 #### Note - s3-bucket-logging
 
-**Message:** Artifact: main.tf  
-Type: terraform  
-Vulnerability s3-bucket-logging  
-Severity: LOW  
-Message: Bucket has logging disabled  
-Link: [s3-bucket-logging](https://avd.aquasec.com/misconfig/s3-bucket-logging)
+**Message:**
 
-**Description:** S3 Bucket Logging
+```text
+Artifact: main.tf
+Type: terraform
+Vulnerability s3-bucket-logging
+Severity: LOW
+Message: Bucket has logging disabled
+Link: [s3-bucket-logging](https://avd.aquasec.com/misconfig/s3-bucket-logging)
+```
+
+**Description:**
+
+```text
+S3 Bucket Logging
+```
 
 **Tags:**
 - `misconfiguration`
@@ -751,14 +1031,22 @@ Link: [s3-bucket-logging](https://avd.aquasec.com/misconfig/s3-bucket-logging)
 
 #### Warning - AVD-AWS-0090
 
-**Message:** Artifact: main.tf  
-Type: terraform  
-Vulnerability AVD-AWS-0090  
-Severity: MEDIUM  
-Message: Bucket does not have versioning enabled  
-Link: [AVD-AWS-0090](https://avd.aquasec.com/misconfig/avd-aws-0090)
+**Message:**
 
-**Description:** S3 Data should be versioned
+```text
+Artifact: main.tf
+Type: terraform
+Vulnerability AVD-AWS-0090
+Severity: MEDIUM
+Message: Bucket does not have versioning enabled
+Link: [AVD-AWS-0090](https://avd.aquasec.com/misconfig/avd-aws-0090)
+```
+
+**Description:**
+
+```text
+S3 Data should be versioned
+```
 
 **Tags:**
 - `misconfiguration`
@@ -772,14 +1060,22 @@ Link: [AVD-AWS-0090](https://avd.aquasec.com/misconfig/avd-aws-0090)
 
 #### Error - AVD-AWS-0091
 
-**Message:** Artifact: main.tf  
-Type: terraform  
-Vulnerability AVD-AWS-0091  
-Severity: HIGH  
-Message: No public access block so not blocking public acls  
-Link: [AVD-AWS-0091](https://avd.aquasec.com/misconfig/avd-aws-0091)
+**Message:**
 
-**Description:** S3 Access Block should Ignore Public ACL
+```text
+Artifact: main.tf
+Type: terraform
+Vulnerability AVD-AWS-0091
+Severity: HIGH
+Message: No public access block so not blocking public acls
+Link: [AVD-AWS-0091](https://avd.aquasec.com/misconfig/avd-aws-0091)
+```
+
+**Description:**
+
+```text
+S3 Access Block should Ignore Public ACL
+```
 
 **Tags:**
 - `misconfiguration`
@@ -793,14 +1089,22 @@ Link: [AVD-AWS-0091](https://avd.aquasec.com/misconfig/avd-aws-0091)
 
 #### Error - AVD-AWS-0092
 
-**Message:** Artifact: main.tf  
-Type: terraform  
-Vulnerability AVD-AWS-0092  
-Severity: HIGH  
-Message: Bucket has a public ACL: "public-read"  
-Link: [AVD-AWS-0092](https://avd.aquasec.com/misconfig/avd-aws-0092)
+**Message:**
 
-**Description:** S3 Buckets not publicly accessible through ACL.
+```text
+Artifact: main.tf
+Type: terraform
+Vulnerability AVD-AWS-0092
+Severity: HIGH
+Message: Bucket has a public ACL: "public-read"
+Link: [AVD-AWS-0092](https://avd.aquasec.com/misconfig/avd-aws-0092)
+```
+
+**Description:**
+
+```text
+S3 Buckets not publicly accessible through ACL.
+```
 
 **Tags:**
 - `misconfiguration`
@@ -814,14 +1118,22 @@ Link: [AVD-AWS-0092](https://avd.aquasec.com/misconfig/avd-aws-0092)
 
 #### Error - AVD-AWS-0093
 
-**Message:** Artifact: main.tf  
-Type: terraform  
-Vulnerability AVD-AWS-0093  
-Severity: HIGH  
-Message: No public access block so not restricting public buckets  
-Link: [AVD-AWS-0093](https://avd.aquasec.com/misconfig/avd-aws-0093)
+**Message:**
 
-**Description:** S3 Access block should restrict public bucket to limit access
+```text
+Artifact: main.tf
+Type: terraform
+Vulnerability AVD-AWS-0093
+Severity: HIGH
+Message: No public access block so not restricting public buckets
+Link: [AVD-AWS-0093](https://avd.aquasec.com/misconfig/avd-aws-0093)
+```
+
+**Description:**
+
+```text
+S3 Access block should restrict public bucket to limit access
+```
 
 **Tags:**
 - `misconfiguration`
@@ -835,14 +1147,22 @@ Link: [AVD-AWS-0093](https://avd.aquasec.com/misconfig/avd-aws-0093)
 
 #### Note - AVD-AWS-0094
 
-**Message:** Artifact: main.tf  
-Type: terraform  
-Vulnerability AVD-AWS-0094  
-Severity: LOW  
-Message: Bucket does not have a corresponding public access block.  
-Link: [AVD-AWS-0094](https://avd.aquasec.com/misconfig/avd-aws-0094)
+**Message:**
 
-**Description:** S3 buckets should each define an aws_s3_bucket_public_access_block
+```text
+Artifact: main.tf
+Type: terraform
+Vulnerability AVD-AWS-0094
+Severity: LOW
+Message: Bucket does not have a corresponding public access block.
+Link: [AVD-AWS-0094](https://avd.aquasec.com/misconfig/avd-aws-0094)
+```
+
+**Description:**
+
+```text
+S3 buckets should each define an aws_s3_bucket_public_access_block
+```
 
 **Tags:**
 - `misconfiguration`
@@ -856,14 +1176,22 @@ Link: [AVD-AWS-0094](https://avd.aquasec.com/misconfig/avd-aws-0094)
 
 #### Note - aws-vpc-add-description-to-security-group
 
-**Message:** Artifact: main.tf  
-Type: terraform  
-Vulnerability aws-vpc-add-description-to-security-group  
-Severity: LOW  
-Message: Security group explicitly uses the default description.  
-Link: [aws-vpc-add-description-to-security-group](https://avd.aquasec.com/misconfig/aws-vpc-add-description-to-security-group)
+**Message:**
 
-**Description:** Missing description for security group.
+```text
+Artifact: main.tf
+Type: terraform
+Vulnerability aws-vpc-add-description-to-security-group
+Severity: LOW
+Message: Security group explicitly uses the default description.
+Link: [aws-vpc-add-description-to-security-group](https://avd.aquasec.com/misconfig/aws-vpc-add-description-to-security-group)
+```
+
+**Description:**
+
+```text
+Missing description for security group.
+```
 
 **Tags:**
 - `misconfiguration`
@@ -877,14 +1205,22 @@ Link: [aws-vpc-add-description-to-security-group](https://avd.aquasec.com/miscon
 
 #### Error - AVD-AWS-0107
 
-**Message:** Artifact: main.tf  
-Type: terraform  
-Vulnerability AVD-AWS-0107  
-Severity: HIGH  
-Message: Security group rule allows unrestricted ingress from any IP address.  
-Link: [AVD-AWS-0107](https://avd.aquasec.com/misconfig/avd-aws-0107)
+**Message:**
 
-**Description:** Security groups should not allow unrestricted ingress to SSH or RDP from any IP address.
+```text
+Artifact: main.tf
+Type: terraform
+Vulnerability AVD-AWS-0107
+Severity: HIGH
+Message: Security group rule allows unrestricted ingress from any IP address.
+Link: [AVD-AWS-0107](https://avd.aquasec.com/misconfig/avd-aws-0107)
+```
+
+**Description:**
+
+```text
+Security groups should not allow unrestricted ingress to SSH or RDP from any IP address.
+```
 
 **Tags:**
 - `misconfiguration`
@@ -898,14 +1234,22 @@ Link: [AVD-AWS-0107](https://avd.aquasec.com/misconfig/avd-aws-0107)
 
 #### Note - aws-vpc-add-description-to-security-group-rule
 
-**Message:** Artifact: main.tf  
-Type: terraform  
-Vulnerability aws-vpc-add-description-to-security-group-rule  
-Severity: LOW  
-Message: Security group rule does not have a description.  
-Link: [aws-vpc-add-description-to-security-group-rule](https://avd.aquasec.com/misconfig/aws-vpc-add-description-to-security-group-rule)
+**Message:**
 
-**Description:** Missing description for security group rule.
+```text
+Artifact: main.tf
+Type: terraform
+Vulnerability aws-vpc-add-description-to-security-group-rule
+Severity: LOW
+Message: Security group rule does not have a description.
+Link: [aws-vpc-add-description-to-security-group-rule](https://avd.aquasec.com/misconfig/aws-vpc-add-description-to-security-group-rule)
+```
+
+**Description:**
+
+```text
+Missing description for security group rule.
+```
 
 **Tags:**
 - `misconfiguration`
@@ -919,14 +1263,22 @@ Link: [aws-vpc-add-description-to-security-group-rule](https://avd.aquasec.com/m
 
 #### Error - AVD-AWS-0132
 
-**Message:** Artifact: main.tf  
-Type: terraform  
-Vulnerability AVD-AWS-0132  
-Severity: HIGH  
-Message: Bucket does not encrypt data with a customer managed key.  
-Link: [AVD-AWS-0132](https://avd.aquasec.com/misconfig/avd-aws-0132)
+**Message:**
 
-**Description:** S3 encryption should use Customer Managed Keys
+```text
+Artifact: main.tf
+Type: terraform
+Vulnerability AVD-AWS-0132
+Severity: HIGH
+Message: Bucket does not encrypt data with a customer managed key.
+Link: [AVD-AWS-0132](https://avd.aquasec.com/misconfig/avd-aws-0132)
+```
+
+**Description:**
+
+```text
+S3 encryption should use Customer Managed Keys
+```
 
 **Tags:**
 - `misconfiguration`

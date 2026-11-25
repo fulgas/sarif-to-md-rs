@@ -14,21 +14,33 @@
 
 #### Warning - TUT1001
 
-**Message:** A result outside the source tree.
+**Message:**
+
+```text
+A result outside the source tree.
+```
 
 **Locations:**
 - `README.md`
 
 #### Warning - TUT1002
 
-**Message:** A result in a source file.
+**Message:**
+
+```text
+A result in a source file.
+```
 
 **Locations:**
 - `io/kb.c`
 
 #### Warning - TUT1003
 
-**Message:** A result in a directory, for instance, 'This repo does not contain a LICENSE file.'.
+**Message:**
+
+```text
+A result in a directory, for instance, 'This repo does not contain a LICENSE file.'.
+```
 
 **Locations:**
 - `.`

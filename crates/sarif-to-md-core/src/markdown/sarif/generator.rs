@@ -1,5 +1,5 @@
 use crate::markdown::sarif::types::{
-    ResultProperties, RuleMetadata, SarifLevel, SarifLocation, SarifReportTemplate,
+    CodeBlock, ResultProperties, RuleMetadata, SarifLevel, SarifLocation, SarifReportTemplate,
     SarifResultView, SarifRun, SeverityCount,
 };
 use crate::markdown::{GeneratorError, MarkdownFormat, MarkdownGenerator};
@@ -171,26 +171,12 @@ impl SarifMarkdownGenerator {
                 .as_ref()
                 .map(|sd| sd.text.as_str())
                 .or_else(|| rule.full_description.as_ref().map(|fd| fd.text.as_str()))
-                .map(|text| self.keep_line_breaks(text)),
+                .map(CodeBlock::new),
             help_uri: rule.help_uri.clone(),
             tags,
             cwe_ids,
             cve_ids,
         }
-    }
-
-    /// Multi-line text (trivy puts package, version and fix on separate lines) would
-    /// collapse into one paragraph: end each line with a hard break, and in GitHub
-    /// Flavored output keep the continuation lines inside the `> ` quote.
-    fn keep_line_breaks(&self, text: &str) -> String {
-        let separator = match self.markdown_format {
-            MarkdownFormat::GitHubFlavored => "  \n> ",
-            MarkdownFormat::CommonMark => "  \n",
-        };
-        text.lines()
-            .map(str::trim_end)
-            .collect::<Vec<_>>()
-            .join(separator)
     }
 
     fn convert_result(
@@ -207,9 +193,11 @@ impl SarifMarkdownGenerator {
             .message
             .text
             .as_deref()
-            .or(result.message.markdown.as_deref())
+            // `text` is plain text and always present (SARIF 2.1.0 §3.11.9 requires it
+            // whenever `markdown` is); `markdown` is the producer's own Markdown, not a
+            // stand-in for it.
             .unwrap_or("No message");
-        let message = self.keep_line_breaks(message);
+        let message = CodeBlock::new(message);
 
         let locations = result
             .locations

@@ -14,7 +14,11 @@
 
 #### Warning - TUT1001
 
-**Message:** The result.
+**Message:**
+
+```text
+The result.
+```
 
 **Locations:**
 - `code/example.cs`:4:19

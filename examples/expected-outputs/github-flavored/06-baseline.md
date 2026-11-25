@@ -19,7 +19,10 @@ SarifSamples v1.0
 #### Details
 
 **Message:**
-> Absent result.
+
+```text
+Absent result.
+```
 </details>
 <details>
 <summary>
@@ -29,7 +32,10 @@ SarifSamples v1.0
 #### Details
 
 **Message:**
-> Unchanged result.
+
+```text
+Unchanged result.
+```
 </details>
 <details>
 <summary>
@@ -39,7 +45,10 @@ SarifSamples v1.0
 #### Details
 
 **Message:**
-> Updated result.
+
+```text
+Updated result.
+```
 </details>
 <details>
 <summary>
@@ -49,7 +58,10 @@ SarifSamples v1.0
 #### Details
 
 **Message:**
-> New result.
+
+```text
+New result.
+```
 </details>
 
 ---

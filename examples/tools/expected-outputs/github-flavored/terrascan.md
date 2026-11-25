@@ -21,10 +21,16 @@ terrascan v1.19.9
 #### Details
 
 **Message:**
-> Ensure :latest version is not used for Docker file
+
+```text
+Ensure :latest version is not used for Docker file
+```
 
 **Description:**
-> Ensure :latest version is not used for Docker file
+
+```text
+Ensure :latest version is not used for Docker file
+```
 
 **Locations:**
 - `file:///iac/Dockerfile`:1
@@ -37,10 +43,16 @@ terrascan v1.19.9
 #### Details
 
 **Message:**
-> Ensure Pinned Pip Package Version
+
+```text
+Ensure Pinned Pip Package Version
+```
 
 **Description:**
-> Ensure Pinned Pip Package Version
+
+```text
+Ensure Pinned Pip Package Version
+```
 
 **Locations:**
 - `file:///iac/Dockerfile`:5
@@ -53,10 +65,16 @@ terrascan v1.19.9
 #### Details
 
 **Message:**
-> Ensure when installing packages with pip, the '--no-cache-dir' flag should be set to make Docker images smaller
+
+```text
+Ensure when installing packages with pip, the '--no-cache-dir' flag should be set to make Docker images smaller
+```
 
 **Description:**
-> Ensure when installing packages with pip, the '--no-cache-dir' flag should be set to make Docker images smaller
+
+```text
+Ensure when installing packages with pip, the '--no-cache-dir' flag should be set to make Docker images smaller
+```
 
 **Locations:**
 - `file:///iac/Dockerfile`:5
@@ -69,10 +87,16 @@ terrascan v1.19.9
 #### Details
 
 **Message:**
-> Default seccomp profile not enabled will make the container to make non-essential system calls
+
+```text
+Default seccomp profile not enabled will make the container to make non-essential system calls
+```
 
 **Description:**
-> Default seccomp profile not enabled will make the container to make non-essential system calls
+
+```text
+Default seccomp profile not enabled will make the container to make non-essential system calls
+```
 
 **Locations:**
 - `file:///iac/k8s/deployment.yaml`:1
@@ -85,10 +109,16 @@ terrascan v1.19.9
 #### Details
 
 **Message:**
-> CPU Request Not Set in config file.
+
+```text
+CPU Request Not Set in config file.
+```
 
 **Description:**
-> CPU Request Not Set in config file.
+
+```text
+CPU Request Not Set in config file.
+```
 
 **Locations:**
 - `file:///iac/k8s/deployment.yaml`:1
@@ -101,10 +131,16 @@ terrascan v1.19.9
 #### Details
 
 **Message:**
-> No readiness probe will affect automatic recovery in case of unexpected errors
+
+```text
+No readiness probe will affect automatic recovery in case of unexpected errors
+```
 
 **Description:**
-> No readiness probe will affect automatic recovery in case of unexpected errors
+
+```text
+No readiness probe will affect automatic recovery in case of unexpected errors
+```
 
 **Locations:**
 - `file:///iac/k8s/deployment.yaml`:1
@@ -117,10 +153,16 @@ terrascan v1.19.9
 #### Details
 
 **Message:**
-> No liveness probe will ensure there is no recovery in case of unexpected errors
+
+```text
+No liveness probe will ensure there is no recovery in case of unexpected errors
+```
 
 **Description:**
-> No liveness probe will ensure there is no recovery in case of unexpected errors
+
+```text
+No liveness probe will ensure there is no recovery in case of unexpected errors
+```
 
 **Locations:**
 - `file:///iac/k8s/deployment.yaml`:1
@@ -133,10 +175,16 @@ terrascan v1.19.9
 #### Details
 
 **Message:**
-> No tag or container image with :Latest tag makes difficult to rollback and track
+
+```text
+No tag or container image with :Latest tag makes difficult to rollback and track
+```
 
 **Description:**
-> No tag or container image with :Latest tag makes difficult to rollback and track
+
+```text
+No tag or container image with :Latest tag makes difficult to rollback and track
+```
 
 **Locations:**
 - `file:///iac/k8s/deployment.yaml`:1
@@ -149,10 +197,16 @@ terrascan v1.19.9
 #### Details
 
 **Message:**
-> CPU Limits Not Set in config file.
+
+```text
+CPU Limits Not Set in config file.
+```
 
 **Description:**
-> CPU Limits Not Set in config file.
+
+```text
+CPU Limits Not Set in config file.
+```
 
 **Locations:**
 - `file:///iac/k8s/deployment.yaml`:1
@@ -165,10 +219,16 @@ terrascan v1.19.9
 #### Details
 
 **Message:**
-> Memory Limits Not Set in config file.
+
+```text
+Memory Limits Not Set in config file.
+```
 
 **Description:**
-> Memory Limits Not Set in config file.
+
+```text
+Memory Limits Not Set in config file.
+```
 
 **Locations:**
 - `file:///iac/k8s/deployment.yaml`:1
@@ -181,10 +241,16 @@ terrascan v1.19.9
 #### Details
 
 **Message:**
-> Memory Request Not Set in config file.
+
+```text
+Memory Request Not Set in config file.
+```
 
 **Description:**
-> Memory Request Not Set in config file.
+
+```text
+Memory Request Not Set in config file.
+```
 
 **Locations:**
 - `file:///iac/k8s/deployment.yaml`:1
@@ -197,10 +263,16 @@ terrascan v1.19.9
 #### Details
 
 **Message:**
-> AppArmor profile not set to default or custom profile will make the container vulnerable to kernel level threats
+
+```text
+AppArmor profile not set to default or custom profile will make the container vulnerable to kernel level threats
+```
 
 **Description:**
-> AppArmor profile not set to default or custom profile will make the container vulnerable to kernel level threats
+
+```text
+AppArmor profile not set to default or custom profile will make the container vulnerable to kernel level threats
+```
 
 **Locations:**
 - `file:///iac/k8s/deployment.yaml`:1
@@ -213,10 +285,16 @@ terrascan v1.19.9
 #### Details
 
 **Message:**
-> Apply Security Context to Your Pods and Containers
+
+```text
+Apply Security Context to Your Pods and Containers
+```
 
 **Description:**
-> Apply Security Context to Your Pods and Containers
+
+```text
+Apply Security Context to Your Pods and Containers
+```
 
 **Locations:**
 - `file:///iac/k8s/deployment.yaml`:1
@@ -229,10 +307,16 @@ terrascan v1.19.9
 #### Details
 
 **Message:**
-> Containers Should Not Run with AllowPrivilegeEscalation
+
+```text
+Containers Should Not Run with AllowPrivilegeEscalation
+```
 
 **Description:**
-> Containers Should Not Run with AllowPrivilegeEscalation
+
+```text
+Containers Should Not Run with AllowPrivilegeEscalation
+```
 
 **Locations:**
 - `file:///iac/k8s/deployment.yaml`:1
@@ -245,10 +329,16 @@ terrascan v1.19.9
 #### Details
 
 **Message:**
-> Image without digest affects the integrity principle of image security
+
+```text
+Image without digest affects the integrity principle of image security
+```
 
 **Description:**
-> Image without digest affects the integrity principle of image security
+
+```text
+Image without digest affects the integrity principle of image security
+```
 
 **Locations:**
 - `file:///iac/k8s/deployment.yaml`:1
@@ -261,10 +351,16 @@ terrascan v1.19.9
 #### Details
 
 **Message:**
-> Minimize Admission of Root Containers
+
+```text
+Minimize Admission of Root Containers
+```
 
 **Description:**
-> Minimize Admission of Root Containers
+
+```text
+Minimize Admission of Root Containers
+```
 
 **Locations:**
 - `file:///iac/k8s/deployment.yaml`:1
@@ -277,10 +373,16 @@ terrascan v1.19.9
 #### Details
 
 **Message:**
-> Container images with readOnlyRootFileSystem set as false mounts the container root file system with write permissions
+
+```text
+Container images with readOnlyRootFileSystem set as false mounts the container root file system with write permissions
+```
 
 **Description:**
-> Container images with readOnlyRootFileSystem set as false mounts the container root file system with write permissions
+
+```text
+Container images with readOnlyRootFileSystem set as false mounts the container root file system with write permissions
+```
 
 **Locations:**
 - `file:///iac/k8s/deployment.yaml`:1
@@ -293,10 +395,16 @@ terrascan v1.19.9
 #### Details
 
 **Message:**
-> Security Groups - Unrestricted Specific Ports - (SSH,22)
+
+```text
+Security Groups - Unrestricted Specific Ports - (SSH,22)
+```
 
 **Description:**
-> Security Groups - Unrestricted Specific Ports - (SSH,22)
+
+```text
+Security Groups - Unrestricted Specific Ports - (SSH,22)
+```
 
 **Locations:**
 - `file:///iac/main.tf`:6
@@ -309,10 +417,16 @@ terrascan v1.19.9
 #### Details
 
 **Message:**
-> Enabling S3 versioning will enable easy recovery from both unintended user actions, like deletes and overwrites
+
+```text
+Enabling S3 versioning will enable easy recovery from both unintended user actions, like deletes and overwrites
+```
 
 **Description:**
-> Enabling S3 versioning will enable easy recovery from both unintended user actions, like deletes and overwrites
+
+```text
+Enabling S3 versioning will enable easy recovery from both unintended user actions, like deletes and overwrites
+```
 
 **Locations:**
 - `file:///iac/main.tf`:1
@@ -325,10 +439,16 @@ terrascan v1.19.9
 #### Details
 
 **Message:**
-> Misconfigured S3 buckets can leak private information to the entire internet or allow unauthorized data tampering / deletion
+
+```text
+Misconfigured S3 buckets can leak private information to the entire internet or allow unauthorized data tampering / deletion
+```
 
 **Description:**
-> Misconfigured S3 buckets can leak private information to the entire internet or allow unauthorized data tampering / deletion
+
+```text
+Misconfigured S3 buckets can leak private information to the entire internet or allow unauthorized data tampering / deletion
+```
 
 **Locations:**
 - `file:///iac/main.tf`:1

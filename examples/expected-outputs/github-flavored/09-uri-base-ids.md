@@ -19,7 +19,10 @@ SarifSamples v1.0
 #### Details
 
 **Message:**
-> A result outside the source tree.
+
+```text
+A result outside the source tree.
+```
 
 **Locations:**
 - `README.md`
@@ -32,7 +35,10 @@ SarifSamples v1.0
 #### Details
 
 **Message:**
-> A result in a source file.
+
+```text
+A result in a source file.
+```
 
 **Locations:**
 - `io/kb.c`
@@ -45,7 +51,10 @@ SarifSamples v1.0
 #### Details
 
 **Message:**
-> A result in a directory, for instance, 'This repo does not contain a LICENSE file.'.
+
+```text
+A result in a directory, for instance, 'This repo does not contain a LICENSE file.'.
+```
 
 **Locations:**
 - `.`

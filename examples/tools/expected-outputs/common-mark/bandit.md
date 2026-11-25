@@ -16,7 +16,11 @@
 
 #### Note - B404
 
-**Message:** Consider possible security implications associated with the subprocess module.
+**Message:**
+
+```text
+Consider possible security implications associated with the subprocess module.
+```
 
 **Documentation:** [View details](https://bandit.readthedocs.io/en/1.9.4/blacklists/blacklist_imports.html#b404-import-subprocess)
 
@@ -30,7 +34,11 @@
 
 #### Note - B105
 
-**Message:** Possible hardcoded password: 'hunter2-not-a-real-password'
+**Message:**
+
+```text
+Possible hardcoded password: 'hunter2-not-a-real-password'
+```
 
 **Documentation:** [View details](https://bandit.readthedocs.io/en/1.9.4/plugins/b105_hardcoded_password_string.html)
 
@@ -44,7 +52,11 @@
 
 #### Warning - B608
 
-**Message:** Possible SQL injection vector through string-based query construction.
+**Message:**
+
+```text
+Possible SQL injection vector through string-based query construction.
+```
 
 **Documentation:** [View details](https://bandit.readthedocs.io/en/1.9.4/plugins/b608_hardcoded_sql_expressions.html)
 
@@ -58,7 +70,11 @@
 
 #### Error - B602
 
-**Message:** subprocess call with shell=True identified, security issue.
+**Message:**
+
+```text
+subprocess call with shell=True identified, security issue.
+```
 
 **Documentation:** [View details](https://bandit.readthedocs.io/en/1.9.4/plugins/b602_subprocess_popen_with_shell_equals_true.html)
 
@@ -72,7 +88,11 @@
 
 #### Warning - B506
 
-**Message:** Use of unsafe yaml load. Allows instantiation of arbitrary objects. Consider yaml.safe_load().
+**Message:**
+
+```text
+Use of unsafe yaml load. Allows instantiation of arbitrary objects. Consider yaml.safe_load().
+```
 
 **Documentation:** [View details](https://bandit.readthedocs.io/en/1.9.4/plugins/b506_yaml_load.html)
 

@@ -19,7 +19,10 @@ SarifSamples v1.0
 #### Details
 
 **Message:**
-> Uninitialized variable.
+
+```text
+Uninitialized variable.
+```
 
 **Locations:**
 - `collections/list.h`:15

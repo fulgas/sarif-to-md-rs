@@ -15,14 +15,22 @@
 
 #### Error - TUT1001
 
-**Message:** This result is an error according to the default rule configuration.
+**Message:**
+
+```text
+This result is an error according to the default rule configuration.
+```
 
 **Locations:**
 - `file:///C:/code/myProject/io/kb.c`
 
 #### Warning - TUT1002
 
-**Message:** This result is a warning according to the default rule configuration.
+**Message:**
+
+```text
+This result is a warning according to the default rule configuration.
+```
 
 **Locations:**
 - `file:///C:/code/myProject/io/file.c`

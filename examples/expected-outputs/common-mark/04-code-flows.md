@@ -14,7 +14,11 @@
 
 #### Warning - TUT1001
 
-**Message:** Use of uninitialized variable.
+**Message:**
+
+```text
+Use of uninitialized variable.
+```
 
 **Locations:**
 - `collections/list.h`:25:8

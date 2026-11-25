@@ -20,7 +20,10 @@ SarifSamples v1.0
 #### Details
 
 **Message:**
-> This result is an error according to the default rule configuration.
+
+```text
+This result is an error according to the default rule configuration.
+```
 
 **Locations:**
 - `file:///C:/code/myProject/io/kb.c`
@@ -33,7 +36,10 @@ SarifSamples v1.0
 #### Details
 
 **Message:**
-> This result is a warning according to the default rule configuration.
+
+```text
+This result is a warning according to the default rule configuration.
+```
 
 **Locations:**
 - `file:///C:/code/myProject/io/file.c`

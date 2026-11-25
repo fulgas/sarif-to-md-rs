@@ -20,10 +20,16 @@ grype v0.118.0
 #### Details
 
 **Message:**
-> A critical vulnerability in python package: pyyaml, version 5.3 was found at: /requirements.txt
+
+```text
+A critical vulnerability in python package: pyyaml, version 5.3 was found at: /requirements.txt
+```
 
 **Description:**
-> GHSA-8q59-q68h-6hv4 critical vulnerability for pyyaml package
+
+```text
+GHSA-8q59-q68h-6hv4 critical vulnerability for pyyaml package
+```
 
 **Documentation:** [View details](https://github.com/advisories/GHSA-8q59-q68h-6hv4)
 
@@ -38,10 +44,16 @@ grype v0.118.0
 #### Details
 
 **Message:**
-> A high vulnerability in python package: requests, version 2.19.0 was found at: /requirements.txt
+
+```text
+A high vulnerability in python package: requests, version 2.19.0 was found at: /requirements.txt
+```
 
 **Description:**
-> GHSA-x84v-xcm2-53pg high vulnerability for requests package
+
+```text
+GHSA-x84v-xcm2-53pg high vulnerability for requests package
+```
 
 **Documentation:** [View details](https://github.com/advisories/GHSA-x84v-xcm2-53pg)
 
@@ -56,10 +68,16 @@ grype v0.118.0
 #### Details
 
 **Message:**
-> A critical vulnerability in python package: pyyaml, version 5.3 was found at: /requirements.txt
+
+```text
+A critical vulnerability in python package: pyyaml, version 5.3 was found at: /requirements.txt
+```
 
 **Description:**
-> GHSA-6757-jp84-gxfx critical vulnerability for pyyaml package
+
+```text
+GHSA-6757-jp84-gxfx critical vulnerability for pyyaml package
+```
 
 **Documentation:** [View details](https://github.com/advisories/GHSA-6757-jp84-gxfx)
 
@@ -74,10 +92,16 @@ grype v0.118.0
 #### Details
 
 **Message:**
-> A medium vulnerability in python package: requests, version 2.19.0 was found at: /requirements.txt
+
+```text
+A medium vulnerability in python package: requests, version 2.19.0 was found at: /requirements.txt
+```
 
 **Description:**
-> GHSA-j8r2-6x86-q33q medium vulnerability for requests package
+
+```text
+GHSA-j8r2-6x86-q33q medium vulnerability for requests package
+```
 
 **Documentation:** [View details](https://github.com/advisories/GHSA-j8r2-6x86-q33q)
 
@@ -92,10 +116,16 @@ grype v0.118.0
 #### Details
 
 **Message:**
-> A medium vulnerability in python package: requests, version 2.19.0 was found at: /requirements.txt
+
+```text
+A medium vulnerability in python package: requests, version 2.19.0 was found at: /requirements.txt
+```
 
 **Description:**
-> GHSA-9hjg-9r4m-mvj7 medium vulnerability for requests package
+
+```text
+GHSA-9hjg-9r4m-mvj7 medium vulnerability for requests package
+```
 
 **Documentation:** [View details](https://github.com/advisories/GHSA-9hjg-9r4m-mvj7)
 
@@ -110,10 +140,16 @@ grype v0.118.0
 #### Details
 
 **Message:**
-> A medium vulnerability in python package: requests, version 2.19.0 was found at: /requirements.txt
+
+```text
+A medium vulnerability in python package: requests, version 2.19.0 was found at: /requirements.txt
+```
 
 **Description:**
-> GHSA-9wx4-h78v-vm56 medium vulnerability for requests package
+
+```text
+GHSA-9wx4-h78v-vm56 medium vulnerability for requests package
+```
 
 **Documentation:** [View details](https://github.com/advisories/GHSA-9wx4-h78v-vm56)
 
@@ -128,10 +164,16 @@ grype v0.118.0
 #### Details
 
 **Message:**
-> A medium vulnerability in python package: requests, version 2.19.0 was found at: /requirements.txt
+
+```text
+A medium vulnerability in python package: requests, version 2.19.0 was found at: /requirements.txt
+```
 
 **Description:**
-> GHSA-gc5v-m9x4-r6x2 medium vulnerability for requests package
+
+```text
+GHSA-gc5v-m9x4-r6x2 medium vulnerability for requests package
+```
 
 **Documentation:** [View details](https://github.com/advisories/GHSA-gc5v-m9x4-r6x2)
 

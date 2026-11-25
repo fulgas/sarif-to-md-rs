@@ -15,9 +15,17 @@
 
 #### Error - G701
 
-**Message:** SQL injection via taint analysis
+**Message:**
 
-**Description:** SQL injection via taint analysis
+```text
+SQL injection via taint analysis
+```
+
+**Description:**
+
+```text
+SQL injection via taint analysis
+```
 
 **Tags:**
 - `security`
@@ -28,9 +36,17 @@
 
 #### Error - G702
 
-**Message:** Command injection via taint analysis
+**Message:**
 
-**Description:** Command injection via taint analysis
+```text
+Command injection via taint analysis
+```
+
+**Description:**
+
+```text
+Command injection via taint analysis
+```
 
 **Tags:**
 - `security`
@@ -41,9 +57,17 @@
 
 #### Error - G705
 
-**Message:** XSS via taint analysis
+**Message:**
 
-**Description:** XSS via taint analysis
+```text
+XSS via taint analysis
+```
+
+**Description:**
+
+```text
+XSS via taint analysis
+```
 
 **Tags:**
 - `security`
@@ -54,9 +78,17 @@
 
 #### Error - G401
 
-**Message:** Use of weak cryptographic primitive
+**Message:**
 
-**Description:** Use of weak cryptographic primitive
+```text
+Use of weak cryptographic primitive
+```
+
+**Description:**
+
+```text
+Use of weak cryptographic primitive
+```
 
 **Tags:**
 - `security`
@@ -67,9 +99,17 @@
 
 #### Error - G114
 
-**Message:** Use of net/http serve function that has no support for setting timeouts
+**Message:**
 
-**Description:** Use of net/http serve function that has no support for setting timeouts
+```text
+Use of net/http serve function that has no support for setting timeouts
+```
+
+**Description:**
+
+```text
+Use of net/http serve function that has no support for setting timeouts
+```
 
 **Tags:**
 - `security`
@@ -80,9 +120,17 @@
 
 #### Error - G204
 
-**Message:** Subprocess launched with variable
+**Message:**
 
-**Description:** Use of net/http serve function that has no support for setting timeouts
+```text
+Subprocess launched with variable
+```
+
+**Description:**
+
+```text
+Use of net/http serve function that has no support for setting timeouts
+```
 
 **Tags:**
 - `security`
@@ -93,9 +141,17 @@
 
 #### Error - G202
 
-**Message:** SQL string concatenation
+**Message:**
 
-**Description:** Use of net/http serve function that has no support for setting timeouts
+```text
+SQL string concatenation
+```
+
+**Description:**
+
+```text
+Use of net/http serve function that has no support for setting timeouts
+```
 
 **Tags:**
 - `security`
@@ -106,9 +162,17 @@
 
 #### Error - G501
 
-**Message:** Blocklisted import crypto/md5: weak cryptographic primitive
+**Message:**
 
-**Description:** Use of weak cryptographic primitive
+```text
+Blocklisted import crypto/md5: weak cryptographic primitive
+```
+
+**Description:**
+
+```text
+Use of weak cryptographic primitive
+```
 
 **Tags:**
 - `security`
@@ -119,9 +183,17 @@
 
 #### Warning - G104
 
-**Message:** Errors unhandled
+**Message:**
 
-**Description:** Errors unhandled
+```text
+Errors unhandled
+```
+
+**Description:**
+
+```text
+Errors unhandled
+```
 
 **Tags:**
 - `security`

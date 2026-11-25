@@ -55,26 +55,21 @@
 **Suppressed:** {{ result.suppressions|join(", ") }}
 {%- endif %}
 
-{%- if is_gfm %}
-
 **Message:**
-> {{ result.message }}
-{%- else %}
 
-**Message:** {{ result.message }}
-{%- endif %}
+{{ result.message.fence }}text
+{{ result.message.text }}
+{{ result.message.fence }}
 
 {%- if let Some(metadata) = result.rule_metadata %}
 
 {%- if let Some(description) = metadata.description %}
-{%- if is_gfm %}
 
 **Description:**
-> {{ description }}
-{%- else %}
 
-**Description:** {{ description }}
-{%- endif %}
+{{ description.fence }}text
+{{ description.text }}
+{{ description.fence }}
 {%- endif %}
 
 {%- if metadata.cwe_ids.len() > 0 %}

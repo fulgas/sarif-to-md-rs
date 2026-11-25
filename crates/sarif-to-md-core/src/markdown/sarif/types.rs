@@ -50,7 +50,8 @@ impl fmt::Display for SarifLevel {
 pub(in crate::markdown) struct SarifResultView {
     pub(in crate::markdown) rule_id: String,
     pub(in crate::markdown) level: SarifLevel,
-    pub(in crate::markdown) message: String,
+    /// The result's plain-text message, shown verbatim.
+    pub(in crate::markdown) message: CodeBlock,
     pub(in crate::markdown) locations: Vec<SarifLocation>,
     pub(in crate::markdown) rule_metadata: Option<RuleMetadata>,
     pub(in crate::markdown) properties: Option<ResultProperties>,
@@ -61,7 +62,8 @@ pub(in crate::markdown) struct SarifResultView {
 #[derive(Clone, Debug)]
 pub(in crate::markdown) struct RuleMetadata {
     pub(in crate::markdown) name: Option<String>,
-    pub(in crate::markdown) description: Option<String>,
+    /// The rule's plain-text description, shown verbatim.
+    pub(in crate::markdown) description: Option<CodeBlock>,
     pub(in crate::markdown) help_uri: Option<String>,
     pub(in crate::markdown) tags: Vec<String>,
     pub(in crate::markdown) cwe_ids: Vec<String>,
@@ -83,4 +85,39 @@ pub(in crate::markdown) struct SarifLocation {
     pub(in crate::markdown) file: Option<String>,
     pub(in crate::markdown) line: Option<i64>,
     pub(in crate::markdown) column: Option<i64>,
+}
+
+/// Text shown verbatim in a fenced ` ```text ` code block.
+#[derive(Clone, Debug, PartialEq, Eq)]
+pub(in crate::markdown) struct CodeBlock {
+    /// A backtick fence longer than any backtick run in `text`, so the text can't close it.
+    pub(in crate::markdown) fence: String,
+    pub(in crate::markdown) text: String,
+}
+
+impl CodeBlock {
+    pub(in crate::markdown) fn new(text: &str) -> Self {
+        let longest_run = text.split(|c| c != '`').map(str::len).max().unwrap_or(0);
+        Self {
+            fence: "`".repeat((longest_run + 1).max(3)),
+            text: text.trim_end_matches(['\r', '\n']).to_owned(),
+        }
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::CodeBlock;
+
+    #[test]
+    fn code_block_keeps_text_and_uses_three_backticks() {
+        let block = CodeBlock::new("line one\n</details> [x](y) @team\n");
+        assert_eq!(block.fence, "```");
+        assert_eq!(block.text, "line one\n</details> [x](y) @team");
+    }
+
+    #[test]
+    fn code_block_fence_is_longer_than_backticks_in_text() {
+        assert_eq!(CodeBlock::new("a\n```\nb ````` c").fence, "``````");
+    }
 }

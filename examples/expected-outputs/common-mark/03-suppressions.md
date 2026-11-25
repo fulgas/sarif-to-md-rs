@@ -16,27 +16,51 @@
 
 #### Warning - TUT1001
 
-**Message:** This result is visible because it is not suppressed.
+**Message:**
+
+```text
+This result is visible because it is not suppressed.
+```
 
 #### Warning - TUT1001
 
-**Message:** This result is visible because its suppression was rejected.
+**Message:**
+
+```text
+This result is visible because its suppression was rejected.
+```
 
 #### Warning - TUT1001
 
-**Message:** This result is visible because its suppression is still under review.
+**Message:**
+
+```text
+This result is visible because its suppression is still under review.
+```
 
 #### Warning - TUT1001
 
-**Message:** This result is hidden because at least one suppression was accepted.
+**Message:**
+
+```text
+This result is hidden because at least one suppression was accepted.
+```
 
 #### Warning - TUT1001
 
-**Message:** This result is hidden because it has at least one unqualified suppression.
+**Message:**
+
+```text
+This result is hidden because it has at least one unqualified suppression.
+```
 
 #### Warning - TUT1001
 
-**Message:** This result is hidden because at least one suppression has not yet been rejected (it is still under review).
+**Message:**
+
+```text
+This result is hidden because at least one suppression has not yet been rejected (it is still under review).
+```
 
 ---
 

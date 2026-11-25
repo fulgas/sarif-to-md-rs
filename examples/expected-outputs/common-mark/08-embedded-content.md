@@ -14,14 +14,22 @@
 
 #### Warning - TUT1001
 
-**Message:** Result 1: points to an artifact with an explicit encoding.
+**Message:**
+
+```text
+Result 1: points to an artifact with an explicit encoding.
+```
 
 **Locations:**
 - `explicit.txt`:2
 
 #### Warning - TUT1002
 
-**Message:** Result 2: points to an artifact that inherits the run's default encoding.
+**Message:**
+
+```text
+Result 2: points to an artifact that inherits the run's default encoding.
+```
 
 **Locations:**
 - `default.txt`:2

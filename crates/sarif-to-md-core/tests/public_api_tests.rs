@@ -622,18 +622,9 @@ fn test_null_values_are_treated_as_absent() -> Result<()> {
 }
 
 #[rstest]
-#[case(
-    MarkdownFormat::GitHubFlavored,
-    "> Package: PyYAML  \n> Installed Version: 5.3"
-)]
-#[case(
-    MarkdownFormat::CommonMark,
-    "**Message:** Package: PyYAML  \nInstalled Version: 5.3"
-)]
-fn test_multiline_messages_keep_their_line_breaks(
-    #[case] format: MarkdownFormat,
-    #[case] expected: &str,
-) -> Result<()> {
+#[case::common_mark(MarkdownFormat::CommonMark)]
+#[case::github_flavored(MarkdownFormat::GitHubFlavored)]
+fn test_multiline_messages_keep_their_line_breaks(#[case] format: MarkdownFormat) -> Result<()> {
     // trivy puts package, version and fix on separate lines of one message.
     let sarif = r#"{"version":"2.1.0","runs":[{"tool":{"driver":{"name":"Trivy"}},
       "results":[{"ruleId":"CVE-2020-14343","level":"error",
@@ -645,7 +636,62 @@ fn test_multiline_messages_keep_their_line_breaks(
     )
     .generate()?;
 
-    assert!(result.contains(expected), "{result}");
+    assert!(
+        result.contains("**Message:**\n\n```text\nPackage: PyYAML\nInstalled Version: 5.3\n```"),
+        "{result}"
+    );
+    Ok(())
+}
+
+#[rstest]
+#[case::common_mark(MarkdownFormat::CommonMark)]
+#[case::github_flavored(MarkdownFormat::GitHubFlavored)]
+fn test_message_and_description_render_as_literal_text(
+    #[case] format: MarkdownFormat,
+) -> Result<()> {
+    // Issue #99: messages quote scanned content, so they can carry HTML and Markdown
+    // written by the author of the code under review: closing tags, block markers,
+    // links, remote images, GitHub mentions and code fences.
+    let sarif = r#"{"version":"2.1.0","runs":[{"tool":{"driver":{"name":"t","rules":[
+        {"id":"R1","shortDescription":{"text":"desc </summary></details><h1>x</h1>"}}]}},
+      "results":[{"ruleId":"R1","message":{"text":"line one\n- bullet two\n# heading three\n</details>injected\n![i](https://x.test/p.png) [click](https://evil.test) @team\n```\nfence"},
+        "locations":[{"physicalLocation":{"artifactLocation":{"uri":"a.py"},"region":{"startLine":3}}}]}]}]}"#;
+
+    let result = ReportProcessor::new(
+        SarifMarkdownGenerator::new(format, false),
+        sarif.to_string(),
+    )
+    .generate()?;
+
+    let message = concat!(
+        "**Message:**\n\n````text\nline one\n- bullet two\n# heading three\n",
+        "</details>injected\n![i](https://x.test/p.png) [click](https://evil.test) @team\n",
+        "```\nfence\n````"
+    );
+    let description = "**Description:**\n\n```text\ndesc </summary></details><h1>x</h1>\n```";
+    assert!(result.contains(message), "{result}");
+    assert!(result.contains(description), "{result}");
+    // Inside the code block the text is literal, so only the report's own tags count.
+    let tags = |tag: &str| result.lines().filter(|l| l.trim() == tag).count();
+    assert_eq!(tags("<details>"), tags("</details>"), "{result}");
+    Ok(())
+}
+
+#[rstest]
+fn test_message_markdown_is_not_used_as_message_text() -> Result<()> {
+    // `markdown` is the producer's own Markdown, not plain text: it is never
+    // shown in place of a missing `text`.
+    let sarif = r#"{"version":"2.1.0","runs":[{"tool":{"driver":{"name":"t"}},
+      "results":[{"ruleId":"R1","message":{"markdown":"<b>bold</b> [x](https://x.test)"}}]}]}"#;
+
+    let result = ReportProcessor::new(
+        SarifMarkdownGenerator::new(MarkdownFormat::CommonMark, false),
+        sarif.to_string(),
+    )
+    .generate()?;
+
+    assert!(result.contains("```text\nNo message\n```"), "{result}");
+    assert!(!result.contains("bold"), "{result}");
     Ok(())
 }
 

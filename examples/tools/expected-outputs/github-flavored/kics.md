@@ -22,10 +22,16 @@ KICS v2.2.1
 #### Details
 
 **Message:**
-> 'acl' is equal 'public-read'
+
+```text
+'acl' is equal 'public-read'
+```
 
 **Description:**
-> S3 Bucket ACL Allows Read Or Write to All Users
+
+```text
+S3 Bucket ACL Allows Read Or Write to All Users
+```
 
 **Documentation:** [View details](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/s3_bucket)
 
@@ -40,10 +46,16 @@ KICS v2.2.1
 #### Details
 
 **Message:**
-> metadata.name={{app}}.spec.template.spec.containers.name={{app}}.securityContext.privileged is true
+
+```text
+metadata.name={{app}}.spec.template.spec.containers.name={{app}}.securityContext.privileged is true
+```
 
 **Description:**
-> Container Is Privileged
+
+```text
+Container Is Privileged
+```
 
 **Documentation:** [View details](https://kubernetes.io/docs/concepts/workloads/pods/#privileged-mode-for-containers)
 
@@ -58,10 +70,16 @@ KICS v2.2.1
 #### Details
 
 **Message:**
-> The 'Dockerfile' does not contain any 'USER' instruction
+
+```text
+The 'Dockerfile' does not contain any 'USER' instruction
+```
 
 **Description:**
-> Missing User Instruction
+
+```text
+Missing User Instruction
+```
 
 **Documentation:** [View details](https://docs.docker.com/engine/reference/builder/#user)
 
@@ -76,10 +94,16 @@ KICS v2.2.1
 #### Details
 
 **Message:**
-> metadata.name={{app}}.spec.template.spec.containers.name={{app}}.securityContext.allowPrivilegeEscalation is undefined
+
+```text
+metadata.name={{app}}.spec.template.spec.containers.name={{app}}.securityContext.allowPrivilegeEscalation is undefined
+```
 
 **Description:**
-> Privilege Escalation Allowed
+
+```text
+Privilege Escalation Allowed
+```
 
 **Documentation:** [View details](https://kubernetes.io/docs/tasks/configure-pod-container/security-context/)
 
@@ -94,10 +118,16 @@ KICS v2.2.1
 #### Details
 
 **Message:**
-> SSH (TCP:22) is allowed
+
+```text
+SSH (TCP:22) is allowed
+```
 
 **Description:**
-> Sensitive Port Is Exposed To Entire Network
+
+```text
+Sensitive Port Is Exposed To Entire Network
+```
 
 **Documentation:** [View details](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/security_group)
 
@@ -112,10 +142,16 @@ KICS v2.2.1
 #### Details
 
 **Message:**
-> aws_security_group[ssh].ingress.cidr_blocks contains '0.0.0.0/0'
+
+```text
+aws_security_group[ssh].ingress.cidr_blocks contains '0.0.0.0/0'
+```
 
 **Description:**
-> Unrestricted Security Group Ingress
+
+```text
+Unrestricted Security Group Ingress
+```
 
 **Documentation:** [View details](https://www.terraform.io/docs/providers/aws/r/security_group.html)
 
@@ -130,10 +166,16 @@ KICS v2.2.1
 #### Details
 
 **Message:**
-> 'ADD' .
+
+```text
+'ADD' .
+```
 
 **Description:**
-> Add Instead of Copy
+
+```text
+Add Instead of Copy
+```
 
 **Documentation:** [View details](https://docs.docker.com/engine/reference/builder/#add)
 
@@ -148,10 +190,16 @@ KICS v2.2.1
 #### Details
 
 **Message:**
-> Package 'curl' does not have version defined
+
+```text
+Package 'curl' does not have version defined
+```
 
 **Description:**
-> Apt Get Install Pin Version Not Defined
+
+```text
+Apt Get Install Pin Version Not Defined
+```
 
 **Documentation:** [View details](https://docs.docker.com/develop/develop-images/dockerfile_best-practices/)
 
@@ -166,10 +214,16 @@ KICS v2.2.1
 #### Details
 
 **Message:**
-> metadata.name={{app}}.spec.template.spec.containers.name={{app}}.securityContext.runAsUser is 0 and 'runAsNonRoot' is false
+
+```text
+metadata.name={{app}}.spec.template.spec.containers.name={{app}}.securityContext.runAsUser is 0 and 'runAsNonRoot' is false
+```
 
 **Description:**
-> Container Running As Root
+
+```text
+Container Running As Root
+```
 
 **Documentation:** [View details](https://kubernetes.io/docs/tasks/configure-pod-container/security-context/)
 
@@ -184,10 +238,16 @@ KICS v2.2.1
 #### Details
 
 **Message:**
-> metadata.name={{app}}.spec.template.spec.containers.name={{app}}.securityContext.runAsUser is undefined
+
+```text
+metadata.name={{app}}.spec.template.spec.containers.name={{app}}.securityContext.runAsUser is undefined
+```
 
 **Description:**
-> Container Running With Low UID
+
+```text
+Container Running With Low UID
+```
 
 **Documentation:** [View details](https://kubernetes.io/docs/tasks/configure-pod-container/security-context/)
 
@@ -202,10 +262,16 @@ KICS v2.2.1
 #### Details
 
 **Message:**
-> FROM python:latest'
+
+```text
+FROM python:latest'
+```
 
 **Description:**
-> Image Version Using 'latest'
+
+```text
+Image Version Using 'latest'
+```
 
 **Documentation:** [View details](https://docs.docker.com/develop/dev-best-practices/)
 
@@ -220,10 +286,16 @@ KICS v2.2.1
 #### Details
 
 **Message:**
-> metadata.name={{app}}.spec.template.spec.containers.name={{app}}.resources.limits.memory is undefined
+
+```text
+metadata.name={{app}}.spec.template.spec.containers.name={{app}}.resources.limits.memory is undefined
+```
 
 **Description:**
-> Memory Limits Not Defined
+
+```text
+Memory Limits Not Defined
+```
 
 **Documentation:** [View details](https://kubernetes.io/docs/tasks/configure-pod-container/assign-memory-resource/)
 
@@ -238,10 +310,16 @@ KICS v2.2.1
 #### Details
 
 **Message:**
-> metadata.name={{app}}.spec.template.spec.containers.name={{app}}.resources.requests.memory is undefined
+
+```text
+metadata.name={{app}}.spec.template.spec.containers.name={{app}}.resources.requests.memory is undefined
+```
 
 **Description:**
-> Memory Requests Not Defined
+
+```text
+Memory Requests Not Defined
+```
 
 **Documentation:** [View details](https://kubernetes.io/docs/tasks/configure-pod-container/assign-memory-resource/)
 
@@ -256,10 +334,16 @@ KICS v2.2.1
 #### Details
 
 **Message:**
-> metadata.name={{app}}.spec.template.spec.containers.name={{app}}.securityContext.capabilities.drop is undefined
+
+```text
+metadata.name={{app}}.spec.template.spec.containers.name={{app}}.securityContext.capabilities.drop is undefined
+```
 
 **Description:**
-> NET_RAW Capabilities Not Being Dropped
+
+```text
+NET_RAW Capabilities Not Being Dropped
+```
 
 **Documentation:** [View details](https://kubernetes.io/docs/tasks/configure-pod-container/security-context/)
 
@@ -274,10 +358,16 @@ KICS v2.2.1
 #### Details
 
 **Message:**
-> {{CMD python app.py}} isn't in proper exec form
+
+```text
+{{CMD python app.py}} isn't in proper exec form
+```
 
 **Description:**
-> Not Using Proper Exec Form In CMD And ENTRYPOINT Arguments
+
+```text
+Not Using Proper Exec Form In CMD And ENTRYPOINT Arguments
+```
 
 **Documentation:** [View details](https://docs.docker.com/engine/reference/builder/#entrypoint)
 
@@ -292,10 +382,16 @@ KICS v2.2.1
 #### Details
 
 **Message:**
-> metadata.name={{app}}.spec.template.spec.containers.name={{app}}.readinessProbe is undefined
+
+```text
+metadata.name={{app}}.spec.template.spec.containers.name={{app}}.readinessProbe is undefined
+```
 
 **Description:**
-> Readiness Probe Is Not Configured
+
+```text
+Readiness Probe Is Not Configured
+```
 
 **Documentation:** [View details](https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/#define-readiness-probes)
 
@@ -310,10 +406,16 @@ KICS v2.2.1
 #### Details
 
 **Message:**
-> 'logging' is undefined or null
+
+```text
+'logging' is undefined or null
+```
 
 **Description:**
-> S3 Bucket Logging Disabled
+
+```text
+S3 Bucket Logging Disabled
+```
 
 **Documentation:** [View details](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/s3_bucket)
 
@@ -328,10 +430,16 @@ KICS v2.2.1
 #### Details
 
 **Message:**
-> 'versioning' is undefined or null
+
+```text
+'versioning' is undefined or null
+```
 
 **Description:**
-> S3 Bucket Without Versioning
+
+```text
+S3 Bucket Without Versioning
+```
 
 **Documentation:** [View details](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/s3_bucket#versioning)
 
@@ -346,10 +454,16 @@ KICS v2.2.1
 #### Details
 
 **Message:**
-> metadata.name={{app}}.spec.template.spec.containers.name={{app}}.securityContext.seccompProfile.type is undefined
+
+```text
+metadata.name={{app}}.spec.template.spec.containers.name={{app}}.securityContext.seccompProfile.type is undefined
+```
 
 **Description:**
-> Seccomp Profile Is Not Configured
+
+```text
+Seccomp Profile Is Not Configured
+```
 
 **Documentation:** [View details](https://kubernetes.io/docs/tutorials/security/seccomp/#create-pod-that-uses-the-container-runtime-default-seccomp-profile)
 
@@ -364,10 +478,16 @@ KICS v2.2.1
 #### Details
 
 **Message:**
-> aws_security_group[ssh].ingress 'SSH' (Port:22) is open
+
+```text
+aws_security_group[ssh].ingress 'SSH' (Port:22) is open
+```
 
 **Description:**
-> Security Group With Unrestricted Access To SSH
+
+```text
+Security Group With Unrestricted Access To SSH
+```
 
 **Documentation:** [View details](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/security_group)
 
@@ -382,10 +502,16 @@ KICS v2.2.1
 #### Details
 
 **Message:**
-> metadata.name={{app}}.spec.template.spec.automountServiceAccountToken is undefined
+
+```text
+metadata.name={{app}}.spec.template.spec.automountServiceAccountToken is undefined
+```
 
 **Description:**
-> Service Account Token Automount Not Disabled
+
+```text
+Service Account Token Automount Not Disabled
+```
 
 **Documentation:** [View details](https://kubernetes.io/docs/tasks/configure-pod-container/configure-service-account/#use-the-default-service-account-to-access-the-api-server)
 
@@ -400,10 +526,16 @@ KICS v2.2.1
 #### Details
 
 **Message:**
-> metadata.namespace is undefined or null
+
+```text
+metadata.namespace is undefined or null
+```
 
 **Description:**
-> Using Unrecommended Namespace
+
+```text
+Using Unrecommended Namespace
+```
 
 **Documentation:** [View details](https://kubernetes.io/docs/concepts/overview/working-with-objects/kubernetes-objects/)
 
@@ -418,10 +550,16 @@ KICS v2.2.1
 #### Details
 
 **Message:**
-> spec.template.spec.containers.name=app doesn't have resources defined
+
+```text
+spec.template.spec.containers.name=app doesn't have resources defined
+```
 
 **Description:**
-> CPU Limits Not Set
+
+```text
+CPU Limits Not Set
+```
 
 **Documentation:** [View details](https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/)
 
@@ -436,10 +574,16 @@ KICS v2.2.1
 #### Details
 
 **Message:**
-> spec.template.spec.containers.name=app doesn't have resources defined
+
+```text
+spec.template.spec.containers.name=app doesn't have resources defined
+```
 
 **Description:**
-> CPU Requests Not Set
+
+```text
+CPU Requests Not Set
+```
 
 **Documentation:** [View details](https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#)
 
@@ -454,10 +598,16 @@ KICS v2.2.1
 #### Details
 
 **Message:**
-> Dockerfile doesn't contain instruction 'HEALTHCHECK'
+
+```text
+Dockerfile doesn't contain instruction 'HEALTHCHECK'
+```
 
 **Description:**
-> Healthcheck Instruction Missing
+
+```text
+Healthcheck Instruction Missing
+```
 
 **Documentation:** [View details](https://docs.docker.com/engine/reference/builder/#healthcheck)
 
@@ -472,10 +622,16 @@ KICS v2.2.1
 #### Details
 
 **Message:**
-> 'aws_accessanalyzer_analyzer' is undefined
+
+```text
+'aws_accessanalyzer_analyzer' is undefined
+```
 
 **Description:**
-> IAM Access Analyzer Not Enabled
+
+```text
+IAM Access Analyzer Not Enabled
+```
 
 **Documentation:** [View details](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/accessanalyzer_analyzer)
 
@@ -490,10 +646,16 @@ KICS v2.2.1
 #### Details
 
 **Message:**
-> metadata.name={{app}}.spec.template.spec.containers.name={{app}}.image does not include an image digest
+
+```text
+metadata.name={{app}}.spec.template.spec.containers.name={{app}}.image does not include an image digest
+```
 
 **Description:**
-> Image Without Digest
+
+```text
+Image Without Digest
+```
 
 **Documentation:** [View details](https://kubernetes.io/docs/concepts/containers/images/#updating-images)
 
@@ -508,10 +670,16 @@ KICS v2.2.1
 #### Details
 
 **Message:**
-> metadata.name={{app}}.spec.template.spec.containers.name={{app}}.image tag is not provided or latest
+
+```text
+metadata.name={{app}}.spec.template.spec.containers.name={{app}}.image tag is not provided or latest
+```
 
 **Description:**
-> Invalid Image Tag
+
+```text
+Invalid Image Tag
+```
 
 **Documentation:** [View details](https://kubernetes.io/docs/concepts/containers/images/#updating-images)
 
@@ -526,10 +694,16 @@ KICS v2.2.1
 #### Details
 
 **Message:**
-> metadata.name={{app}}.spec.template.metadata.annotations does not specify an AppArmor profile for container {{app}}
+
+```text
+metadata.name={{app}}.spec.template.metadata.annotations does not specify an AppArmor profile for container {{app}}
+```
 
 **Description:**
-> Missing AppArmor Profile
+
+```text
+Missing AppArmor Profile
+```
 
 **Documentation:** [View details](https://kubernetes.io/docs/tutorials/clusters/apparmor/)
 
@@ -544,10 +718,16 @@ KICS v2.2.1
 #### Details
 
 **Message:**
-> metadata.name={{app}}.spec.containers.name={{app}}.securityContext.capabilities is undefined
+
+```text
+metadata.name={{app}}.spec.containers.name={{app}}.securityContext.capabilities is undefined
+```
 
 **Description:**
-> No Drop Capabilities for Containers
+
+```text
+No Drop Capabilities for Containers
+```
 
 **Documentation:** [View details](https://kubernetes.io/docs/concepts/workloads/pods/init-containers/)
 
@@ -562,10 +742,16 @@ KICS v2.2.1
 #### Details
 
 **Message:**
-> The '--no-cache-dir' flag isn't set when running 'pip/pip3 install'
+
+```text
+The '--no-cache-dir' flag isn't set when running 'pip/pip3 install'
+```
 
 **Description:**
-> Pip install Keeping Cached Packages
+
+```text
+Pip install Keeping Cached Packages
+```
 
 **Documentation:** [View details](https://docs.docker.com/develop/develop-images/dockerfile_best-practices/)
 
@@ -580,10 +766,16 @@ KICS v2.2.1
 #### Details
 
 **Message:**
-> metadata.name={{app}} does not have a 'LimitRange' policy associated
+
+```text
+metadata.name={{app}} does not have a 'LimitRange' policy associated
+```
 
 **Description:**
-> Pod or Container Without LimitRange
+
+```text
+Pod or Container Without LimitRange
+```
 
 **Documentation:** [View details](https://kubernetes.io/docs/concepts/policy/limit-range/)
 
@@ -598,10 +790,16 @@ KICS v2.2.1
 #### Details
 
 **Message:**
-> metadata.name={{app}} does not have a 'ResourceQuota' policy associated
+
+```text
+metadata.name={{app}} does not have a 'ResourceQuota' policy associated
+```
 
 **Description:**
-> Pod or Container Without ResourceQuota
+
+```text
+Pod or Container Without ResourceQuota
+```
 
 **Documentation:** [View details](https://kubernetes.io/docs/concepts/policy/resource-quotas/)
 
@@ -616,10 +814,16 @@ KICS v2.2.1
 #### Details
 
 **Message:**
-> metadata.name={{app}}.spec.template.spec.containers.name={{app}}.securityContext.readOnlyRootFilesystem is undefined
+
+```text
+metadata.name={{app}}.spec.template.spec.containers.name={{app}}.securityContext.readOnlyRootFilesystem is undefined
+```
 
 **Description:**
-> Root Container Not Mounted Read-only
+
+```text
+Root Container Not Mounted Read-only
+```
 
 **Documentation:** [View details](https://kubernetes.io/docs/tasks/configure-pod-container/security-context/)
 
@@ -634,10 +838,16 @@ KICS v2.2.1
 #### Details
 
 **Message:**
-> 'RUN apt-get update && apt-get install -y curl' does not use '--no-install-recommends' flag to avoid installing additional packages
+
+```text
+'RUN apt-get update && apt-get install -y curl' does not use '--no-install-recommends' flag to avoid installing additional packages
+```
 
 **Description:**
-> APT-GET Not Avoiding Additional Packages
+
+```text
+APT-GET Not Avoiding Additional Packages
+```
 
 **Documentation:** [View details](https://docs.docker.com/engine/reference/builder/#run)
 
@@ -652,10 +862,16 @@ KICS v2.2.1
 #### Details
 
 **Message:**
-> After using apt-get install, the apt-get lists were not deleted
+
+```text
+After using apt-get install, the apt-get lists were not deleted
+```
 
 **Description:**
-> Apt Get Install Lists Were Not Deleted
+
+```text
+Apt Get Install Lists Were Not Deleted
+```
 
 **Documentation:** [View details](https://docs.docker.com/develop/develop-images/dockerfile_best-practices/)
 
@@ -670,10 +886,16 @@ KICS v2.2.1
 #### Details
 
 **Message:**
-> metadata.name={{app}}.spec.containers.name={{app}}.livenessProbe is undefined
+
+```text
+metadata.name={{app}}.spec.containers.name={{app}}.livenessProbe is undefined
+```
 
 **Description:**
-> Liveness Probe Is Not Defined
+
+```text
+Liveness Probe Is Not Defined
+```
 
 **Documentation:** [View details](https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle/#when-should-you-use-a-liveness-probe)
 
@@ -688,10 +910,16 @@ KICS v2.2.1
 #### Details
 
 **Message:**
-> aws_s3_bucket[{{data}}].tags is undefined or null
+
+```text
+aws_s3_bucket[{{data}}].tags is undefined or null
+```
 
 **Description:**
-> Resource Not Using Tags
+
+```text
+Resource Not Using Tags
+```
 
 **Documentation:** [View details](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/guides/resource-tagging)
 
@@ -706,10 +934,16 @@ KICS v2.2.1
 #### Details
 
 **Message:**
-> aws_security_group[{{ssh}}].tags is undefined or null
+
+```text
+aws_security_group[{{ssh}}].tags is undefined or null
+```
 
 **Description:**
-> Resource Not Using Tags
+
+```text
+Resource Not Using Tags
+```
 
 **Documentation:** [View details](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/guides/resource-tagging)
 
@@ -724,10 +958,16 @@ KICS v2.2.1
 #### Details
 
 **Message:**
-> 'aws_security_group[ssh]' is not used
+
+```text
+'aws_security_group[ssh]' is not used
+```
 
 **Description:**
-> Security Group Not Used
+
+```text
+Security Group Not Used
+```
 
 **Documentation:** [View details](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/security_group)
 
@@ -742,10 +982,16 @@ KICS v2.2.1
 #### Details
 
 **Message:**
-> aws_security_group[ssh].ingress.description is undefined or null
+
+```text
+aws_security_group[ssh].ingress.description is undefined or null
+```
 
 **Description:**
-> Security Group Rule Without Description
+
+```text
+Security Group Rule Without Description
+```
 
 **Documentation:** [View details](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/security_group#description)
 
@@ -760,10 +1006,16 @@ KICS v2.2.1
 #### Details
 
 **Message:**
-> aws_security_group[ssh] description is undefined or null
+
+```text
+aws_security_group[ssh] description is undefined or null
+```
 
 **Description:**
-> Security Group Without Description
+
+```text
+Security Group Without Description
+```
 
 **Documentation:** [View details](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/security_group#description)
 
