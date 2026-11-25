@@ -1,3 +1,13 @@
+## [1.6.2](https://github.com/fulgas/sarif-to-md-rs/compare/v1.6.1...v1.6.2) (2026-11-25)
+
+### Code Refactoring
+
+* split the report template into summary and result partials ([#135](https://github.com/fulgas/sarif-to-md-rs/issues/135)) ([16aba91](https://github.com/fulgas/sarif-to-md-rs/commit/16aba915965688ae3d4b0c3ea62d19e03b388c9e))
+
+### Miscellaneous
+
+* remove unused result template ([#134](https://github.com/fulgas/sarif-to-md-rs/issues/134)) ([373434a](https://github.com/fulgas/sarif-to-md-rs/commit/373434a902e78b774308d2d0c4bdee7e3b7a177f))
+
 ## [1.6.1](https://github.com/fulgas/sarif-to-md-rs/compare/v1.6.0...v1.6.1) (2026-11-25)
 
 ### Bug Fixes
